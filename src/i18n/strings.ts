@@ -12,10 +12,10 @@ export interface Era {
 
 export const eras: Era[] = [
   { id: 'xp', year: '2001', name: 'Windows XP', ready: true },
-  { id: 'win7', year: '2009', name: 'Windows 7', ready: false },
-  { id: 'win10', year: '2015', name: 'Windows 10', ready: false },
-  { id: 'win11', year: '2021', name: 'Windows 11', ready: false },
-  { id: 'macos', year: '2024', name: 'macOS', ready: false },
+  { id: 'win7', year: '2009', name: 'Windows 7', ready: true },
+  { id: 'win10', year: '2015', name: 'Windows 10', ready: true },
+  { id: 'win11', year: '2021', name: 'Windows 11', ready: true },
+  { id: 'macos', year: '2024', name: 'macOS', ready: true },
 ];
 
 const en = {
@@ -72,6 +72,8 @@ const en = {
     safe3: 'Hold ESC for 2 seconds to leave at any time.',
     mobile: 'This screen works best on a desktop computer with a keyboard. Please open it on a bigger screen.',
     escHint: 'Hold ESC to exit',
+    fakeText: 'This button is just for show. Hold ESC to leave.',
+    powerText: 'Nothing is installed here, so there is nothing to turn off. Hold ESC to leave.',
   },
   reveal: {
     headline: 'This PC was left unlocked.',
@@ -101,6 +103,16 @@ const en = {
       powerText: 'Nothing is installed here, so there is nothing to turn off. Hold ESC to leave.',
       go: 'Log on',
     },
+    win7: { password: 'Password', wrong: 'The user name or password is incorrect.', ok: 'OK', ease: 'Ease of Access', shutdown: 'Shut down' },
+    win10: { password: 'Password', wrong: 'The password is incorrect. Make sure you are using the password for your account.', ok: 'OK', options: 'Sign-in options', signIn: 'Sign in', network: 'Network', ease: 'Ease of access', power: 'Power', hint: 'Click or press any key' },
+    win11: { password: 'Password', wrong: 'The password is incorrect. Try again.', ok: 'OK', forgot: 'I forgot my password', options: 'Sign-in options', signIn: 'Sign in', network: 'Network', ease: 'Accessibility', power: 'Power' },
+    mac: { enterPassword: 'Enter Password', touch: 'Touch ID or Enter Password', sleep: 'Sleep', restart: 'Restart', shutdown: 'Shut Down' },
+  },
+  lockSeo: {
+    win7: { title: 'Windows 7 Lock Screen in your Browser: Fake Lock Screen Prank', description: 'Aurora glow, glass user tile and the little arrow button: a Windows 7 style logon screen as a harmless prank in your browser. Fullscreen, nothing stored.' },
+    win10: { title: 'Windows 10 Lock Screen Prank: Fake Lock Screen in your Browser', description: 'Big clock, slide-up sign-in and a fake password box. A Windows 10 style fake lock screen for your browser. Harmless, nothing stored or sent.' },
+    win11: { title: 'Windows 11 Fake Lock Screen: Prank your Colleagues in the Browser', description: 'Centred clock, blurred Fluent style sign-in and a fake password field. A Windows 11 style fake lock screen prank. Nothing stored or sent.' },
+    macos: { title: 'Mac Lock Screen Prank: macOS Fake Lock Screen in your Browser', description: 'Calm blurred wallpaper, big clock and an elegant password pill. A macOS style fake lock screen prank. Shake included, nothing stored.' },
   },
 };
 
@@ -160,6 +172,8 @@ const de: Dict = {
     safe3: 'ESC 2 Sekunden gedrückt halten beendet alles jederzeit.',
     mobile: 'Dieser Bildschirm funktioniert am besten auf einem Desktop-Computer mit Tastatur. Bitte öffnen Sie ihn auf einem grösseren Bildschirm.',
     escHint: 'ESC gedrückt halten zum Beenden',
+    fakeText: 'Dieser Button ist nur Dekoration. ESC gedrückt halten zum Beenden.',
+    powerText: 'Hier ist nichts installiert, also gibt es nichts auszuschalten. ESC gedrückt halten zum Beenden.',
   },
   reveal: {
     headline: 'Dieser PC wurde nicht gesperrt.',
@@ -189,6 +203,16 @@ const de: Dict = {
       powerText: 'Hier ist nichts installiert, also gibt es nichts auszuschalten. ESC gedrückt halten zum Beenden.',
       go: 'Anmelden',
     },
+    win7: { password: 'Kennwort', wrong: 'Der Benutzername oder das Kennwort ist falsch.', ok: 'OK', ease: 'Erleichterte Bedienung', shutdown: 'Herunterfahren' },
+    win10: { password: 'Kennwort', wrong: 'Das Kennwort ist falsch. Stellen Sie sicher, dass Sie das Kennwort für Ihr Konto verwenden.', ok: 'OK', options: 'Anmeldeoptionen', signIn: 'Anmelden', network: 'Netzwerk', ease: 'Erleichterte Bedienung', power: 'Ein/Aus', hint: 'Klicken oder beliebige Taste drücken' },
+    win11: { password: 'Kennwort', wrong: 'Das Kennwort ist falsch. Versuchen Sie es erneut.', ok: 'OK', forgot: 'Ich habe mein Kennwort vergessen', options: 'Anmeldeoptionen', signIn: 'Anmelden', network: 'Netzwerk', ease: 'Barrierefreiheit', power: 'Ein/Aus' },
+    mac: { enterPassword: 'Passwort eingeben', touch: 'Touch ID oder Passwort eingeben', sleep: 'Ruhezustand', restart: 'Neustart', shutdown: 'Ausschalten' },
+  },
+  lockSeo: {
+    win7: { title: 'Windows-7-Sperrbildschirm im Browser: Fake Lock Screen Streich', description: 'Aurora-Leuchten, Glaskachel und der kleine Pfeil-Button: ein Windows-7-Anmeldebildschirm als harmloser Streich im Browser. Vollbild, nichts wird gespeichert.' },
+    win10: { title: 'Windows-10-Sperrbildschirm Streich: Fake Lock Screen im Browser', description: 'Grosse Uhr, Anmeldung per Wischen und ein falsches Passwortfeld. Ein Fake-Sperrbildschirm im Windows-10-Stil für den Browser. Harmlos, nichts wird gespeichert.' },
+    win11: { title: 'Windows-11-Fake-Sperrbildschirm: Kolleginnen und Kollegen necken', description: 'Zentrierte Uhr, unscharfe Fluent-Anmeldung und ein falsches Passwortfeld. Ein Windows-11-Fake-Sperrbildschirm als Streich. Nichts wird gespeichert oder gesendet.' },
+    macos: { title: 'Mac-Sperrbildschirm Streich: macOS Fake Lock Screen im Browser', description: 'Ruhiger, unscharfer Hintergrund, grosse Uhr und eine elegante Passwort-Pille. Ein macOS-Fake-Sperrbildschirm als Streich. Wackeln inklusive, nichts wird gespeichert.' },
   },
 };
 

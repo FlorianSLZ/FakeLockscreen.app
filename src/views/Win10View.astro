@@ -1,0 +1,110 @@
+---
+import Lock from '../layouts/Lock.astro';
+import '../lockscreens/win10/win10.css';
+import { icons } from '../lockscreens/core/icons';
+import { t, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).lockUi.win10;
+const seo = t(lang).lockSeo.win10;
+---
+<Lock lang={lang} title={seo.title} description={seo.description} path="/win10">
+  <div class="w10" id="w10" data-wp="0" data-state="lock">
+    <section class="w10-signin" aria-label={s.signIn}>
+      <div class="w10-wp"></div>
+      <div class="w10-blur"></div>
+      <div class="w10-card">
+        <div class="w10-avatar" id="w10-avatar" aria-hidden="true">🙂</div>
+        <div class="w10-name" id="w10-name">User</div>
+        <div class="w10-login" id="w10-login">
+          <div class="w10-pw" id="w10-pwbox">
+            <span class="w10-ph" aria-hidden="true">{s.password}</span>
+            <span class="w10-dots" id="w10-dots" aria-hidden="true"></span>
+            <span class="w10-go" aria-hidden="true" set:html={icons.arrow}></span>
+          </div>
+          <button type="button" class="w10-opt" id="w10-opt">{s.options}</button>
+        </div>
+        <div class="w10-msg" id="w10-msg" role="alert" hidden>
+          <p>{s.wrong}</p>
+          <button type="button" class="w10-ok" id="w10-ok">{s.ok}</button>
+        </div>
+      </div>
+      <div class="w10-tray">
+        <button type="button" class="w10-ic" id="w10-net" aria-label={s.network} title={s.network} set:html={icons.network}></button>
+        <button type="button" class="w10-ic" id="w10-ease" aria-label={s.ease} title={s.ease} set:html={icons.ease}></button>
+        <button type="button" class="w10-ic" id="w10-pow" aria-label={s.power} title={s.power} set:html={icons.power}></button>
+      </div>
+    </section>
+
+    <section class="w10-face" id="w10-face">
+      <div class="w10-wp"></div>
+      <div class="w10-clock">
+        <strong id="w10-time">00:00</strong>
+        <span id="w10-date"></span>
+      </div>
+      <p class="w10-hint">{s.hint}</p>
+    </section>
+  </div>
+</Lock>
+
+<script>
+  import { createLock, createMessage, startClock, toast } from '../lockscreens/core/engine';
+  import { t } from '../i18n/strings';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const root = $('w10');
+  const dots = $('w10-dots');
+  const pwbox = $('w10-pwbox');
+  const login = $('w10-login');
+  const MAX = 24;
+  let clock = 0;
+  let signedIn = false;
+
+  const lock = createLock({
+    onDots: (n) => {
+      dots.textContent = '●'.repeat(Math.min(n, MAX));
+      pwbox.classList.toggle('has-text', n > 0);
+    },
+    onWrong: () => {
+      login.hidden = true;
+      msg.show();
+    },
+    onStart: () => {
+      $('w10-name').textContent = lock.cfg.name;
+      $('w10-avatar').textContent = lock.cfg.avatar;
+      root.dataset.wp = String(lock.cfg.wallpaper);
+      root.dataset.state = 'lock';
+      signedIn = false;
+      msg.reset();
+      login.hidden = false;
+      lock.setInputActive(false);
+      clearInterval(clock);
+      clock = startClock(lock.cfg, (p) => {
+        $('w10-time').textContent = p.time;
+        $('w10-date').textContent = p.date;
+      });
+    },
+    onStop: () => {
+      clearInterval(clock);
+      msg.reset();
+    },
+  });
+  const msg = createMessage(lock, $('w10-msg'), $('w10-ok'));
+
+  // Click or any key (except ESC) slides the lock screen up. That key is not counted as a typed character.
+  function slideUp() {
+    if (signedIn) return;
+    signedIn = true;
+    root.dataset.state = 'signin';
+    lock.setInputActive(true);
+  }
+  $('w10-face').addEventListener('click', slideUp);
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' && !e.repeat && document.body.classList.contains('running')) slideUp();
+  });
+
+  const fake = () => toast(t(lock.cfg.lang).lock.fakeText);
+  ['w10-opt', 'w10-net', 'w10-ease'].forEach((id) => $(id).addEventListener('click', fake));
+  $('w10-pow').addEventListener('click', () => toast(t(lock.cfg.lang).lock.powerText));
+</script>

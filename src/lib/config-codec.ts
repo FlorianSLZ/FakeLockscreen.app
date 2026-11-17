@@ -4,6 +4,7 @@ export type Lang = 'en' | 'de';
 export interface LockConfig {
   name: string;
   avatar: string; // emoji or up to 2 initials
+  wallpaper: number; // 0..2, each lock screen has three original wallpapers
   attempts: number; // wrong passwords before the reveal
   autoReveal: number; // seconds, 0 = off
   lang: Lang;
@@ -16,6 +17,7 @@ export interface LockConfig {
 export const defaults: LockConfig = {
   name: 'User',
   avatar: '🙂',
+  wallpaper: 0,
   attempts: 3,
   autoReveal: 0,
   lang: 'en',
@@ -35,6 +37,7 @@ export function sanitize(raw: Partial<Record<keyof LockConfig, unknown>>, fallba
   return {
     name: clampStr(raw.name, 32, defaults.name) || defaults.name,
     avatar: clampStr(raw.avatar, 8, defaults.avatar) || defaults.avatar,
+    wallpaper: clampNum(raw.wallpaper, 0, 2, 0),
     attempts: clampNum(raw.attempts, 1, 10, defaults.attempts),
     autoReveal: clampNum(raw.autoReveal, 0, 3600, 0),
     lang: raw.lang === 'de' || raw.lang === 'en' ? raw.lang : fallbackLang,

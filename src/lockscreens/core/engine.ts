@@ -167,7 +167,9 @@ export interface ClockParts {
 /** Live clock helper. Locale-aware, no network. */
 export function startClock(cfg: LockConfig, onTick: (p: ClockParts) => void) {
   const loc = cfg.lang === 'de' ? 'de-CH' : navigator.language || 'en';
-  const time = new Intl.DateTimeFormat(loc, { hour: '2-digit', minute: '2-digit' });
+  const timeFmt = new Intl.DateTimeFormat(loc, { hour: 'numeric', minute: '2-digit' });
+  // Big clocks never show AM/PM, like the real thing.
+  const time = { format: (d: Date) => timeFmt.formatToParts(d).filter((p) => p.type !== 'dayPeriod').map((p) => p.value).join('').trim() };
   const date = new Intl.DateTimeFormat(loc, { weekday: 'long', day: 'numeric', month: 'long' });
   const weekday = new Intl.DateTimeFormat(loc, { weekday: 'long' });
   const dayMonth = new Intl.DateTimeFormat(loc, { day: 'numeric', month: 'long' });
@@ -184,4 +186,46 @@ export function startClock(cfg: LockConfig, onTick: (p: ClockParts) => void) {
   };
   tick();
   return window.setInterval(tick, 1000);
+}
+
+/** Small friendly toast for decorative buttons. */
+let toastTimer = 0;
+export function toast(text: string) {
+  document.querySelector('.lock-toast')?.remove();
+  const n = document.createElement('div');
+  n.className = 'lock-toast';
+  n.setAttribute('role', 'status');
+  n.textContent = text;
+  document.body.append(n);
+  clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => n.remove(), 3200);
+}
+
+/**
+ * "Wrong password" message that must be dismissed with OK, Enter or Space.
+ * While it is open, typing is paused (input inactive).
+ */
+export function createMessage(lock: Lock, box: HTMLElement, ok: HTMLElement, after?: () => void) {
+  let open = false;
+  const hide = () => {
+    if (!open) return;
+    open = false;
+    box.hidden = true;
+    lock.setInputActive(true);
+    after?.();
+  };
+  const show = () => {
+    open = true;
+    lock.setInputActive(false);
+    box.hidden = false;
+    ok.focus({ preventScroll: true });
+  };
+  ok.addEventListener('click', hide);
+  window.addEventListener('keydown', (e) => {
+    if (open && !e.defaultPrevented && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      hide();
+    }
+  });
+  return { show, hide, reset: () => { open = false; box.hidden = true; }, isOpen: () => open };
 }

@@ -107,3 +107,6 @@ kbd { font: 700 1rem ui-monospace, 'Cascadia Mono', Consolas, monospace; padding
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .esc-ring.on circle { animation-duration: 2s !important; }
 }
+
+.lock-toast { position: fixed; left: 50%; bottom: 8vh; transform: translateX(-50%); z-index: 9500; max-width: min(90vw, 460px); padding: 12px 18px; border-radius: 12px; background: rgba(20, 24, 36, .92); color: #fff; font: 500 .95rem system-ui, sans-serif; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,.4); animation: toast-in .2s ease both; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } }

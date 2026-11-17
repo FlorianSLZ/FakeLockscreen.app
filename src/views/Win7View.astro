@@ -1,0 +1,70 @@
+---
+import Lock from '../layouts/Lock.astro';
+import '../lockscreens/win7/win7.css';
+import { icons } from '../lockscreens/core/icons';
+import { t, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).lockUi.win7;
+const seo = t(lang).lockSeo.win7;
+---
+<Lock lang={lang} title={seo.title} description={seo.description} path="/win7">
+  <div class="w7" id="w7" data-wp="0">
+    <div class="w7-bg" aria-hidden="true"><i class="r1"></i><i class="r2"></i><i class="r3"></i></div>
+    <main class="w7-center">
+      <div class="w7-tile" id="w7-avatar" aria-hidden="true">🙂</div>
+      <div class="w7-name" id="w7-name">User</div>
+      <div class="w7-login" id="w7-login">
+        <div class="w7-pw" id="w7-pwbox">
+          <span class="w7-ph" aria-hidden="true">{s.password}</span>
+          <span class="w7-dots" id="w7-dots" aria-hidden="true"></span>
+          <span class="w7-go" aria-hidden="true" set:html={icons.arrow}></span>
+        </div>
+      </div>
+      <div class="w7-msg" id="w7-msg" role="alert" hidden>
+        <p>{s.wrong}</p>
+        <button type="button" class="w7-btn" id="w7-ok">{s.ok}</button>
+      </div>
+    </main>
+    <button type="button" class="w7-btn w7-ease" id="w7-ease" aria-label={s.ease} title={s.ease} set:html={icons.ease}></button>
+    <button type="button" class="w7-btn w7-off" id="w7-off"><span>{s.shutdown}</span><i aria-hidden="true">▸</i></button>
+  </div>
+</Lock>
+
+<script>
+  import { createLock, createMessage, toast } from '../lockscreens/core/engine';
+  import { t } from '../i18n/strings';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const root = $('w7');
+  const dots = $('w7-dots');
+  const pwbox = $('w7-pwbox');
+  const login = $('w7-login');
+  const MAX = 22;
+
+  const lock = createLock({
+    onDots: (n) => {
+      dots.textContent = '●'.repeat(Math.min(n, MAX));
+      pwbox.classList.toggle('has-text', n > 0);
+    },
+    onWrong: () => {
+      login.hidden = true;
+      msg.show();
+    },
+    onStart: () => {
+      $('w7-name').textContent = lock.cfg.name;
+      $('w7-avatar').textContent = lock.cfg.avatar;
+      root.dataset.wp = String(lock.cfg.wallpaper);
+      msg.reset();
+      login.hidden = false;
+      lock.setInputActive(true);
+    },
+    onStop: () => msg.reset(),
+  });
+  const msg = createMessage(lock, $('w7-msg'), $('w7-ok'), () => (login.hidden = false));
+
+  const fake = () => toast(t(lock.cfg.lang).lock.fakeText);
+  $('w7-ease').addEventListener('click', fake);
+  $('w7-off').addEventListener('click', () => toast(t(lock.cfg.lang).lock.powerText));
+</script>

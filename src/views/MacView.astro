@@ -1,0 +1,80 @@
+---
+import Lock from '../layouts/Lock.astro';
+import '../lockscreens/macos/macos.css';
+import { t, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).lockUi.mac;
+const seo = t(lang).lockSeo.macos;
+---
+<Lock lang={lang} title={seo.title} description={seo.description} path="/macos">
+  <div class="mac" id="mac" data-wp="0">
+    <div class="mac-wp" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
+    <div class="mac-veil" aria-hidden="true"></div>
+
+    <div class="mac-clock">
+      <div id="mac-date"></div>
+      <div id="mac-time">0:00</div>
+    </div>
+
+    <main class="mac-user">
+      <div class="mac-avatar" id="mac-avatar" aria-hidden="true">🙂</div>
+      <div class="mac-name" id="mac-name">User</div>
+      <div class="mac-pill" id="mac-pill">
+        <span class="mac-ph" aria-hidden="true">{s.enterPassword}</span>
+        <span class="mac-dots" id="mac-dots" aria-hidden="true"></span>
+      </div>
+      <div class="mac-hint">{s.touch}</div>
+    </main>
+
+    <nav class="mac-bottom" aria-label="System">
+      <button type="button" class="mac-sys" data-kind="fake"><i>☾</i><span>{s.sleep}</span></button>
+      <button type="button" class="mac-sys" data-kind="fake"><i>↻</i><span>{s.restart}</span></button>
+      <button type="button" class="mac-sys" data-kind="power"><i>⏻</i><span>{s.shutdown}</span></button>
+    </nav>
+  </div>
+</Lock>
+
+<script>
+  import { createLock, startClock, toast } from '../lockscreens/core/engine';
+  import { t } from '../i18n/strings';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const root = $('mac');
+  const dots = $('mac-dots');
+  const pill = $('mac-pill');
+  const MAX = 22;
+  let clock = 0;
+
+  const lock = createLock({
+    onDots: (n) => {
+      dots.textContent = '●'.repeat(Math.min(n, MAX));
+      pill.classList.toggle('has-text', n > 0);
+    },
+    // macOS style: shake the field and clear it. No dialog.
+    onWrong: () => {
+      pill.classList.remove('shake');
+      void pill.offsetWidth;
+      pill.classList.add('shake');
+    },
+    onStart: () => {
+      $('mac-name').textContent = lock.cfg.name;
+      $('mac-avatar').textContent = lock.cfg.avatar;
+      root.dataset.wp = String(lock.cfg.wallpaper);
+      pill.classList.remove('shake');
+      lock.setInputActive(true);
+      clearInterval(clock);
+      clock = startClock(lock.cfg, (p) => {
+        $('mac-time').textContent = p.time;
+        $('mac-date').textContent = p.date;
+      });
+    },
+    onStop: () => clearInterval(clock),
+  });
+  pill.addEventListener('animationend', () => pill.classList.remove('shake'));
+
+  document.querySelectorAll<HTMLButtonElement>('.mac-sys').forEach((b) =>
+    b.addEventListener('click', () => toast(t(lock.cfg.lang).lock[b.dataset.kind === 'power' ? 'powerText' : 'fakeText'])),
+  );
+</script>

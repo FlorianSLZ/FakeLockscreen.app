@@ -1,0 +1,108 @@
+---
+import Lock from '../layouts/Lock.astro';
+import '../lockscreens/win11/win11.css';
+import { icons } from '../lockscreens/core/icons';
+import { t, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).lockUi.win11;
+const seo = t(lang).lockSeo.win11;
+---
+<Lock lang={lang} title={seo.title} description={seo.description} path="/win11">
+  <div class="w11" id="w11" data-wp="0" data-state="lock">
+    <div class="w11-wp" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+
+    <section class="w11-lock" id="w11-lock">
+      <div class="w11-clock">
+        <span id="w11-date"></span>
+        <strong id="w11-time">00:00</strong>
+      </div>
+    </section>
+
+    <section class="w11-signin" aria-label={s.signIn}>
+      <div class="w11-avatar" id="w11-avatar" aria-hidden="true">🙂</div>
+      <div class="w11-name" id="w11-name">User</div>
+      <div class="w11-login" id="w11-login">
+        <div class="w11-pw" id="w11-pwbox">
+          <span class="w11-ph" aria-hidden="true">{s.password}</span>
+          <span class="w11-dots" id="w11-dots" aria-hidden="true"></span>
+          <span class="w11-eye" aria-hidden="true" set:html={icons.eye}></span>
+          <span class="w11-go" aria-hidden="true" set:html={icons.arrow}></span>
+        </div>
+        <button type="button" class="w11-link" id="w11-forgot">{s.forgot}</button>
+      </div>
+      <div class="w11-msg" id="w11-msg" role="alert" hidden>
+        <p>{s.wrong}</p>
+        <button type="button" class="w11-ok" id="w11-ok">{s.ok}</button>
+      </div>
+    </section>
+
+    <button type="button" class="w11-link w11-opts" id="w11-opt">{s.options}</button>
+    <div class="w11-tray">
+      <button type="button" class="w11-ic" id="w11-net" aria-label={s.network} title={s.network} set:html={icons.network}></button>
+      <button type="button" class="w11-ic" id="w11-ease" aria-label={s.ease} title={s.ease} set:html={icons.ease}></button>
+      <button type="button" class="w11-ic" id="w11-pow" aria-label={s.power} title={s.power} set:html={icons.power}></button>
+    </div>
+  </div>
+</Lock>
+
+<script>
+  import { createLock, createMessage, startClock, toast } from '../lockscreens/core/engine';
+  import { t } from '../i18n/strings';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const root = $('w11');
+  const dots = $('w11-dots');
+  const pwbox = $('w11-pwbox');
+  const login = $('w11-login');
+  const MAX = 24;
+  let clock = 0;
+  let signedIn = false;
+
+  const lock = createLock({
+    onDots: (n) => {
+      dots.textContent = '●'.repeat(Math.min(n, MAX));
+      pwbox.classList.toggle('has-text', n > 0);
+    },
+    onWrong: () => {
+      login.hidden = true;
+      msg.show();
+    },
+    onStart: () => {
+      $('w11-name').textContent = lock.cfg.name;
+      $('w11-avatar').textContent = lock.cfg.avatar;
+      root.dataset.wp = String(lock.cfg.wallpaper);
+      root.dataset.state = 'lock';
+      signedIn = false;
+      msg.reset();
+      login.hidden = false;
+      lock.setInputActive(false);
+      clearInterval(clock);
+      clock = startClock(lock.cfg, (p) => {
+        $('w11-time').textContent = p.time;
+        $('w11-date').textContent = p.date;
+      });
+    },
+    onStop: () => {
+      clearInterval(clock);
+      msg.reset();
+    },
+  });
+  const msg = createMessage(lock, $('w11-msg'), $('w11-ok'));
+
+  function wake() {
+    if (signedIn) return;
+    signedIn = true;
+    root.dataset.state = 'signin';
+    lock.setInputActive(true);
+  }
+  $('w11-lock').addEventListener('click', wake);
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' && !e.repeat && document.body.classList.contains('running')) wake();
+  });
+
+  const fake = () => toast(t(lock.cfg.lang).lock.fakeText);
+  ['w11-forgot', 'w11-opt', 'w11-net', 'w11-ease'].forEach((id) => $(id).addEventListener('click', fake));
+  $('w11-pow').addEventListener('click', () => toast(t(lock.cfg.lang).lock.powerText));
+</script>
