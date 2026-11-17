@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fakelockscreen.app/sitemap-index.xml

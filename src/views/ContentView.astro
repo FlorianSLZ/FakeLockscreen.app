@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { pages } from '../i18n/pages';
+import { localePath, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang; kind: 'about' | 'safety' }
+const { lang, kind } = Astro.props;
+const p = pages[kind][lang];
+const site = Astro.site!.origin;
+
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'fakelockscreen.app', item: site + localePath('/', lang) },
+      { '@type': 'ListItem', position: 2, name: p.h1, item: site + localePath(`/${kind}`, lang) },
+    ],
+  },
+  { '@type': kind === 'about' ? 'AboutPage' : 'WebPage', name: p.h1, description: p.description, inLanguage: lang },
+];
+if (p.faq) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: p.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+<Base lang={lang} title={p.title} description={p.description} path={`/${kind}`} ogSlug="home">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" class="page prose">
+    <h1>{p.h1}</h1>
+    <p class="lead">{p.lead}</p>
+    {p.sections.map((s) => (
+      <section>
+        <h2>{s.h}</h2>
+        {s.p?.map((t) => <p>{t}</p>)}
+        {s.ul && <ul>{s.ul.map((t) => <li>{t}</li>)}</ul>}
+        {s.steps && <ol>{s.steps.map((t) => <li>{t}</li>)}</ol>}
+      </section>
+    ))}
+    {p.faq && (
+      <section>
+        <h2>FAQ</h2>
+        {p.faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </section>
+    )}
+    <p class="more">
+      {kind === 'about'
+        ? <a href={localePath('/safety', lang)}>{lang === 'de' ? 'Was die Website tut und nicht tut →' : 'What this site does and does not do →'}</a>
+        : <a href={localePath('/about', lang)}>{lang === 'de' ? 'Mehr über das Projekt →' : 'More about the project →'}</a>}
+    </p>
+  </main>
+</Base>
+
+<style is:global>
+  .prose h1 { margin: 0 0 14px; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -.03em; line-height: 1.08; }
+  .prose .lead { font-size: 1.2rem; color: var(--muted); margin: 0 0 30px; }
+  .prose section { margin: 0 0 30px; }
+  .prose h2 { margin: 0 0 10px; font-size: 1.35rem; letter-spacing: -.01em; }
+  .prose p, .prose li { color: #d3d9e8; }
+  .prose ul, .prose ol { padding-left: 22px; display: grid; gap: 8px; margin: 0; }
+  .prose a { color: var(--era-accent); }
+  .prose details { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; background: var(--card); }
+  .prose summary { cursor: pointer; font-weight: 600; }
+  .prose details p { margin: 10px 0 0; }
+  .prose .more { margin-top: 36px; font-weight: 600; }
+</style>

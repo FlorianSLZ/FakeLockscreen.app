@@ -13,6 +13,17 @@ const { lang, title, description, path } = Astro.props;
 const s = t(lang);
 const site = Astro.site!.origin;
 const other: Lang = lang === 'en' ? 'de' : 'en';
+const name = title.split(':')[0];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebApplication', name, description, url: site + localePath(path, lang), inLanguage: lang, applicationCategory: 'EntertainmentApplication', operatingSystem: 'Any (modern web browser)', offers: { '@type': 'Offer', price: '0', priceCurrency: 'CHF' } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'fakelockscreen.app', item: site + localePath('/', lang) },
+      { '@type': 'ListItem', position: 2, name, item: site + localePath(path, lang) },
+    ] },
+  ],
+};
 ---
 <!doctype html>
 <html lang={lang}>
@@ -33,9 +44,10 @@ const other: Lang = lang === 'en' ? 'de' : 'en';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={site + localePath(path, lang)} />
-    <meta property="og:image" content={`${site}/og${path === '/' ? '/home' : path}.png`} />
+    <meta property="og:image" content={`${site}/og${path}.png`} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <main id="gate" class="gate">

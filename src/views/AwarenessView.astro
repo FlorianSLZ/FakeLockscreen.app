@@ -26,7 +26,7 @@ const jsonLd = {
     </header>
 
     <div class="aw-grid">
-      <form class="aw-form" id="aw-form" onsubmit="return false" autocomplete="off">
+      <form class="aw-form" id="aw-form" autocomplete="off">
         <fieldset>
           <legend>{a.settings}</legend>
 
@@ -230,6 +230,7 @@ const jsonLd = {
     prev.replaceChildren(buildReveal(full, () => {}, { preview: true }));
   }
 
+  $('aw-form').addEventListener('submit', (e) => e.preventDefault());
   $('aw-form').addEventListener('input', update);
   $('aw-form').addEventListener('change', update);
 
