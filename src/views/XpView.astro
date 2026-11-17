@@ -1,0 +1,137 @@
+---
+import Lock from '../layouts/Lock.astro';
+import '../lockscreens/xp/xp.css';
+import { t, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang).lockUi.xp;
+const title =
+  lang === 'de'
+    ? 'Windows XP Sperrbildschirm im Browser: Fake Lock Screen Streich'
+    : 'Windows XP Lock Screen in your Browser: Fake Lock Screen Prank';
+const description =
+  lang === 'de'
+    ? 'Der blaue Windows-XP-Anmeldebildschirm als harmloser Streich im Browser. Vollbild, falsches Passwort, nichts wird gespeichert.'
+    : 'The blue Windows XP welcome screen as a harmless prank in your browser. Fullscreen, fake password, nothing stored or sent.';
+---
+<Lock lang={lang} title={title} description={description} path="/xp">
+  <div class="xp" id="xp" data-lang={lang}>
+    <header class="xp-top"></header>
+    <div class="xp-mid">
+      <section class="xp-left">
+        <div class="xp-brand" aria-hidden="true">
+          <span class="xp-brand-fake">fake</span><span class="xp-brand-lock">lock</span><sup>xp</sup>
+        </div>
+        <p class="xp-begin">{s.begin}</p>
+      </section>
+      <div class="xp-divider" aria-hidden="true"></div>
+      <section class="xp-right">
+        <button type="button" class="xp-user" id="xp-user" aria-expanded="false">
+          <span class="xp-tile" id="xp-avatar" aria-hidden="true">🙂</span>
+          <span class="xp-userbody">
+            <span class="xp-name" id="xp-name">User</span>
+            <span class="xp-pw" id="xp-pw" hidden>
+              <span class="xp-pw-label">{s.typePassword}</span>
+              <span class="xp-pw-row">
+                <span class="xp-pw-box" aria-hidden="true"><span id="xp-dots"></span><i class="xp-caret"></i></span>
+                <span class="xp-go" aria-hidden="true" title={s.go}>➜</span>
+              </span>
+            </span>
+          </span>
+        </button>
+      </section>
+    </div>
+    <footer class="xp-bottom">
+      <button type="button" class="xp-off" id="xp-off">
+        <span class="xp-off-icon" aria-hidden="true">⏻</span>{s.turnOff}
+      </button>
+      <p class="xp-bottom-note">{s.footerRight}</p>
+    </footer>
+
+    <div class="xp-dialog-wrap" id="xp-dialog" hidden>
+      <div class="xp-dialog" role="alertdialog" aria-modal="true" aria-labelledby="xp-dialog-title" aria-describedby="xp-dialog-text">
+        <div class="xp-dialog-bar">
+          <span id="xp-dialog-title">{s.wrongTitle}</span>
+          <span class="xp-dialog-x" aria-hidden="true">✕</span>
+        </div>
+        <div class="xp-dialog-body">
+          <span class="xp-dialog-icon" aria-hidden="true">✖</span>
+          <p id="xp-dialog-text">{s.wrongText}</p>
+        </div>
+        <button type="button" class="xp-dialog-ok" id="xp-dialog-ok">{s.ok}</button>
+      </div>
+    </div>
+  </div>
+</Lock>
+
+<script>
+  import { createLock } from '../lockscreens/core/engine';
+  import { t } from '../i18n/strings';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const user = $<HTMLButtonElement>('xp-user');
+  const pw = $('xp-pw');
+  const dots = $('xp-dots');
+  const dialog = $('xp-dialog');
+  const dialogText = $('xp-dialog-text');
+  const dialogTitle = $('xp-dialog-title');
+  const ok = $<HTMLButtonElement>('xp-dialog-ok');
+  const off = $<HTMLButtonElement>('xp-off');
+  const MAX_DOTS = 24;
+
+  let dialogOpen = false;
+  let lock: ReturnType<typeof createLock>;
+
+  function showDialog(title: string, text: string) {
+    dialogTitle.textContent = title;
+    dialogText.textContent = text;
+    dialogOpen = true;
+    lock.setInputActive(false);
+    dialog.hidden = false;
+    ok.focus();
+  }
+  function closeDialog() {
+    if (!dialogOpen) return;
+    dialogOpen = false;
+    dialog.hidden = true;
+    if (!pw.hidden) lock.setInputActive(true);
+    user.focus({ preventScroll: true });
+  }
+
+  function openUser() {
+    pw.hidden = false;
+    user.setAttribute('aria-expanded', 'true');
+    user.classList.add('open');
+    lock.setInputActive(true);
+  }
+
+  lock = createLock({
+    onDots: (n) => (dots.textContent = '●'.repeat(Math.min(n, MAX_DOTS))),
+    onWrong: () => showDialog(t(lock.cfg.lang).lockUi.xp.wrongTitle, t(lock.cfg.lang).lockUi.xp.wrongText),
+    onStart: () => {
+      const cfg = lock.cfg;
+      $('xp-name').textContent = cfg.name;
+      $('xp-avatar').textContent = cfg.avatar;
+      pw.hidden = true;
+      user.classList.remove('open');
+      user.setAttribute('aria-expanded', 'false');
+      closeDialog();
+      user.focus({ preventScroll: true });
+    },
+    onStop: () => {
+      dialog.hidden = true;
+      dialogOpen = false;
+    },
+  });
+
+  user.addEventListener('click', openUser);
+  ok.addEventListener('click', closeDialog);
+  window.addEventListener('keydown', (e) => {
+    if (dialogOpen && !e.defaultPrevented && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      closeDialog();
+    }
+  });
+  off.addEventListener('click', () => showDialog(t(lock.cfg.lang).lockUi.xp.turnOff, t(lock.cfg.lang).lockUi.xp.powerText));
+</script>

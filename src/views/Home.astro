@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import Mini from '../components/Mini.astro';
+import { t, eras, localePath, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const h = s.home;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'fakelockscreen.app',
+      url: Astro.site!.origin,
+      inLanguage: ['en', 'de'],
+      description: h.description,
+    },
+    {
+      '@type': 'WebApplication',
+      name: 'Fake Lock Screen',
+      applicationCategory: 'EntertainmentApplication',
+      operatingSystem: 'Any (modern web browser)',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'CHF' },
+      description: h.description,
+    },
+  ],
+};
+---
+<Base lang={lang} title={h.title} description={h.description} path="/" ogSlug="home">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <nav class="rail" aria-label={h.timeline}>
+    {eras.map((e) => (
+      <a href={`#${e.id}`} data-rail={e.id}><span>{e.name}</span>{e.year}</a>
+    ))}
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="top" data-era-section="hero">
+      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="hero-inner">
+        <p class="eyebrow">{h.eyebrow}</p>
+        <h1>{h.h1a} <span>{h.h1b}</span></h1>
+        <p class="lead">{h.lead}</p>
+        <div class="hero-cta">
+          <a class="btn" href="#xp">{h.start}</a>
+          <a class="btn ghost" href={localePath('/awareness', lang)}>{h.forIt}</a>
+        </div>
+        <output class="odo" aria-hidden="true"><b id="odo">2026</b></output>
+      </div>
+      <div class="scroll-cue">{h.scroll}</div>
+    </section>
+
+    {eras.map((e, i) => (
+      <section class={`era${i % 2 ? ' flip' : ''}`} id={e.id} data-era-section={e.id} aria-labelledby={`${e.id}-h`}>
+        <div class="ghost-year" aria-hidden="true">{e.year}</div>
+        <div class="era-text">
+          <p class="era-year">{e.year}</p>
+          <h2 id={`${e.id}-h`}>{e.name}</h2>
+          <p class="era-tag">{h.tagline[e.id]}</p>
+          <p class="fact"><strong>{h.funFact}</strong>{h.fact[e.id]}</p>
+          {e.ready ? (
+            <a class="btn" href={localePath(`/${e.id}`, lang)}>{h.launch} {e.name} →</a>
+          ) : (
+            <a class="btn" aria-disabled="true" role="link" tabindex="-1">{h.soon}</a>
+          )}
+        </div>
+        <div class="era-preview monitor-wrap" role="img" aria-label={`${h.previewLabel}: ${e.name}`}>
+          <div class="monitor"><div class="monitor-screen"><Mini os={e.id} user={h.user} /></div></div>
+        </div>
+      </section>
+    ))}
+
+    <section class="teaser" data-era-section="awareness">
+      <div class="teaser-inner">
+        <h2>{h.awareness.h2}</h2>
+        <p>{h.awareness.p}</p>
+        <a class="btn" href={localePath('/awareness', lang)}>{h.awareness.cta}</a>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<script>
+  // Era tint + rail: which section is on screen decides the colour of the whole page.
+  const sections = [...document.querySelectorAll<HTMLElement>('[data-era-section]')];
+  const rail = [...document.querySelectorAll<HTMLAnchorElement>('[data-rail]')];
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const en of entries) {
+        if (!en.isIntersecting) continue;
+        const id = (en.target as HTMLElement).dataset.eraSection!;
+        if (id === 'hero') document.body.removeAttribute('data-era');
+        else document.body.dataset.era = id;
+        rail.forEach((a) => a.setAttribute('aria-current', String(a.dataset.rail === id)));
+      }
+    },
+    { threshold: 0.55 },
+  );
+  sections.forEach((s) => io.observe(s));
+
+  // Live clocks in the mini previews (locale-aware, no network).
+  const lang = document.documentElement.lang === 'de' ? 'de-CH' : navigator.language;
+  const tf = new Intl.DateTimeFormat(lang, { hour: '2-digit', minute: '2-digit' });
+  const df = new Intl.DateTimeFormat(lang, { weekday: 'long', day: 'numeric', month: 'long' });
+  const tick = () => {
+    const d = new Date();
+    document.querySelectorAll('[data-clock="time"]').forEach((n) => (n.textContent = tf.format(d)));
+    document.querySelectorAll('[data-clock="date"]').forEach((n) => (n.textContent = df.format(d)));
+  };
+  tick();
+  setInterval(tick, 1000);
+
+  // Hero "time machine" odometer: counts back to 2001 once.
+  const odo = document.getElementById('odo');
+  if (odo && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const from = 2026, to = 2001, dur = 1600, t0 = performance.now();
+    const step = (now: number) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      odo.textContent = String(Math.round(from - (from - to) * eased));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    setTimeout(() => requestAnimationFrame(step), 500);
+  }
+</script>

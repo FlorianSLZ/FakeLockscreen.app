@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import { t, localePath, type Lang } from '../i18n/strings';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string; // language-neutral path
+  ogSlug?: string;
+}
+const { lang, title, description, path, ogSlug = 'home' } = Astro.props;
+const s = t(lang);
+const site = Astro.site!.origin;
+const other: Lang = lang === 'en' ? 'de' : 'en';
+const url = site + localePath(path, lang);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="canonical" href={url} />
+    <link rel="alternate" hreflang="en" href={site + localePath(path, 'en')} />
+    <link rel="alternate" hreflang="de" href={site + localePath(path, 'de')} />
+    <link rel="alternate" hreflang="x-default" href={site + localePath(path, 'en')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="fakelockscreen.app" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={`${site}/og/${ogSlug}.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">{s.skip}</a>
+    <header class="site-header">
+      <a class="logo" href={localePath('/', lang)} aria-label="fakelockscreen.app">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="3" fill="currentColor"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <span>fakelockscreen<b>.app</b></span>
+      </a>
+      <nav aria-label="Main">
+        <a href={localePath('/awareness', lang)}>{s.nav.awareness}</a>
+        <a href={localePath('/about', lang)}>{s.nav.about}</a>
+        <a href={localePath('/safety', lang)}>{s.nav.safety}</a>
+        <a class="lang" href={localePath(path, other)} hreflang={other} lang={other} aria-label={s.nav.switchLabel}>{s.nav.switchTo}</a>
+      </nav>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <p>{s.footer}</p>
+    </footer>
+  </body>
+</html>
