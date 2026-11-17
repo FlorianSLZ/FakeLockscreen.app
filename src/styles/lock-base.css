@@ -1,3 +1,4 @@
+@import './reveal.css';
 /* Shared by every lock screen route. Self-contained: no external fonts, images or requests. */
 :root {
   --gate-bg: #0b0d14;
@@ -69,39 +70,6 @@ body.running { overflow: hidden; user-select: none; -webkit-user-select: none; }
 .esc-ring.on circle { animation: esc-fill 2s linear forwards; }
 @keyframes esc-fill { to { stroke-dashoffset: 0; } }
 
-/* ---------- Awareness reveal (friendly, never scary) ---------- */
-.reveal {
-  position: fixed; inset: 0; z-index: 9000; display: grid; place-items: center; padding: 20px;
-  background: radial-gradient(60vw 60vh at 50% 30%, #1b3a6b, #0b1424);
-  animation: reveal-in .45s ease both; cursor: default !important;
-}
-.reveal, .reveal * { cursor: auto; }
-.reveal button, .reveal summary, .reveal a { cursor: pointer; }
-.reveal-card {
-  width: min(560px, 100%); max-height: 100%; overflow: auto; padding: 32px;
-  background: #fff; color: #17202f; border-radius: 22px; box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
-  font: 400 1rem/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-}
-.reveal-card h2 { margin: 6px 0 8px; font-size: 1.7rem; line-height: 1.2; }
-.reveal-card p { margin: 0 0 12px; }
-.reveal-icon { font-size: 2.2rem; }
-.reveal-lead { font-weight: 600; }
-.reveal-keys { display: grid; gap: 8px; margin: 4px 0 18px; }
-.key-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-radius: 12px; background: #eef2f9; color: #4a566b; }
-.key-row.primary { background: #e3f0ff; color: #0b3b7a; outline: 2px solid #3b8cff; }
-.key-os { font-weight: 600; }
-.key-combo { display: inline-flex; align-items: center; gap: 6px; }
-.key-combo .plus { opacity: .5; }
-kbd { font: 700 1rem ui-monospace, 'Cascadia Mono', Consolas, monospace; padding: 4px 10px; border-radius: 8px; background: #fff; border: 1px solid #b7c3d9; border-bottom-width: 3px; }
-.reveal-msg { padding: 12px 14px; border-left: 4px solid #3b8cff; background: #f3f7ff; border-radius: 6px; }
-.reveal-soft { color: #5b667b; font-size: .92rem; }
-.reveal-link { display: inline-block; margin-bottom: 14px; color: #0b5ed7; font-weight: 600; }
-.reveal-tip { margin: 6px 0 18px; font-size: .92rem; }
-.reveal-tip summary { cursor: pointer; font-weight: 600; color: #0b5ed7; }
-.reveal-tip p { margin: 8px 0 0; color: #3a455a; }
-.reveal-close { appearance: none; border: 0; background: #0b5ed7; color: #fff; font: 700 1rem system-ui, sans-serif; padding: 13px 22px; border-radius: 12px; }
-.reveal-close:focus-visible, .reveal a:focus-visible, .reveal summary:focus-visible { outline: 3px solid #ff9d1f; outline-offset: 3px; }
-@keyframes reveal-in { from { opacity: 0; transform: scale(.98); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

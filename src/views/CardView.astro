@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import { card } from '../i18n/awareness';
+import { localePath, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const c = card[lang];
+---
+<Base lang={lang} title={c.title} description={c.description} path="/awareness/card" ogSlug="awareness" era="awareness">
+  <main id="main" class="cardpage" data-lang={lang}>
+    <div class="controls">
+      <button type="button" class="btn" id="print">{c.print}</button>
+      <a class="btn ghost" id="back" href={localePath('/awareness', lang)}>{c.edit}</a>
+      <p>{c.printHint} {c.editHint}</p>
+    </div>
+
+    <article class="sheet" aria-label={c.headline}>
+      <div class="band">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="3" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="body">
+        <h1 id="c-head">{c.headline}</h1>
+        <p class="sub">{c.sub}</p>
+
+        <h2>{c.lockIt}</h2>
+        <div class="keys">
+          <div class="key"><span class="os">{c.windows}</span><span class="combo"><kbd>Win</kbd><i>+</i><kbd>L</kbd></span></div>
+          <div class="key"><span class="os">{c.mac}</span><span class="combo"><kbd>Ctrl</kbd><i>+</i><kbd>Cmd</kbd><i>+</i><kbd>Q</kbd></span></div>
+        </div>
+
+        <p class="msg" id="c-msg" hidden></p>
+        <p class="why">{c.why}</p>
+        <p class="policy" id="c-policy" hidden><strong>{c.policy}:</strong> <span id="c-policy-url"></span></p>
+
+        <div class="tip"><strong>{c.tip}</strong><span>{c.tipText}</span></div>
+      </div>
+      <footer class="made">{c.made}</footer>
+    </article>
+  </main>
+</Base>
+
+<style is:global>
+  .cardpage { max-width: 960px; margin: 0 auto; padding: 110px 16px 60px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 26px; }
+  .controls p { flex-basis: 100%; margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
+  .sheet {
+    container-type: inline-size; position: relative; width: min(210mm, 100%); aspect-ratio: 210 / 297; margin: 0 auto;
+    background: #fff; color: #14202f; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    display: flex; flex-direction: column;
+  }
+  .sheet .band { height: 17cqw; background: linear-gradient(135deg, #0b3b7a, #2b7bff); color: #fff; display: grid; place-items: center; }
+  .sheet .band svg { width: 9.5cqw; height: 9.5cqw; }
+  .sheet .body { flex: 1; min-height: 0; padding: 5cqw 7cqw 0; }
+  .sheet h1 { margin: 0; font-size: 5.8cqw; line-height: 1.1; letter-spacing: -.02em; }
+  .sheet .sub { margin: 1.6cqw 0 3.6cqw; font-size: 2.7cqw; line-height: 1.4; color: #4a566b; }
+  .sheet h2 { margin: 0 0 1.6cqw; font-size: 2.4cqw; text-transform: uppercase; letter-spacing: .12em; color: #0b5ed7; }
+  .sheet .keys { display: grid; gap: 1.4cqw; margin-bottom: 3.4cqw; }
+  .sheet .key { display: flex; align-items: center; justify-content: space-between; padding: 1.6cqw 2.6cqw; border-radius: 1.8cqw; background: #eef3fb; border: .25cqw solid #cfdcf0; }
+  .sheet .os { font-size: 3cqw; font-weight: 700; }
+  .sheet .combo { display: inline-flex; align-items: center; gap: 1cqw; }
+  .sheet .combo i { font-style: normal; color: #7b879b; font-size: 2.8cqw; }
+  .sheet kbd { font: 700 3.2cqw ui-monospace, 'Cascadia Mono', Consolas, monospace; padding: .7cqw 1.8cqw; border-radius: 1.1cqw; background: #fff; border: .25cqw solid #9fb1cf; border-bottom-width: .6cqw; }
+  .sheet p { margin: 0 0 2.6cqw; font-size: 2.8cqw; line-height: 1.45; }
+  .sheet .msg { padding: 2cqw 2.6cqw; border-left: .9cqw solid #2b7bff; background: #f1f6ff; border-radius: .8cqw; font-weight: 600; }
+  .sheet .policy { font-size: 2.4cqw; word-break: break-all; }
+  .sheet .tip { display: grid; gap: .6cqw; margin-top: 1.6cqw; padding: 2.2cqw 2.6cqw; border: .25cqw dashed #9fb1cf; border-radius: 1.6cqw; font-size: 2.3cqw; line-height: 1.4; color: #3a455a; }
+  .sheet .tip strong { color: #14202f; font-size: 2.5cqw; }
+  .sheet .made { padding: 2cqw 7cqw 3cqw; font-size: 2cqw; color: #7b879b; text-align: right; }
+
+  /* Long company/message/policy text: shrink so everything always fits on one A4 page. */
+  .sheet.tight .band { height: 12cqw; } .sheet.tight .band svg { width: 7cqw; height: 7cqw; }
+  .sheet.tight .body { padding-top: 3.6cqw; }
+  .sheet.tight h1 { font-size: 4.4cqw; } .sheet.tight .sub { margin: 1cqw 0 2.4cqw; font-size: 2.3cqw; }
+  .sheet.tight h2 { margin-bottom: 1cqw; font-size: 2cqw; }
+  .sheet.tight .keys { gap: 1cqw; margin-bottom: 2.4cqw; } .sheet.tight .key { padding: 1cqw 2.2cqw; }
+  .sheet.tight .os { font-size: 2.6cqw; } .sheet.tight kbd { font-size: 2.7cqw; padding: .5cqw 1.5cqw; }
+  .sheet.tight p { font-size: 2.3cqw; margin-bottom: 1.8cqw; } .sheet.tight .msg { padding: 1.4cqw 2cqw; }
+  .sheet.tight .policy { font-size: 1.9cqw; }
+  .sheet.tight .tip { margin-top: 1cqw; padding: 1.4cqw 2cqw; font-size: 1.9cqw; } .sheet.tight .tip strong { font-size: 2cqw; }
+  .sheet.tight .made { padding: 1.2cqw 7cqw 2cqw; font-size: 1.8cqw; }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    html, body { background: #fff !important; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .site-header, .site-footer, .controls, .skip, .rail { display: none !important; }
+    .cardpage { padding: 0; max-width: none; }
+    .sheet { width: 210mm; height: 297mm; border-radius: 0; box-shadow: none; page-break-after: avoid; break-after: avoid; }
+  }
+</style>
+
+<script>
+  import { decode, type Lang } from '../lib/config-codec';
+  import { card } from '../i18n/awareness';
+
+  const lang = (document.querySelector<HTMLElement>('.cardpage')!.dataset.lang as Lang) || 'en';
+  const cfg = decode(location.hash, lang);
+  const c = card[lang]; // the configurator links to the matching language route
+  const head = document.getElementById('c-head')!;
+  if (cfg.company) head.textContent = c.headlineCompany(cfg.company);
+  const msg = document.getElementById('c-msg')!;
+  if (cfg.message) { msg.textContent = cfg.message; msg.hidden = false; }
+  if (cfg.policy) {
+    document.getElementById('c-policy-url')!.textContent = cfg.policy;
+    document.getElementById('c-policy')!.hidden = false;
+  }
+  if (cfg.company.length > 24 || cfg.message.length > 120 || cfg.policy.length > 90)
+    document.querySelector('.sheet')!.classList.add('tight');
+  document.getElementById('print')!.addEventListener('click', () => window.print());
+</script>

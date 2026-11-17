@@ -1,0 +1,249 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/reveal.css';
+import { awareness } from '../i18n/awareness';
+import { eras, localePath, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const a = awareness[lang];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: lang === 'de' ? 'Awareness-Link-Konfigurator' : 'Awareness link builder',
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Any (modern web browser)',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CHF' },
+  description: a.description,
+};
+---
+<Base lang={lang} title={a.title} description={a.description} path="/awareness" ogSlug="awareness" era="awareness">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <main id="main" class="aw" data-lang={lang} data-card={localePath('/awareness/card', lang)}>
+    <header class="aw-head">
+      <h1>{a.h1}</h1>
+      <p>{a.lead}</p>
+    </header>
+
+    <div class="aw-grid">
+      <form class="aw-form" id="aw-form" onsubmit="return false" autocomplete="off">
+        <fieldset>
+          <legend>{a.settings}</legend>
+
+          <label for="f-company">{a.company}</label>
+          <input id="f-company" name="company" maxlength="60" autocomplete="off" />
+          <small>{a.companyHelp}</small>
+
+          <label for="f-message">{a.message}</label>
+          <textarea id="f-message" name="message" maxlength="400" rows="3"></textarea>
+          <small>{a.messageHelp}</small>
+
+          <label for="f-policy">{a.policy}</label>
+          <input id="f-policy" name="policy" type="url" placeholder="https://" maxlength="300" autocomplete="off" />
+          <small>{a.policyHelp}</small>
+
+          <div class="row2">
+            <div>
+              <label for="f-lang">{a.lang}</label>
+              <select id="f-lang" name="lang">
+                <option value="en" selected={lang === 'en'}>English</option>
+                <option value="de" selected={lang === 'de'}>Deutsch</option>
+              </select>
+            </div>
+            <div>
+              <label for="f-os">{a.os}</label>
+              <select id="f-os" name="os">
+                {eras.map((e) => <option value={e.id}>{e.name}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div>
+              <label for="f-attempts">{a.attempts}</label>
+              <input id="f-attempts" name="attempts" type="number" min="1" max="10" value="3" />
+            </div>
+            <div>
+              <label for="f-auto">{a.auto}</label>
+              <input id="f-auto" name="auto" type="number" min="0" max="3600" value="0" />
+            </div>
+          </div>
+          <small>{a.autoHelp}</small>
+
+          <div class="row3">
+            <div>
+              <label for="f-name">{a.name}</label>
+              <input id="f-name" name="name" maxlength="32" autocomplete="off" />
+            </div>
+            <div>
+              <label for="f-avatar">{a.avatar}</label>
+              <input id="f-avatar" name="avatar" maxlength="8" placeholder="🙂" autocomplete="off" />
+            </div>
+            <div>
+              <label for="f-wp">{a.wallpaper}</label>
+              <select id="f-wp" name="wp">
+                {a.wallpapers.map((w, i) => <option value={String(i)}>{w}</option>)}
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="aw-out">
+        <section class="aw-card" aria-labelledby="res-h">
+          <h2 id="res-h">{a.result}</h2>
+          <label for="aw-link" class="sr">{a.linkLabel}</label>
+          <textarea id="aw-link" readonly rows="6" spellcheck="false"></textarea>
+          <div class="aw-actions">
+            <button type="button" class="btn" id="aw-copy">{a.copy}</button>
+            <a class="btn ghost" id="aw-open" href="#" target="_blank" rel="noopener">{a.open}</a>
+            <a class="btn ghost" id="aw-card" href="#" target="_blank" rel="noopener">{a.card}</a>
+          </div>
+          <p class="aw-status" id="aw-status" role="status" aria-live="polite"></p>
+          <p class="aw-privacy">{a.privacy}</p>
+        </section>
+
+        <section class="aw-card">
+          <h2>{a.howTitle}</h2>
+          <ul>{a.how.map((h) => <li>{h}</li>)}</ul>
+        </section>
+      </aside>
+    </div>
+
+    <section class="aw-preview" aria-labelledby="prev-h">
+      <h2 id="prev-h">{a.preview}</h2>
+      <p>{a.previewNote}</p>
+      <div class="reveal-preview" id="aw-preview"></div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .aw { max-width: 1160px; margin: 0 auto; padding: 120px max(16px, 3vw) 70px; }
+  .aw-head h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -.03em; line-height: 1.05; }
+  .aw-head p { margin: 0 0 36px; max-width: 70ch; color: var(--muted); font-size: 1.1rem; }
+  .aw-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 900px) { .aw-grid { grid-template-columns: 1fr; } }
+  fieldset { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 0; background: var(--card); }
+  legend { padding: 0 8px; font-weight: 700; }
+  label { display: block; margin: 16px 0 6px; font-weight: 600; font-size: .92rem; }
+  label:first-of-type { margin-top: 0; }
+  small { display: block; margin-top: 5px; color: var(--muted); font-size: .82rem; }
+  input, textarea, select {
+    width: 100%; padding: 11px 12px; border-radius: 10px; font: inherit; color: var(--fg);
+    background: color-mix(in oklab, #000 35%, transparent); border: 1px solid var(--line);
+  }
+  input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid var(--era-accent); outline-offset: 1px; }
+  select option { color: #111; }
+  textarea { resize: vertical; }
+  .row2, .row3 { margin-top: 16px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .row3 { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .row2, .row3 { grid-template-columns: 1fr; } }
+  .aw-out { display: grid; gap: 20px; position: sticky; top: 80px; }
+  @media (max-width: 900px) { .aw-out { position: static; } }
+  .aw-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; background: var(--card); }
+  .aw-card h2 { margin: 0 0 12px; font-size: 1.1rem; }
+  #aw-link { font: .82rem/1.4 ui-monospace, 'Cascadia Mono', Consolas, monospace; word-break: break-all; }
+  .aw-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .aw-actions .btn { padding: 11px 16px; font-size: .92rem; }
+  .aw-status { min-height: 1.4em; margin: 10px 0 0; color: var(--era-accent); font-weight: 600; font-size: .9rem; }
+  .aw-privacy { margin: 4px 0 0; color: var(--muted); font-size: .85rem; }
+  .aw-card ul { margin: 0; padding-left: 20px; color: var(--muted); display: grid; gap: 8px; }
+  .aw-preview { margin-top: 44px; }
+  .aw-preview h2 { margin: 0 0 6px; }
+  .aw-preview > p { margin: 0 0 16px; color: var(--muted); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+</style>
+
+<script>
+  import { encode, decode, defaults, type LockConfig, type Lang } from '../lib/config-codec';
+  import { buildReveal } from '../lockscreens/core/reveal';
+  import { awareness } from '../i18n/awareness';
+
+  const main = document.querySelector<HTMLElement>('.aw')!;
+  const routeLang = (main.dataset.lang as Lang) || 'en';
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const f = {
+    company: $<HTMLInputElement>('f-company'),
+    message: $<HTMLTextAreaElement>('f-message'),
+    policy: $<HTMLInputElement>('f-policy'),
+    lang: $<HTMLSelectElement>('f-lang'),
+    os: $<HTMLSelectElement>('f-os'),
+    attempts: $<HTMLInputElement>('f-attempts'),
+    auto: $<HTMLInputElement>('f-auto'),
+    name: $<HTMLInputElement>('f-name'),
+    avatar: $<HTMLInputElement>('f-avatar'),
+    wp: $<HTMLSelectElement>('f-wp'),
+  };
+  const link = $<HTMLTextAreaElement>('aw-link');
+  const status = $('aw-status');
+
+  // Prefill from our own hash so admins can bookmark or reload the configurator.
+  const m = /(?:^#|&)os=(\w+)/.exec(location.hash);
+  if (m && [...f.os.options].some((o) => o.value === m[1])) f.os.value = m[1];
+  if (/c=/.test(location.hash)) {
+    const c = decode(location.hash, routeLang);
+    f.company.value = c.company;
+    f.message.value = c.message;
+    f.policy.value = c.policy;
+    f.lang.value = c.lang;
+    f.attempts.value = String(c.attempts);
+    f.auto.value = String(c.autoReveal);
+    f.name.value = c.name === defaults.name ? '' : c.name;
+    f.avatar.value = c.avatar === defaults.avatar ? '' : c.avatar;
+    f.wp.value = String(c.wallpaper);
+  }
+
+  function config(): Partial<LockConfig> {
+    const cfg: Partial<LockConfig> = { lang: f.lang.value as Lang };
+    if (f.company.value.trim()) cfg.company = f.company.value.trim();
+    if (f.message.value.trim()) cfg.message = f.message.value.trim();
+    if (/^https?:\/\//i.test(f.policy.value.trim())) cfg.policy = f.policy.value.trim();
+    const attempts = Math.min(10, Math.max(1, parseInt(f.attempts.value, 10) || 3));
+    if (attempts !== 3) cfg.attempts = attempts;
+    const auto = Math.min(3600, Math.max(0, parseInt(f.auto.value, 10) || 0));
+    if (auto > 0) cfg.autoReveal = auto;
+    if (f.name.value.trim()) cfg.name = f.name.value.trim();
+    if (f.avatar.value.trim()) cfg.avatar = f.avatar.value.trim();
+    if (f.wp.value !== '0') cfg.wallpaper = Number(f.wp.value);
+    return cfg;
+  }
+
+  const prefix = (l: string) => (l === 'de' ? '/de' : '');
+
+  function update() {
+    const cfg = config();
+    const enc = encode(cfg);
+    const l = f.lang.value;
+    const lockUrl = `${location.origin}${prefix(l)}/${f.os.value}#c=${enc}`;
+    link.value = lockUrl;
+    $<HTMLAnchorElement>('aw-open').href = lockUrl;
+    // Desk card only needs the wording, not the lock screen details.
+    const cardCfg: Partial<LockConfig> = { lang: cfg.lang };
+    for (const k of ['company', 'message', 'policy'] as const) if (cfg[k]) (cardCfg as Record<string, unknown>)[k] = cfg[k];
+    $<HTMLAnchorElement>('aw-card').href = `${location.origin}${prefix(l)}/awareness/card#c=${encode(cardCfg)}`;
+    history.replaceState(null, '', `#c=${enc}&os=${f.os.value}`);
+
+    const full = decode(`#c=${enc}`, l as Lang);
+    const prev = $('aw-preview');
+    prev.replaceChildren(buildReveal(full, () => {}, { preview: true }));
+  }
+
+  $('aw-form').addEventListener('input', update);
+  $('aw-form').addEventListener('change', update);
+
+  $('aw-copy').addEventListener('click', async () => {
+    const msgs = awareness[f.lang.value as Lang] ?? awareness[routeLang];
+    try {
+      await navigator.clipboard.writeText(link.value);
+      status.textContent = msgs.copied;
+    } catch {
+      link.select();
+      status.textContent = msgs.copyFailed;
+    }
+  });
+  link.addEventListener('focus', () => link.select());
+
+  update();
+</script>

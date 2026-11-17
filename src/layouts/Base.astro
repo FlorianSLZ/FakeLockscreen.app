@@ -8,8 +8,9 @@ interface Props {
   description: string;
   path: string; // language-neutral path
   ogSlug?: string;
+  era?: string;
 }
-const { lang, title, description, path, ogSlug = 'home' } = Astro.props;
+const { lang, title, description, path, ogSlug = 'home', era } = Astro.props;
 const s = t(lang);
 const site = Astro.site!.origin;
 const other: Lang = lang === 'en' ? 'de' : 'en';
@@ -37,7 +38,7 @@ const url = site + localePath(path, lang);
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <slot name="head" />
   </head>
-  <body>
+  <body data-era={era}>
     <a class="skip" href="#main">{s.skip}</a>
     <header class="site-header">
       <a class="logo" href={localePath('/', lang)} aria-label="fakelockscreen.app">

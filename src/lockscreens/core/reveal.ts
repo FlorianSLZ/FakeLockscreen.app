@@ -15,13 +15,13 @@ const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, text?: 
 };
 
 /** Builds the friendly awareness reveal. Returns the overlay element. */
-export function buildReveal(cfg: LockConfig, onClose: () => void): HTMLElement {
+export function buildReveal(cfg: LockConfig, onClose: () => void, opts: { preview?: boolean } = {}): HTMLElement {
   const s = t(cfg.lang).reveal;
   const os = detectOS();
 
   const root = el('div', 'reveal');
   root.setAttribute('role', 'dialog');
-  root.setAttribute('aria-modal', 'true');
+  if (!opts.preview) root.setAttribute('aria-modal', 'true');
   root.setAttribute('aria-labelledby', 'reveal-h');
 
   const card = el('div', 'reveal-card');
@@ -71,6 +71,6 @@ export function buildReveal(cfg: LockConfig, onClose: () => void): HTMLElement {
   card.append(close);
 
   root.append(card);
-  queueMicrotask(() => close.focus());
+  if (!opts.preview) queueMicrotask(() => close.focus());
   return root;
 }
