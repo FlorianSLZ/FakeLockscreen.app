@@ -53,6 +53,11 @@ a { color: inherit; }
 /* Footer */
 .site-footer { padding: 28px max(16px, 3vw) 36px; text-align: center; color: var(--muted); font-size: .82rem; border-top: 1px solid var(--line); background: color-mix(in oklab, #000 25%, transparent); }
 .site-footer p { margin: 0 auto; max-width: 70ch; }
+.site-footer .byline { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 14px; max-width: none; margin: 20px auto 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: .95rem; color: var(--fg); }
+.site-footer .byline a { color: inherit; text-underline-offset: 3px; }
+.site-footer .byline .by-site { font-weight: 700; color: var(--era-accent); transition: color .9s; }
+.site-footer .byline .by-li { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); text-decoration: none; font-weight: 600; transition: background-color .2s, border-color .2s; }
+.site-footer .byline .by-li:hover { background: color-mix(in oklab, var(--era-accent) 18%, transparent); border-color: var(--era-accent); }
 
 /* Buttons */
 .btn {

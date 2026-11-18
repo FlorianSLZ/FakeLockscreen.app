@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const lockSlugs = ['xp', 'win7', 'win10', 'win11', 'macos'];
-const pages = ['/', '/about', '/safety', '/awareness', '/awareness/card', ...lockSlugs.map((s) => '/' + s)];
+const pages = ['/', '/about', '/safety', '/awareness', ...lockSlugs.map((s) => '/' + s)];
 const allRoutes = pages.flatMap((p) => [p, p === '/' ? '/de' : '/de' + p]);
 const FOOTER_EN = 'Not affiliated with Microsoft or Apple. Harmless browser prank and awareness tool. Nothing is installed, nothing is captured.';
 const FOOTER_DE = 'Nicht mit Microsoft oder Apple verbunden. Harmloser Browser-Streich und Awareness-Tool. Es wird nichts installiert und nichts aufgezeichnet.';
@@ -38,9 +38,9 @@ test.describe('every route', () => {
 
 test('footer text is exact on German and English landing', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.site-footer')).toHaveText(FOOTER_EN);
+  await expect(page.locator('.site-footer .legal')).toHaveText(FOOTER_EN);
   await page.goto('/de');
-  await expect(page.locator('.site-footer')).toHaveText(FOOTER_DE);
+  await expect(page.locator('.site-footer .legal')).toHaveText(FOOTER_DE);
 });
 
 test('/.well-known/security.txt and robots.txt', async ({ request }) => {
@@ -50,6 +50,14 @@ test('/.well-known/security.txt and robots.txt', async ({ request }) => {
   expect(new Date(exp).getTime()).toBeGreaterThan(Date.now());
   const robots = await (await request.get('/robots.txt')).text();
   expect(robots).toContain('Sitemap: https://fakelockscreen.app/sitemap-index.xml');
+});
+
+test('printable card is noindex and out of the sitemap', async ({ page, request }) => {
+  for (const r of ['/awareness/card', '/de/awareness/card']) {
+    await page.goto(r);
+    await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', /noindex/);
+    expect(await (await request.get('/sitemap-0.xml')).text()).not.toContain(r + '<');
+  }
 });
 
 test('sitemap lists every route, in both languages', async ({ request }) => {

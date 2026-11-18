@@ -7,7 +7,8 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const c = card[lang];
 ---
-<Base lang={lang} title={c.title} description={c.description} path="/awareness/card" ogSlug="awareness" era="awareness">
+<Base lang={lang} title={c.title} description={c.description} path="/awareness/card" ogSlug="awareness" era="awareness" index={false}>
+  <meta name="robots" content="noindex,follow" slot="head" />
   <main id="main" class="cardpage" data-lang={lang}>
     <div class="controls">
       <button type="button" class="btn" id="print">{c.print}</button>
