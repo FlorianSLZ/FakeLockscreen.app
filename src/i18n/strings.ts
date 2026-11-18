@@ -85,6 +85,15 @@ const en = {
     },
     by: { from: 'From', site: 'scloud', by: 'by', name: 'Florian Salzmann', linkedin: 'LinkedIn' },
   },
+  foot: {
+    tagline: 'Lock screens in your browser. A harmless prank, and a reminder to press Win + L.',
+    screens: 'Lock screens',
+    project: 'Project',
+    source: 'Source code on GitHub',
+    security: 'Security contact',
+    made: 'Made by',
+    nameTitle: 'Florian Salzmann on LinkedIn',
+  },
   lock: {
     gateTitle: 'Ready when you are',
     gateText: 'Click start and the lock screen goes fullscreen. Type anything, press Enter, and enjoy.',
@@ -220,6 +229,15 @@ const de: Dict = {
       more: 'Die ganze Sicherheitsseite lesen',
     },
     by: { from: 'Von', site: 'scloud', by: 'von', name: 'Florian Salzmann', linkedin: 'LinkedIn' },
+  },
+  foot: {
+    tagline: 'Lock Screens im Browser. Ein harmloser Streich und eine Erinnerung an Win + L.',
+    screens: 'Lock Screens',
+    project: 'Projekt',
+    source: 'Quellcode auf GitHub',
+    security: 'Sicherheitskontakt',
+    made: 'Gemacht von',
+    nameTitle: 'Florian Salzmann auf LinkedIn',
   },
   lock: {
     gateTitle: 'Bereit, wenn Sie es sind',
