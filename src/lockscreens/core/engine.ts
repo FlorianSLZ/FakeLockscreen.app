@@ -39,6 +39,26 @@ export function createLock(hooks: Hooks): Lock {
   let autoTimer = 0;
   let wrongTimer = 0;
 
+  // Keep the display awake while the fake lock screen runs (Screen Wake Lock API, no network).
+  let wakeLock: WakeLockSentinel | null = null;
+  const acquireWake = () => {
+    if (!running || wakeLock || document.visibilityState !== 'visible') return;
+    navigator.wakeLock?.request('screen').then(
+      (s) => {
+        if (!running) { s.release().catch(() => {}); return; }
+        wakeLock = s;
+        s.addEventListener('release', () => { if (wakeLock === s) wakeLock = null; });
+      },
+      () => {},
+    );
+  };
+  const releaseWake = () => {
+    wakeLock?.release().catch(() => {});
+    wakeLock = null;
+  };
+  // The browser drops the lock when the tab is hidden; take it again on return.
+  document.addEventListener('visibilitychange', acquireWake);
+
   const setDots = (n: number) => {
     len = Math.max(0, n);
     hooks.onDots(len);
@@ -61,6 +81,7 @@ export function createLock(hooks: Hooks): Lock {
     setDots(0);
     hooks.onStart();
     if (!document.fullscreenElement) root.requestFullscreen?.().catch(() => {});
+    acquireWake();
     if (cfg.autoReveal > 0) autoTimer = window.setTimeout(showReveal, cfg.autoReveal * 1000);
     bumpIdle();
   }
@@ -73,6 +94,7 @@ export function createLock(hooks: Hooks): Lock {
     clearTimeout(wrongTimer);
     clearTimeout(escTimer);
     escTimer = 0;
+    releaseWake();
     escRing.classList.remove('on');
     revealEl?.remove();
     revealEl = null;

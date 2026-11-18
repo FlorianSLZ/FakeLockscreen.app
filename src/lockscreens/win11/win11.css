@@ -8,7 +8,16 @@
 .w11[data-wp='2'] { --bg: #1a0a24; --c1: #ff5f8a; --c2: rgba(255, 170, 60, .7); --c3: rgba(140, 90, 255, .7); --accent: #ffb3c8; }
 
 .w11-wp { position: absolute; inset: -6%; transition: filter .8s ease, transform .8s ease; }
-.w11-wp i { position: absolute; border-radius: 50%; filter: blur(28px); }
+.w11-wp i { position: absolute; border-radius: 50%; filter: blur(28px); opacity: .45; }
+.w11 { --ra: #2aa4ff; --rb: #1f5cff; --rc: #0a1f7a; }
+.w11[data-wp='1'] { --ra: #6ee7b7; --rb: #19b38a; --rc: #04382f; }
+.w11[data-wp='2'] { --ra: #ffb3c8; --rb: #ff5f8a; --rc: #5a1240; }
+.w11-rib { position: absolute; inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 20px 40px rgba(0, 10, 60, .5)); }
+.w11-rib use { opacity: .96; }
+.rib-a { animation: w11-rib 22s ease-in-out infinite alternate; transform-origin: 760px 700px; }
+@keyframes w11-rib { to { transform: translate(760px, 688px) rotate(2deg) scale(1.02); } }
+.has-custom-wp .w11-rib { display: none; }
+@media (prefers-reduced-motion: reduce) { .rib-a { animation: none; } }
 .w11-wp .b1 { left: 28%; top: 38%; width: 46%; height: 70%; background: radial-gradient(closest-side, var(--c1), transparent 72%); animation: w11-a 12s ease-in-out infinite alternate; }
 .w11-wp .b2 { left: 50%; top: 46%; width: 38%; height: 60%; background: radial-gradient(closest-side, var(--c2), transparent 72%); animation: w11-b 15s ease-in-out infinite alternate; }
 .w11-wp .b3 { left: 14%; top: 50%; width: 36%; height: 58%; background: radial-gradient(closest-side, var(--c3), transparent 72%); animation: w11-a 18s ease-in-out infinite alternate-reverse; }

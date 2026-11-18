@@ -11,7 +11,37 @@ const seo = t(lang).lockSeo.win11;
 ---
 <Lock lang={lang} title={seo.title} description={seo.description} path="/win11">
   <div class="w11" id="w11" data-wp="0" data-state="lock">
-    <div class="w11-wp" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+    <div class="w11-wp" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i>
+      <svg class="w11-rib" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" focusable="false">
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--ra)" />
+            <stop offset=".5" stop-color="var(--rb)" />
+            <stop offset="1" stop-color="var(--rc)" />
+          </linearGradient>
+          <linearGradient id="rg2" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="var(--rb)" />
+            <stop offset="1" stop-color="var(--rc)" />
+          </linearGradient>
+          <path id="fold" d="M-330 40 C-360 -150 -160 -300 40 -290 C260 -280 400 -140 360 40 C330 200 140 300 -60 280 C-230 260 -300 170 -330 40 Z" />
+          <path id="fold2" d="M-300 60 C-330 -120 -120 -270 90 -250 C300 -230 380 -60 330 90 C280 230 80 280 -100 250 C-250 220 -280 150 -300 60 Z" />
+        </defs>
+        <g class="rib-a" transform="translate(760 700)">
+          <use href="#fold" fill="url(#rg)" stroke="var(--ra)" stroke-opacity=".55" stroke-width="2" transform="rotate(-18) scale(1.18)" />
+          <use href="#fold" fill="url(#rg2)" stroke="var(--ra)" stroke-opacity=".6" stroke-width="2" transform="rotate(-6) scale(1.02)" />
+          <use href="#fold2" fill="url(#rg)" stroke="var(--ra)" stroke-opacity=".6" stroke-width="2" transform="rotate(8) scale(.88)" />
+          <use href="#fold" fill="url(#rg2)" stroke="var(--ra)" stroke-opacity=".6" stroke-width="2" transform="rotate(20) scale(.74)" />
+          <use href="#fold2" fill="url(#rg)" stroke="var(--ra)" stroke-opacity=".65" stroke-width="2" transform="rotate(34) scale(.6)" />
+          <use href="#fold" fill="url(#rg2)" stroke="var(--ra)" stroke-opacity=".65" stroke-width="2" transform="rotate(48) scale(.46)" />
+          <use href="#fold2" fill="url(#rg)" stroke="var(--ra)" stroke-opacity=".7" stroke-width="2" transform="rotate(62) scale(.32)" />
+        </g>
+        <g class="rib-b" transform="translate(1220 840)">
+          <use href="#fold2" fill="url(#rg2)" stroke="var(--rb)" stroke-opacity=".6" stroke-width="2" transform="rotate(160) scale(.95)" />
+          <use href="#fold" fill="url(#rg)" stroke="var(--ra)" stroke-opacity=".5" stroke-width="2" transform="rotate(175) scale(.78)" />
+          <use href="#fold2" fill="url(#rg2)" stroke="var(--ra)" stroke-opacity=".5" stroke-width="2" transform="rotate(190) scale(.6)" />
+          <use href="#fold" fill="url(#rg)" stroke="var(--ra)" stroke-opacity=".55" stroke-width="2" transform="rotate(205) scale(.42)" />
+        </g>
+      </svg></div>
 
     <section class="w11-lock" id="w11-lock">
       <div class="w11-clock">
