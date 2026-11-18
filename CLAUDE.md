@@ -25,7 +25,7 @@ Tests run against the built `dist/`, so a stale preview server serves stale outp
 - Lock screens contain no `input`, `form` or `textarea`. The password field is visual only; typed characters are only counted (`e.key.length === 1`), never stored, logged or sent.
 - Lock screen routes make zero network requests after load. `public/_headers` gives those 10 routes `connect-src 'none'`, and `Lock.astro` repeats it in a meta CSP.
 - All scripts are external same-origin files (`vite.build.assetsInlineLimit: 0`) so the CSP can be `script-src 'self'`. Do not add inline scripts or `set:html` scripts (JSON-LD with `type="application/ld+json"` is fine).
-- No official Microsoft/Apple logos, wallpapers, sounds or fonts. All artwork is original CSS/SVG/gradients with system font stacks. Do not bundle or hotlink official images. The user's own images go through the local upload feature.
+- No official Microsoft/Apple logos, wallpapers, sounds or fonts. All artwork is original CSS/SVG/gradients with system font stacks. Do not bundle or hotlink official images. The user's own images go through the local upload feature. One deliberate exception, decided by the owner: `public/wallpapers/w11-bg.webp` is the Win11 default wallpaper (variant 0); do not add further official images.
 - Holding ESC for 2 s always exits. Never use the Keyboard Lock API. The Fullscreen API is only called from a user click.
 - Every non-fullscreen page has the exact footer text ("Not affiliated with Microsoft or Apple. Harmless browser prank and awareness tool. Nothing is installed, nothing is captured." / German equivalent). Lock screens show it on the start gate (`.gate-footer`).
 - `/about`, `/safety`, `/.well-known/security.txt` must exist (renew `Expires` yearly).

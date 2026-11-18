@@ -1,0 +1,10 @@
+import { chromium } from '@playwright/test';
+import { spawn } from 'node:child_process';
+const p = spawn('npx', ['astro', 'preview', '--port', '4321'], { shell: true, stdio: 'ignore' });
+await new Promise(r => setTimeout(r, 9000));
+const b = await chromium.launch(); const pg = await b.newPage({ viewport: { width: 1600, height: 900 } });
+await pg.goto('http://localhost:4321/win11'); await pg.click('#start').catch(()=>{});
+await pg.waitForTimeout(800);
+await pg.screenshot({ path: 'screenshots/w11-ribbon.png' });
+await b.close(); p.kill();
+process.exit(0);

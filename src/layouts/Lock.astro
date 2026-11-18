@@ -48,6 +48,7 @@ const jsonLd = {
     <meta property="og:image" content={`${site}/og${path}.png`} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {path === '/win11' && <link rel="preload" as="image" href="/wallpapers/w11-bg.webp" />}
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>

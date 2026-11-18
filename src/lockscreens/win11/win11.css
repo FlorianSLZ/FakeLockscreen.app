@@ -65,3 +65,7 @@
 .w11-ic svg { width: 21px; height: 21px; }
 
 @media (prefers-reduced-motion: reduce) { .w11-wp i { animation: none; } .w11-wp, .w11-lock, .w11-signin { transition-duration: .01ms; } }
+
+/* Default wallpaper (variant 0): the supplied Win11 image. Variants 1 and 2 keep the original SVG ribbon. */
+html:not(.has-custom-wp) .w11[data-wp='0'] .w11-wp { background: #0a1a33 url('/wallpapers/w11-bg.webp') center / cover no-repeat; }
+.w11[data-wp='0'] .w11-wp i, .w11[data-wp='0'] .w11-rib { display: none; }
