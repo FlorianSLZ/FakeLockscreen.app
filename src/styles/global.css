@@ -3,7 +3,7 @@
 
 :root {
   --fg: #121826;
-  --muted: #566074;
+  --muted: #4a5468;
   --line: color-mix(in oklab, #0b1530 13%, transparent);
   --card: color-mix(in oklab, #fff 72%, transparent);
   --radius: 18px;
