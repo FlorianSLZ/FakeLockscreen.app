@@ -5,3 +5,6 @@ test-results
 playwright-report
 screenshots
 .wrangler
+
+# SEO/GEO audit output
+GEO-ANALYSIS.md

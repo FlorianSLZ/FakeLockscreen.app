@@ -17,10 +17,27 @@ const jsonLd = {
       name: 'fakelockscreen.app',
       url: Astro.site!.origin,
       logo: Astro.site!.origin + '/favicon.svg',
+      founder: { '@id': Astro.site!.origin + '/#author' },
+      sameAs: ['https://github.com/FlorianSLZ/FakeLockscreen.app', 'https://scloud.work'],
+    },
+    {
+      '@type': 'Person',
+      '@id': Astro.site!.origin + '/#author',
+      name: 'Florian Salzmann',
+      url: 'https://scloud.work/en/about-florian/',
+      worksFor: { '@type': 'Organization', name: 'scloud', url: 'https://scloud.work' },
+      sameAs: ['https://www.linkedin.com/in/fsalzmann/', 'https://scloud.work', 'https://github.com/FlorianSLZ'],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': Astro.site!.origin + localePath('/', lang) + '#faq',
+      inLanguage: lang,
+      mainEntity: h.faq.items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
     },
     {
       '@type': 'WebSite',
       '@id': Astro.site!.origin + '/#website',
+      author: { '@id': Astro.site!.origin + '/#author' },
       publisher: { '@id': Astro.site!.origin + '/#org' },
       name: 'fakelockscreen.app',
       url: Astro.site!.origin,
@@ -78,7 +95,12 @@ const jsonLd = {
           <p class="era-year">{e.year}</p>
           <h2 id={`${e.id}-h`}>{e.name}</h2>
           <p class="era-tag">{h.tagline[e.id]}</p>
-          <p class="fact"><strong>{h.funFact}</strong>{h.fact[e.id]}</p>
+          <p class="fact">
+            <strong>{h.funFact}</strong>{h.fact[e.id]}
+            <span class="fact-src">
+              {h.factSrc[e.id].map((x) => <a href={x.url} target="_blank" rel="noopener">{x.label}<span aria-hidden="true"> ↗</span></a>)}
+            </span>
+          </p>
           {e.ready ? (
             <a class="btn" href={localePath(`/${e.id}`, lang)}>{h.launch} {e.name} →</a>
           ) : (
@@ -98,8 +120,42 @@ const jsonLd = {
         <a class="btn" href={localePath('/awareness', lang)}>{h.awareness.cta}</a>
       </div>
     </section>
+
+    <section class="faq" id="faq" aria-labelledby="faq-h">
+      <div class="faq-inner">
+        <h2 id="faq-h">{h.faq.h2}</h2>
+        {h.faq.items.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+        <p class="faq-more"><a href={localePath('/safety', lang)}>{h.faq.more} →</a></p>
+        <p class="byline">
+          {h.by.from} <a href="https://scloud.work" target="_blank" rel="noopener">{h.by.site}</a> {h.by.by}
+          <a href="https://scloud.work/en/about-florian/" target="_blank" rel="noopener">{h.by.name}</a>
+          · <a href="https://www.linkedin.com/in/fsalzmann/" target="_blank" rel="noopener me">{h.by.linkedin}</a>
+        </p>
+      </div>
+    </section>
   </main>
 </Base>
+
+<style is:global>
+  .fact-src { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: .78rem; }
+  .fact-src a { color: var(--muted); text-underline-offset: 3px; }
+  .fact-src a:hover { color: var(--fg); }
+  .faq { padding: 100px max(16px, 5vw) 70px; scroll-snap-align: start; }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq h2 { margin: 0 0 22px; font-size: clamp(1.7rem, 4vw, 2.6rem); line-height: 1.12; letter-spacing: -.02em; }
+  .faq details { border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; background: var(--card); }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p { color: var(--muted); margin: 10px 0 0; }
+  .faq-more { margin: 18px 0 0; }
+  .faq-more a { color: var(--era-accent); }
+  .byline { margin: 34px 0 0; color: var(--muted); font-size: .9rem; }
+  .byline a { color: var(--fg); text-underline-offset: 3px; }
+</style>
 
 <script>
   // Era tint + rail: which section is on screen decides the colour of the whole page.
