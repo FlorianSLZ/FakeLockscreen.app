@@ -20,6 +20,7 @@
 
 .w7-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 6vh; }
 .w7-tile {
+  overflow: hidden;
   display: grid; place-items: center; width: 128px; height: 128px; font-size: 4.2rem; border-radius: 8px;
   background: linear-gradient(145deg, #eef7ff, #86bde8); border: 5px solid rgba(255, 255, 255, .6);
   box-shadow: 0 0 0 1px rgba(0, 40, 80, .55), 0 12px 30px rgba(0, 0, 0, .45), inset 0 0 18px rgba(255, 255, 255, .6);

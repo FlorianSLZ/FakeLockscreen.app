@@ -48,6 +48,7 @@
 .xp-user:hover, .xp-user:focus-visible, .xp-user.open { background: rgba(0, 38, 140, .32); }
 .xp-user:focus-visible { outline: 2px dashed #fff; outline-offset: 2px; }
 .xp-tile {
+  overflow: hidden;
   display: grid; place-items: center; width: 88px; height: 88px; font-size: 3rem; flex: none;
   border-radius: 8px; border: 3px solid #e8eefc;
   background: linear-gradient(145deg, #fdf4d3, #f2b84c 60%, #e48a1f);

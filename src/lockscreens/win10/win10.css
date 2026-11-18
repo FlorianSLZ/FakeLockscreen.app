@@ -26,7 +26,7 @@
 /* Sign-in */
 .w10-blur { backdrop-filter: blur(34px) brightness(.72) saturate(1.2); background: rgba(0, 0, 0, .12); }
 .w10-card { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 8vh; }
-.w10-avatar { display: grid; place-items: center; width: 190px; height: 190px; font-size: 6.4rem; border-radius: 50%; background: rgba(255, 255, 255, .22); box-shadow: 0 6px 24px rgba(0, 0, 0, .3); }
+.w10-avatar { overflow: hidden; display: grid; place-items: center; width: 190px; height: 190px; font-size: 6.4rem; border-radius: 50%; background: rgba(255, 255, 255, .22); box-shadow: 0 6px 24px rgba(0, 0, 0, .3); }
 .w10-name { margin: 22px 0 20px; font-size: 2.1rem; font-weight: 300; }
 .w10-login, .w10-msg { min-height: 100px; display: flex; flex-direction: column; align-items: center; }
 .w10-pw {

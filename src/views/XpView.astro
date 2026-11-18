@@ -1,4 +1,5 @@
 ---
+import { avatars } from '../lockscreens/core/avatars';
 import Lock from '../layouts/Lock.astro';
 import '../lockscreens/xp/xp.css';
 import { t, type Lang } from '../i18n/strings';
@@ -28,7 +29,7 @@ const description =
       <div class="xp-divider" aria-hidden="true"></div>
       <section class="xp-right">
         <button type="button" class="xp-user" id="xp-user" aria-expanded="false">
-          <span class="xp-tile" id="xp-avatar" aria-hidden="true">🙂</span>
+          <span class="xp-tile" id="xp-avatar" aria-hidden="true"><Fragment set:html={avatars.xp} /></span>
           <span class="xp-userbody">
             <span class="xp-name" id="xp-name">User</span>
             <span class="xp-pw" id="xp-pw" hidden>
@@ -68,6 +69,8 @@ const description =
 <script>
   import { createLock } from '../lockscreens/core/engine';
   import { t } from '../i18n/strings';
+  import { applyAvatar } from '../lockscreens/core/avatars';
+  import { defaults } from '../lib/config-codec';
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const user = $<HTMLButtonElement>('xp-user');
@@ -112,7 +115,7 @@ const description =
     onStart: () => {
       const cfg = lock.cfg;
       $('xp-name').textContent = cfg.name;
-      $('xp-avatar').textContent = cfg.avatar;
+      applyAvatar($('xp-avatar'), cfg.avatar, defaults.avatar);
       pw.hidden = true;
       user.classList.remove('open');
       user.setAttribute('aria-expanded', 'false');

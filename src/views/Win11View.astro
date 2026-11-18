@@ -1,4 +1,5 @@
 ---
+import { avatars } from '../lockscreens/core/avatars';
 import Lock from '../layouts/Lock.astro';
 import '../lockscreens/win11/win11.css';
 import { icons } from '../lockscreens/core/icons';
@@ -51,7 +52,7 @@ const seo = t(lang).lockSeo.win11;
     </section>
 
     <section class="w11-signin" aria-label={s.signIn}>
-      <div class="w11-avatar" id="w11-avatar" aria-hidden="true">🙂</div>
+      <div class="w11-avatar" id="w11-avatar" aria-hidden="true"><Fragment set:html={avatars.win11} /></div>
       <div class="w11-name" id="w11-name">User</div>
       <div class="w11-login" id="w11-login">
         <div class="w11-pw" id="w11-pwbox">
@@ -80,6 +81,8 @@ const seo = t(lang).lockSeo.win11;
 <script>
   import { createLock, createMessage, startClock, toast } from '../lockscreens/core/engine';
   import { t } from '../i18n/strings';
+  import { applyAvatar } from '../lockscreens/core/avatars';
+  import { defaults } from '../lib/config-codec';
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const root = $('w11');
@@ -101,7 +104,7 @@ const seo = t(lang).lockSeo.win11;
     },
     onStart: () => {
       $('w11-name').textContent = lock.cfg.name;
-      $('w11-avatar').textContent = lock.cfg.avatar;
+      applyAvatar($('w11-avatar'), lock.cfg.avatar, defaults.avatar);
       root.dataset.wp = String(lock.cfg.wallpaper);
       root.dataset.state = 'lock';
       signedIn = false;

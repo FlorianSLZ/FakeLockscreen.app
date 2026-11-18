@@ -1,4 +1,5 @@
 ---
+import { avatars } from '../lockscreens/core/avatars';
 import Lock from '../layouts/Lock.astro';
 import '../lockscreens/win10/win10.css';
 import { icons } from '../lockscreens/core/icons';
@@ -15,7 +16,7 @@ const seo = t(lang).lockSeo.win10;
       <div class="w10-wp"></div>
       <div class="w10-blur"></div>
       <div class="w10-card">
-        <div class="w10-avatar" id="w10-avatar" aria-hidden="true">🙂</div>
+        <div class="w10-avatar" id="w10-avatar" aria-hidden="true"><Fragment set:html={avatars.win10} /></div>
         <div class="w10-name" id="w10-name">User</div>
         <div class="w10-login" id="w10-login">
           <div class="w10-pw" id="w10-pwbox">
@@ -51,6 +52,8 @@ const seo = t(lang).lockSeo.win10;
 <script>
   import { createLock, createMessage, startClock, toast } from '../lockscreens/core/engine';
   import { t } from '../i18n/strings';
+  import { applyAvatar } from '../lockscreens/core/avatars';
+  import { defaults } from '../lib/config-codec';
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const root = $('w10');
@@ -72,7 +75,7 @@ const seo = t(lang).lockSeo.win10;
     },
     onStart: () => {
       $('w10-name').textContent = lock.cfg.name;
-      $('w10-avatar').textContent = lock.cfg.avatar;
+      applyAvatar($('w10-avatar'), lock.cfg.avatar, defaults.avatar);
       root.dataset.wp = String(lock.cfg.wallpaper);
       root.dataset.state = 'lock';
       signedIn = false;

@@ -1,4 +1,5 @@
 ---
+import { avatars } from '../lockscreens/core/avatars';
 import Lock from '../layouts/Lock.astro';
 import '../lockscreens/win7/win7.css';
 import { icons } from '../lockscreens/core/icons';
@@ -13,7 +14,7 @@ const seo = t(lang).lockSeo.win7;
   <div class="w7" id="w7" data-wp="0">
     <div class="w7-bg" aria-hidden="true"><i class="r1"></i><i class="r2"></i><i class="r3"></i></div>
     <main class="w7-center">
-      <div class="w7-tile" id="w7-avatar" aria-hidden="true">🙂</div>
+      <div class="w7-tile" id="w7-avatar" aria-hidden="true"><Fragment set:html={avatars.win7} /></div>
       <div class="w7-name" id="w7-name">User</div>
       <div class="w7-login" id="w7-login">
         <div class="w7-pw" id="w7-pwbox">
@@ -35,6 +36,8 @@ const seo = t(lang).lockSeo.win7;
 <script>
   import { createLock, createMessage, toast } from '../lockscreens/core/engine';
   import { t } from '../i18n/strings';
+  import { applyAvatar } from '../lockscreens/core/avatars';
+  import { defaults } from '../lib/config-codec';
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const root = $('w7');
@@ -54,7 +57,7 @@ const seo = t(lang).lockSeo.win7;
     },
     onStart: () => {
       $('w7-name').textContent = lock.cfg.name;
-      $('w7-avatar').textContent = lock.cfg.avatar;
+      applyAvatar($('w7-avatar'), lock.cfg.avatar, defaults.avatar);
       root.dataset.wp = String(lock.cfg.wallpaper);
       msg.reset();
       login.hidden = false;

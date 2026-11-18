@@ -1,4 +1,5 @@
 ---
+import { avatars } from '../lockscreens/core/avatars';
 import Lock from '../layouts/Lock.astro';
 import '../lockscreens/macos/macos.css';
 import { t, type Lang } from '../i18n/strings';
@@ -19,7 +20,7 @@ const seo = t(lang).lockSeo.macos;
     </div>
 
     <main class="mac-user">
-      <div class="mac-avatar" id="mac-avatar" aria-hidden="true">🙂</div>
+      <div class="mac-avatar" id="mac-avatar" aria-hidden="true"><Fragment set:html={avatars.macos} /></div>
       <div class="mac-name" id="mac-name">User</div>
       <div class="mac-pill" id="mac-pill">
         <span class="mac-ph" aria-hidden="true">{s.enterPassword}</span>
@@ -39,6 +40,8 @@ const seo = t(lang).lockSeo.macos;
 <script>
   import { createLock, startClock, toast } from '../lockscreens/core/engine';
   import { t } from '../i18n/strings';
+  import { applyAvatar } from '../lockscreens/core/avatars';
+  import { defaults } from '../lib/config-codec';
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const root = $('mac');
@@ -60,7 +63,7 @@ const seo = t(lang).lockSeo.macos;
     },
     onStart: () => {
       $('mac-name').textContent = lock.cfg.name;
-      $('mac-avatar').textContent = lock.cfg.avatar;
+      applyAvatar($('mac-avatar'), lock.cfg.avatar, defaults.avatar);
       root.dataset.wp = String(lock.cfg.wallpaper);
       pill.classList.remove('shake');
       lock.setInputActive(true);
