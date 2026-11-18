@@ -86,15 +86,6 @@ a { color: inherit; }
 .scroll-cue::after { content: ''; display: block; width: 1px; height: 24px; margin: 8px auto 0; background: linear-gradient(var(--muted), transparent); animation: cue 1.8s ease-in-out infinite; }
 @keyframes cue { 0%, 100% { opacity: .3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(5px); } }
 
-/* Quick launch row */
-.quick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-top: 18px; }
-.quick-label { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
-.quick-btn { display: inline-flex; align-items: center; gap: 10px; padding: 9px 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: .92rem; color: var(--fg); border: 1px solid var(--line); background: #fff; transition: transform .18s ease, border-color .18s ease; }
-.quick-btn:hover { transform: translateY(-2px); border-color: var(--era-accent); }
-.quick-btn b { font-weight: 600; color: var(--era-accent); }
-.quick-btn i { width: 24px; height: 17px; border-radius: 4px; flex: none; }
-.q-win { background: linear-gradient(135deg, #3b9cff, #1a56d6); }
-.q-mac { background: linear-gradient(135deg, #ff9db0, #8a6bff); }
 
 /* Floating screens */
 .floaters { position: absolute; inset: 0; z-index: 1; list-style: none; margin: 0; padding: 0; }

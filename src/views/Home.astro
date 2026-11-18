@@ -78,11 +78,6 @@ const jsonLd = {
           <a class="btn" href="#xp">{h.start}</a>
           <a class="btn ghost" href={localePath('/awareness', lang)}>{h.forIt}</a>
         </div>
-        <div class="quick" role="group" aria-label={h.quick}>
-          <span class="quick-label">{h.quick}</span>
-          <a class="quick-btn" href={localePath('/win11', lang)} data-quick="win11"><i class="q-win" aria-hidden="true"></i>Windows 11<b aria-hidden="true">→</b></a>
-          <a class="quick-btn" href={localePath('/macos', lang)} data-quick="macos"><i class="q-mac" aria-hidden="true"></i>macOS<b aria-hidden="true">→</b></a>
-        </div>
       </div>
       <ul class="floaters">
         {eras.map((e, i) => (

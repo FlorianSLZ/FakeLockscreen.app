@@ -144,13 +144,13 @@ test('language switch links to the matching page', async ({ page }) => {
   await expect(page).toHaveURL(/\/safety$/);
 });
 
-test('hero has quick launch buttons for the latest Windows and macOS screens', async ({ page }) => {
+test('hero floating screens link to every lock screen', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('[data-quick=win11]')).toHaveAttribute('href', '/win11');
-  await expect(page.locator('[data-quick=macos]')).toHaveAttribute('href', '/macos');
+  await expect(page.locator('.floater a[href$="/win11"]')).toHaveAttribute('href', '/win11');
+  await expect(page.locator('.floater a[href$="/macos"]')).toHaveAttribute('href', '/macos');
   await page.goto('/de');
-  await expect(page.locator('[data-quick=win11]')).toHaveAttribute('href', '/de/win11');
-  await expect(page.locator('[data-quick=macos]')).toHaveAttribute('href', '/de/macos');
+  await expect(page.locator('.floater a[href$="/win11"]')).toHaveAttribute('href', '/de/win11');
+  await expect(page.locator('.floater a[href$="/macos"]')).toHaveAttribute('href', '/de/macos');
 });
 
 test.describe('SEO: crawlable gate text and 404 hygiene', () => {
