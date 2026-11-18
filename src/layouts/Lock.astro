@@ -8,8 +8,9 @@ interface Props {
   description: string;
   path: string; // language-neutral path, e.g. /xp
   theme?: string; // gate accent
+  wallpaper?: boolean; // offer "use my own wallpaper" (false for XP)
 }
-const { lang, title, description, path } = Astro.props;
+const { lang, title, description, path, wallpaper = true } = Astro.props;
 const s = t(lang);
 const site = Astro.site!.origin;
 const other: Lang = lang === 'en' ? 'de' : 'en';
@@ -61,6 +62,14 @@ const jsonLd = {
           <li>{s.lock.safe3}</li>
         </ul>
         <button id="start" class="gate-start" type="button">{s.lock.start}</button>
+        {wallpaper && (
+          <div class="gate-wp">
+            <button id="wp-btn" class="gate-link" type="button">{s.lock.wpButton}</button>
+            <button id="wp-clear" class="gate-link" type="button" hidden>{s.lock.wpClear}</button>
+            <p id="wp-status" class="gate-wp-status" role="status"></p>
+            <p class="gate-wp-note">{s.lock.wpNote}</p>
+          </div>
+        )}
         <p class="gate-mobile">{s.lock.mobile}</p>
         <a class="gate-back" href={localePath('/', lang) + '#' + path.slice(1)}>{s.lock.back}</a>
       </div>
@@ -79,3 +88,8 @@ const jsonLd = {
     </div>
   </body>
 </html>
+
+<script>
+  import { initWallpaper } from '../lockscreens/core/wallpaper';
+  initWallpaper();
+</script>

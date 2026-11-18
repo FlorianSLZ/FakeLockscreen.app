@@ -80,6 +80,15 @@ a { color: inherit; }
 .scroll-cue::after { content: ''; display: block; width: 1px; height: 28px; margin: 8px auto 0; background: linear-gradient(var(--muted), transparent); animation: cue 1.8s ease-in-out infinite; }
 @keyframes cue { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
+/* Quick launch row in the hero */
+.quick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-top: 22px; }
+.quick-label { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.quick-btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--fg); border: 1px solid var(--line); background: var(--card); transition: transform .18s ease, border-color .18s ease, background-color .18s ease; }
+.quick-btn:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--era-accent) 70%, transparent); background: color-mix(in oklab, var(--era-accent) 14%, transparent); }
+.quick-btn b { font-weight: 600; color: var(--era-accent); }
+.quick-btn i { width: 26px; height: 18px; border-radius: 4px; flex: none; }
+.q-win { background: radial-gradient(14px 12px at 30% 90%, #3f7dff, transparent 70%), radial-gradient(14px 12px at 70% 90%, #be50ff, transparent 70%), radial-gradient(12px 10px at 50% 95%, #28dce6, transparent 70%), #0a0f2e; }
+.q-mac { background: linear-gradient(135deg, #ff9a6b, #c24b8f 55%, #3b2a7a); }
 /* Time tunnel behind the hero */
 .tunnel { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; pointer-events: none; }
 .tunnel i { position: absolute; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--era-accent) 40%, transparent); width: 20vmin; height: 20vmin; opacity: 0; animation: tunnel 7s linear infinite; }
