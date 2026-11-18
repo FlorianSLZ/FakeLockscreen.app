@@ -69,9 +69,9 @@ const jsonLd = {
 
   <main id="main">
     <section class="hero" id="top" data-era-section="hero">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       <div class="hero-inner">
-        <p class="eyebrow">{h.eyebrow}</p>
+        <p class="lock-date" aria-hidden="true" data-clock="date">Monday</p>
+        <strong class="lock-time" aria-hidden="true" data-clock="time">12:00</strong>
         <h1>{h.h1a} <span>{h.h1b}</span></h1>
         <p class="lead">{h.lead}</p>
         <div class="hero-cta">
@@ -83,8 +83,17 @@ const jsonLd = {
           <a class="quick-btn" href={localePath('/win11', lang)} data-quick="win11"><i class="q-win" aria-hidden="true"></i>Windows 11<b aria-hidden="true">→</b></a>
           <a class="quick-btn" href={localePath('/macos', lang)} data-quick="macos"><i class="q-mac" aria-hidden="true"></i>macOS<b aria-hidden="true">→</b></a>
         </div>
-        <output class="odo" aria-hidden="true"><b id="odo">2026</b></output>
       </div>
+      <ul class="floaters">
+        {eras.map((e, i) => (
+          <li class="floater" data-depth={[18, 26, 14, 22, 30][i]} style={`--i:${i};--d:${[6.5, 7.5, 6, 8, 7][i]}s;--r:${[-6, 4, 5, -4, 3][i]}deg;${['--x:3%;--y:17%', '--x:12%;--yb:9%', '--xr:4%;--y:13%', '--xr:17%;--yb:6%', '--xr:6%;--y:44%'][i]}`}>
+            <a href={localePath(`/${e.id}`, lang)} aria-label={`${h.launch} ${e.name}`}>
+              <span class="shot"><Mini os={e.id} user={h.user} /></span>
+              <span class="tag"><span>{e.name}</span><em>{e.year}</em><b aria-hidden="true">→</b></span>
+            </a>
+          </li>
+        ))}
+      </ul>
       <div class="scroll-cue">{h.scroll}</div>
     </section>
 
@@ -180,16 +189,20 @@ const jsonLd = {
   tick();
   setInterval(tick, 1000);
 
-  // Hero "time machine" odometer: counts back to 2001 once.
-  const odo = document.getElementById('odo');
-  if (odo && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const from = 2026, to = 2001, dur = 1600, t0 = performance.now();
-    const step = (now: number) => {
-      const p = Math.min(1, (now - t0) / dur);
-      const eased = 1 - Math.pow(1 - p, 3);
-      odo.textContent = String(Math.round(from - (from - to) * eased));
-      if (p < 1) requestAnimationFrame(step);
-    };
-    setTimeout(() => requestAnimationFrame(step), 500);
+  // Hero: floating screens drift slightly against the pointer.
+  const floaters = [...document.querySelectorAll<HTMLElement>('.floater')];
+  const hero = document.getElementById('top');
+  if (hero && floaters.length && matchMedia('(hover: hover) and (min-width: 961px) and (prefers-reduced-motion: no-preference)').matches) {
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      for (const f of floaters) {
+        const d = Number(f.dataset.depth);
+        f.style.setProperty('--px', `${(-nx * d).toFixed(1)}px`);
+        f.style.setProperty('--py', `${(-ny * d).toFixed(1)}px`);
+      }
+    });
+    hero.addEventListener('pointerleave', () => floaters.forEach((f) => { f.style.setProperty('--px', '0px'); f.style.setProperty('--py', '0px'); }));
   }
 </script>

@@ -132,7 +132,7 @@ test.describe('mobile', () => {
 test('reduced motion switches animations off on the landing page', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  const name = await page.locator('.tunnel i').first().evaluate((e) => getComputedStyle(e).animationName);
+  const name = await page.locator('.floater a').first().evaluate((e) => getComputedStyle(e).animationName);
   expect(name).toBe('none');
 });
 

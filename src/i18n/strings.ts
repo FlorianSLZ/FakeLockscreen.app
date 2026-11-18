@@ -29,7 +29,6 @@ const en = {
     title: 'Fake Lock Screen: Windows XP, 7, 10, 11 and macOS in your browser',
     description:
       'Fake lock screen prank in your browser: Windows XP, 7, 10, 11 and macOS. Harmless, nothing installed. Includes a lock-your-PC awareness mode for IT teams.',
-    eyebrow: 'A tiny museum of lock screens',
     h1a: 'Fake lock screen:',
     h1b: 'travel through history.',
     lead: 'Five eras, rebuilt from scratch in your browser. Pick a year, press Launch, and watch your colleagues reach for the mouse.',
@@ -167,7 +166,6 @@ const de: Dict = {
     title: 'Fake Lock Screen: Windows XP, 7, 10, 11 und macOS im Browser',
     description:
       'Fake-Sperrbildschirm als Streich im Browser: Windows XP, 7, 10, 11 und macOS. Harmlos, nichts wird installiert. Mit Awareness-Modus für IT-Teams.',
-    eyebrow: 'Ein kleines Museum der Sperrbildschirme',
     h1a: 'Fake Lock Screen:',
     h1b: 'Reise durch die Geschichte.',
     lead: 'Fünf Epochen, komplett neu im Browser gebaut. Jahr wählen, auf Starten drücken und zuschauen, wie Kolleginnen und Kollegen zur Maus greifen.',
