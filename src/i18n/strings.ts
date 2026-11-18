@@ -80,6 +80,7 @@ const en = {
     wpError: 'That file could not be used. Please choose a JPG, PNG, WebP or AVIF image up to 25 MB.',
     fakeText: 'This button is just for show. Hold ESC to leave.',
     powerText: 'Nothing is installed here, so there is nothing to turn off. Hold ESC to leave.',
+    realLock: 'To lock a real computer, press Win + L on Windows or Ctrl + Cmd + Q on a Mac.',
   },
   reveal: {
     headline: 'This PC was left unlocked.',
@@ -119,6 +120,13 @@ const en = {
     win10: { title: 'Windows 10 Lock Screen Prank: Fake Lock Screen in your Browser', description: 'Big clock, slide-up sign-in and a fake password box. A Windows 10 style fake lock screen for your browser. Harmless, nothing stored or sent.' },
     win11: { title: 'Windows 11 Fake Lock Screen: Prank your Colleagues in the Browser', description: 'Centred clock, blurred Fluent style sign-in and a fake password field. A Windows 11 style fake lock screen prank. Nothing stored or sent.' },
     macos: { title: 'Mac Lock Screen Prank: macOS Fake Lock Screen in your Browser', description: 'Calm blurred wallpaper, big clock and an elegant password pill. A macOS style fake lock screen prank. Shake included, nothing stored.' },
+  },
+  lockGate: {
+    xp: { h1: 'Windows XP lock screen in your browser', about: 'An original recreation of the blue Windows XP welcome screen: the user tile, the "To begin, click your user name" prompt and the classic password box. It runs fullscreen, so you can leave it on a colleague\'s screen as a harmless prank. Type anything and press Enter and it answers with the familiar "password is incorrect" balloon.' },
+    win7: { h1: 'Windows 7 lock screen in your browser', about: 'An original recreation of the Windows 7 logon screen: aurora glow, glass user tile and the little arrow button. It runs fullscreen in your browser as a harmless prank. Type anything, press Enter and the "user name or password is incorrect" message appears. Nothing you type is stored.' },
+    win10: { h1: 'Windows 10 lock screen in your browser', about: 'An original recreation of the Windows 10 lock screen: a big clock, a slide-up sign-in and a fake password box. Press any key to wake it, type something and press Enter. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
+    win11: { h1: 'Windows 11 fake lock screen in your browser', about: 'An original recreation of the Windows 11 lock screen: a centred clock, a blurred Fluent style sign-in and a fake password field. Use the default look or your own wallpaper, which never leaves your computer. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
+    macos: { h1: 'macOS fake lock screen in your browser', about: 'An original recreation of the Mac lock screen: a calm blurred wallpaper, a big clock and an elegant password pill that shakes on a wrong try. Use the default look or your own wallpaper, which never leaves your computer. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
   },
 };
 
@@ -186,6 +194,7 @@ const de: Dict = {
     wpError: 'Diese Datei konnte nicht verwendet werden. Bitte wählen Sie ein Bild als JPG, PNG, WebP oder AVIF bis 25 MB.',
     fakeText: 'Dieser Button ist nur Dekoration. ESC gedrückt halten zum Beenden.',
     powerText: 'Hier ist nichts installiert, also gibt es nichts auszuschalten. ESC gedrückt halten zum Beenden.',
+    realLock: 'Um einen echten Computer zu sperren, drücken Sie Win + L unter Windows oder Ctrl + Cmd + Q auf dem Mac.',
   },
   reveal: {
     headline: 'Dieser PC wurde nicht gesperrt.',
@@ -225,6 +234,13 @@ const de: Dict = {
     win10: { title: 'Windows-10-Sperrbildschirm Streich: Fake Lock Screen im Browser', description: 'Grosse Uhr, Anmeldung per Wischen und ein falsches Passwortfeld. Ein Fake-Sperrbildschirm im Windows-10-Stil für den Browser. Harmlos, nichts wird gespeichert.' },
     win11: { title: 'Windows-11-Fake-Sperrbildschirm: Kolleginnen und Kollegen necken', description: 'Zentrierte Uhr, unscharfe Fluent-Anmeldung und ein falsches Passwortfeld. Ein Windows-11-Fake-Sperrbildschirm als Streich. Nichts wird gespeichert oder gesendet.' },
     macos: { title: 'Mac-Sperrbildschirm Streich: macOS Fake Lock Screen im Browser', description: 'Ruhiger, unscharfer Hintergrund, grosse Uhr und eine elegante Passwort-Pille. Ein macOS-Fake-Sperrbildschirm als Streich. Wackeln inklusive, nichts wird gespeichert.' },
+  },
+  lockGate: {
+    xp: { h1: 'Windows-XP-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des blauen Windows-XP-Willkommensbildschirms: mit Benutzerkachel, der Aufforderung "Klicken Sie auf Ihren Benutzernamen" und dem klassischen Passwortfeld. Er läuft im Vollbild, damit Sie ihn als harmlosen Streich auf dem Bildschirm einer Kollegin oder eines Kollegen stehen lassen können. Tippen Sie etwas und drücken Sie Enter, dann erscheint die bekannte Meldung "Das Kennwort ist falsch".' },
+    win7: { h1: 'Windows-7-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-7-Anmeldebildschirms: Aurora-Leuchten, Glaskachel und der kleine Pfeil-Button. Er läuft im Vollbild als harmloser Streich. Tippen Sie etwas, drücken Sie Enter, und die Meldung "Der Benutzername oder das Kennwort ist falsch" erscheint. Nichts, was Sie tippen, wird gespeichert.' },
+    win10: { h1: 'Windows-10-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-10-Sperrbildschirms: grosse Uhr, Anmeldung per Wischen und ein falsches Passwortfeld. Eine beliebige Taste weckt ihn auf, dann tippen Sie etwas und drücken Enter. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },
+    win11: { h1: 'Windows-11-Fake-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-11-Sperrbildschirms: zentrierte Uhr, unscharfe Fluent-Anmeldung und ein falsches Passwortfeld. Verwenden Sie den Standardlook oder Ihr eigenes Hintergrundbild, das Ihren Computer nie verlässt. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },
+    macos: { h1: 'macOS-Fake-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Mac-Sperrbildschirms: ruhiger, unscharfer Hintergrund, grosse Uhr und eine elegante Passwort-Pille, die bei falscher Eingabe wackelt. Verwenden Sie den Standardlook oder Ihr eigenes Hintergrundbild, das Ihren Computer nie verlässt. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },
   },
 };
 

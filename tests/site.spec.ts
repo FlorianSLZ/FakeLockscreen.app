@@ -144,3 +144,29 @@ test('hero has quick launch buttons for the latest Windows and macOS screens', a
   await expect(page.locator('[data-quick=win11]')).toHaveAttribute('href', '/de/win11');
   await expect(page.locator('[data-quick=macos]')).toHaveAttribute('href', '/de/macos');
 });
+
+test.describe('SEO: crawlable gate text and 404 hygiene', () => {
+  const names: Record<string, RegExp> = { xp: /XP/, win7: /Windows(-| )7/, win10: /Windows(-| )10/, win11: /Windows(-| )11/, macos: /macOS/ };
+  for (const slug of lockSlugs) {
+    for (const prefix of ['', '/de']) {
+      test(`${prefix}/${slug}: H1 names the OS and the gate has real text`, async ({ page }) => {
+        await page.goto(`${prefix}/${slug}`);
+        await expect(page.locator('h1')).toHaveText(names[slug]);
+        const words = (await page.locator('#gate').innerText()).split(/\s+/).length;
+        expect(words).toBeGreaterThan(100);
+      });
+    }
+  }
+  test('404 has no canonical or hreflang and is noindex', async ({ request }) => {
+    const res = await request.get('/definitely-not-a-page');
+    expect(res.status()).toBe(404);
+    const html = await res.text();
+    expect(html).not.toContain('rel="canonical"');
+    expect(html).not.toContain('rel="alternate"');
+    expect(html).toContain('noindex');
+  });
+  test('sitemap has lastmod and llms.txt exists', async ({ request }) => {
+    expect(await (await request.get('/sitemap-0.xml')).text()).toContain('<lastmod>');
+    expect((await request.get('/llms.txt')).status()).toBe(200);
+  });
+});

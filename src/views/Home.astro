@@ -12,7 +12,16 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@type': 'Organization',
+      '@id': Astro.site!.origin + '/#org',
+      name: 'fakelockscreen.app',
+      url: Astro.site!.origin,
+      logo: Astro.site!.origin + '/favicon.svg',
+    },
+    {
       '@type': 'WebSite',
+      '@id': Astro.site!.origin + '/#website',
+      publisher: { '@id': Astro.site!.origin + '/#org' },
       name: 'fakelockscreen.app',
       url: Astro.site!.origin,
       inLanguage: ['en', 'de'],
@@ -20,6 +29,9 @@ const jsonLd = {
     },
     {
       '@type': 'WebApplication',
+      '@id': Astro.site!.origin + '/#app',
+      isPartOf: { '@id': Astro.site!.origin + '/#website' },
+      publisher: { '@id': Astro.site!.origin + '/#org' },
       name: 'Fake Lock Screen',
       applicationCategory: 'EntertainmentApplication',
       operatingSystem: 'Any (modern web browser)',

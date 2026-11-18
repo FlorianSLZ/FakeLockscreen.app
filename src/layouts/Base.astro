@@ -9,12 +9,22 @@ interface Props {
   path: string; // language-neutral path
   ogSlug?: string;
   era?: string;
+  index?: boolean; // false: no canonical/hreflang/breadcrumb (e.g. 404)
 }
-const { lang, title, description, path, ogSlug = 'home', era } = Astro.props;
+const { lang, title, description, path, ogSlug = 'home', era, index = true } = Astro.props;
 const s = t(lang);
 const site = Astro.site!.origin;
 const other: Lang = lang === 'en' ? 'de' : 'en';
 const url = site + localePath(path, lang);
+const crumbName = title.split(/[:|]/)[0].trim();
+const breadcrumb = path !== '/' ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'fakelockscreen.app', item: site + localePath('/', lang) },
+    { '@type': 'ListItem', position: 2, name: crumbName, item: url },
+  ],
+} : null;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -24,17 +34,24 @@ const url = site + localePath(path, lang);
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="color-scheme" content="dark light" />
-    <link rel="canonical" href={url} />
-    <link rel="alternate" hreflang="en" href={site + localePath(path, 'en')} />
-    <link rel="alternate" hreflang="de" href={site + localePath(path, 'de')} />
-    <link rel="alternate" hreflang="x-default" href={site + localePath(path, 'en')} />
+    {index && <link rel="canonical" href={url} />}
+    {index && <link rel="alternate" hreflang="en" href={site + localePath(path, 'en')} />}
+    {index && <link rel="alternate" hreflang="de" href={site + localePath(path, 'de')} />}
+    {index && <link rel="alternate" hreflang="x-default" href={site + localePath(path, 'en')} />}
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'de' ? 'de_CH' : 'en_US'} />
     <meta property="og:site_name" content="fakelockscreen.app" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
     <meta property="og:image" content={`${site}/og/${ogSlug}.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={crumbName} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {index && breadcrumb && <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <slot name="head" />
   </head>

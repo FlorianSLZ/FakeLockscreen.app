@@ -1,0 +1,20 @@
+# fakelockscreen.app
+
+> Harmless browser prank and awareness tool. Original recreations of the Windows XP, 7, 10, 11 and macOS lock screens that run fullscreen in the browser. Nothing is installed, nothing typed is stored or sent, and holding ESC for 2 seconds always exits. Not affiliated with Microsoft or Apple.
+
+## Lock screens
+- [Windows XP](https://fakelockscreen.app/xp)
+- [Windows 7](https://fakelockscreen.app/win7)
+- [Windows 10](https://fakelockscreen.app/win10)
+- [Windows 11](https://fakelockscreen.app/win11)
+- [macOS](https://fakelockscreen.app/macos)
+
+## For IT teams
+- [Awareness mode](https://fakelockscreen.app/awareness): build a shareable link that teaches Win + L (Windows) and Ctrl + Cmd + Q (Mac). The config lives in the URL hash and never reaches a server.
+- [Printable desk card](https://fakelockscreen.app/awareness/card)
+
+## About
+- [About](https://fakelockscreen.app/about)
+- [Safety and privacy](https://fakelockscreen.app/safety)
+
+German versions live under https://fakelockscreen.app/de

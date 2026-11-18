@@ -8,6 +8,6 @@ export default defineConfig({
   // Every script is an external same-origin file, so the CSP can say script-src 'self' without exceptions.
   vite: { build: { assetsInlineLimit: 0 } },
   integrations: [
-    sitemap({ i18n: { defaultLocale: 'en', locales: { en: 'en', de: 'de' } } }),
+    sitemap({ lastmod: new Date(), i18n: { defaultLocale: 'en', locales: { en: 'en', de: 'de' } } }),
   ],
 });
