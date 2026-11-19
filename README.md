@@ -1,16 +1,21 @@
 <div align="center">
 
-# 🔒 fakelockscreen.app
+<img src="docs/screenshots/hero.png" alt="Windows XP, 7, 11, macOS and Windows 10 lock screens recreated in the browser" width="100%">
 
-**Windows XP, 7, 10, 11 and macOS lock screens in your browser.**
+# fakelockscreen.app
+
+**Windows XP, 7, 10, 11 and macOS lock screens in your browser.**<br>
 A harmless prank, and a friendly nudge to press <kbd>Win</kbd> + <kbd>L</kbd>.
 
-[**fakelockscreen.app**](https://fakelockscreen.app) · [Deutsch](https://fakelockscreen.app/de) · [For IT teams](https://fakelockscreen.app/awareness) · [Safety](https://fakelockscreen.app/safety)
+[**Live site**](https://fakelockscreen.app) · [Deutsch](https://fakelockscreen.app/de) · [For IT teams](https://fakelockscreen.app/awareness) · [Safety](https://fakelockscreen.app/safety)
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Astro](https://img.shields.io/badge/Astro-static-ff5d01.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-vanilla%20engine-3178c6.svg)
+![Tests](https://img.shields.io/badge/tests-Playwright%20%2B%20axe-45ba4b.svg)
 ![No tracking](https://img.shields.io/badge/tracking-none-brightgreen.svg)
 ![Network on lock screens](https://img.shields.io/badge/lock%20screen%20network-zero%20requests-brightgreen.svg)
+![Cloudflare Workers](https://img.shields.io/badge/hosted%20on-Cloudflare%20Workers-f38020.svg)
 
 </div>
 
@@ -23,16 +28,49 @@ Open a page, click start, and your browser turns into a convincing lock screen: 
 - **Your own wallpaper:** pick a local image. It is resized in the browser and never uploaded.
 - **English and German**, no accounts, no cookies, no analytics.
 
+## See it in action
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/win11.png" alt="Windows 11 lock screen"><br><sub><b>Windows 11</b> lock screen</sub></td>
+    <td width="50%"><img src="docs/screenshots/macos.png" alt="macOS lock screen"><br><sub><b>macOS</b> lock screen</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/win10.png" alt="Windows 10 lock screen"><br><sub><b>Windows 10</b> lock screen</sub></td>
+    <td width="50%"><img src="docs/screenshots/win7.png" alt="Windows 7 lock screen"><br><sub><b>Windows 7</b> logon screen</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/xp.png" alt="Windows XP welcome screen"><br><sub><b>Windows XP</b> welcome screen</sub></td>
+    <td width="50%"><img src="docs/screenshots/win11-signin.png" alt="Windows 11 sign-in with a typed password"><br><sub>Sign-in with a (never stored) password</sub></td>
+  </tr>
+</table>
+
+### Awareness mode for IT teams
+
+1. **Build a link** with your company name, message and policy URL.
+2. **Share it** in chat or mail, or leave the printable desk card on an unlocked PC.
+3. **After a few wrong passwords** the screen reveals itself and teaches the real shortcut.
+
+<table>
+  <tr>
+    <td width="45%"><img src="docs/screenshots/awareness-config.png" alt="Awareness link configurator"><br><sub>Configurator with live link</sub></td>
+    <td width="30%"><img src="docs/screenshots/awareness-reveal.png" alt="Branded reveal explaining Win + L"><br><sub>The friendly reveal</sub></td>
+    <td width="25%"><img src="docs/screenshots/desk-card.png" alt="Printable A4 desk card"><br><sub>Printable A4 desk card</sub></td>
+  </tr>
+</table>
+
 ## Safety by design
 
-These rules are enforced by the test suite, so they cannot quietly break:
+These rules are enforced by the test suite, so they cannot quietly break.
 
-- Lock screens contain no `input`, `form` or `textarea`. The password field is visual only. Typed characters are counted, never stored, logged or sent.
-- Lock screens make **zero network requests** after loading. The CSP sets `connect-src 'none'` for them.
-- All scripts are external same-origin files, so the CSP is `script-src 'self'`. No inline scripts.
-- Holding <kbd>Esc</kbd> for 2 seconds always exits. The Keyboard Lock API is never used, and fullscreen only starts from a click.
-- Awareness config lives in the URL hash (`#c=...`), which browsers never send to a server. It is sanitised and rendered with `textContent` only.
-- No official Microsoft or Apple logos, sounds or fonts. See [Not affiliated](#not-affiliated).
+| Rule | How |
+|---|---|
+| No form fields | Lock screens contain no `input`, `form` or `textarea`. Typed characters are counted, never stored, logged or sent. |
+| Zero network | No requests after load. CSP `connect-src 'none'` on all lock screen routes. |
+| Strict CSP | All scripts are external same-origin files (`script-src 'self'`), no inline scripts. |
+| Always escapable | Holding <kbd>Esc</kbd> for 2 s exits. No Keyboard Lock API, fullscreen only after a click. |
+| Private config | Awareness settings live in the URL hash (`#c=...`), which browsers never send to a server. They are sanitised and rendered with `textContent` only. |
+| Honest labelling | Every page states that it is a harmless prank and affiliated with nobody. See [Not affiliated](#not-affiliated). |
 
 Found a vulnerability? Please use a [private security advisory](https://github.com/FlorianSLZ/FakeLockscreen.app/security/advisories/new).
 
@@ -55,6 +93,7 @@ npm run dev        # http://localhost:4321
 | `npm run build` | Static build into `dist/` |
 | `npm run preview` | Serve `dist/` |
 | `npm test` | Build, preview and run all Playwright tests |
+| `npm run shots` | Regenerate the README screenshots in `docs/screenshots/` (needs `npm run preview` running) |
 | `npm run og` | Regenerate `public/og/*.png` (needs a local font such as Segoe UI) |
 
 Tests run against the built `dist/`, so run `npm test` rather than testing against a stale preview server.
@@ -82,7 +121,7 @@ Issues and pull requests are welcome. Please keep the safety rules above intact 
 
 ## Not affiliated
 
-Not affiliated with Microsoft or Apple. Windows and Microsoft are trademarks of the Microsoft group of companies; macOS and Apple are trademarks of Apple Inc. All artwork is original, with one exception: the Windows 11 default wallpaper variant (`public/wallpapers/w11-bg.webp`) is not covered by the MIT license.
+Not affiliated with Microsoft or Apple. Windows and Microsoft are trademarks of the Microsoft group of companies; macOS and Apple are trademarks of Apple Inc. The lock screens are drawn from scratch in CSS and SVG, but they use some third-party assets, such as the Windows logos and the default wallpapers in `public/wallpapers/`. Those belong to their owners and are **not** covered by the MIT license.
 
 ## License and author
 

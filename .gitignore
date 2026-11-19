@@ -3,8 +3,14 @@ dist
 .astro
 test-results
 playwright-report
-screenshots
+/screenshots
 .wrangler
 
 # SEO/GEO audit output
 GEO-ANALYSIS.md
+
+# Local AI tooling and ad-hoc screenshot helpers
+CLAUDE.md
+.claude/
+scripts/shot-*.mjs
+scripts/shots*.mjs
