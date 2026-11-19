@@ -69,3 +69,8 @@
 /* Default wallpaper (variant 0): the supplied Win11 image. Variants 1 and 2 keep the original SVG ribbon. */
 html:not(.has-custom-wp) .w11[data-wp='0'] .w11-wp { background: #0a1a33 url('/wallpapers/w11-bg.webp') center / cover no-repeat; }
 .w11[data-wp='0'] .w11-wp i, .w11[data-wp='0'] .w11-rib { display: none; }
+
+/* Variants 1 and 2: further wallpapers supplied by the owner. */
+html:not(.has-custom-wp) .w11[data-wp='1'] .w11-wp { background: #2a1a1a url('/wallpapers/w11-bg-1.webp') center / cover no-repeat; }
+html:not(.has-custom-wp) .w11[data-wp='2'] .w11-wp { background: #120d18 url('/wallpapers/w11-bg-2.webp') center / cover no-repeat; }
+.w11[data-wp='1'] .w11-wp i, .w11[data-wp='1'] .w11-rib, .w11[data-wp='2'] .w11-wp i, .w11[data-wp='2'] .w11-rib { display: none; }

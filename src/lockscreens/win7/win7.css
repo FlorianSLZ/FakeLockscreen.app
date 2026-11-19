@@ -58,3 +58,9 @@
 .w7-off i { font-style: normal; font-size: .7rem; }
 
 @media (prefers-reduced-motion: reduce) { .w7-bg i, .w7, .w7-tile { animation: none; } }
+
+/* Variant 0: layered aurora streaks drawn with stacked, rotated gradient bands. */
+html:not(.has-custom-wp) .w7[data-wp='0'] .w7-bg::before, html:not(.has-custom-wp) .w7[data-wp='0'] .w7-bg::after { content: ''; position: absolute; border-radius: 50%; }
+html:not(.has-custom-wp) .w7[data-wp='0'] .w7-bg::before { left: -20%; bottom: -55%; width: 120%; height: 90%; border: 0; background: radial-gradient(closest-side, rgba(90, 255, 220, .55), transparent 70%); transform: rotate(-12deg) scaleY(.5); filter: blur(24px); }
+html:not(.has-custom-wp) .w7[data-wp='0'] .w7-bg::after { left: 10%; bottom: -40%; width: 110%; height: 55%; background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent 70%); transform: rotate(-8deg) scaleY(.22); filter: blur(10px); }
+.w7[data-wp='0'] { --base1: #031c3d; --base2: #0e6f9a; }

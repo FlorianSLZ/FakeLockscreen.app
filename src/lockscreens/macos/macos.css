@@ -43,3 +43,10 @@
 .mac-sys:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 8px; }
 
 @media (prefers-reduced-motion: reduce) { .mac, .mac-wp i { animation: none; } .mac-pill.shake { animation-duration: .01ms; } }
+
+/* Variant 0: macOS Sonoma wallpaper (supplied by the owner). */
+html:not(.has-custom-wp) .mac[data-wp='0'] .mac-wp { inset: 0; background: #2a2466 url('/wallpapers/mac-bg.webp') center / cover no-repeat; }
+html:not(.has-custom-wp) .mac[data-wp='0'] .mac-wp i { display: none; }
+html:not(.has-custom-wp) .mac[data-wp='1'] .mac-wp { inset: 0; background: #0d1a10 url('/wallpapers/mac-bg-1.webp') center / cover no-repeat; }
+html:not(.has-custom-wp) .mac[data-wp='2'] .mac-wp { inset: 0; background: #2a2466 url('/wallpapers/mac-bg-2.webp') center / cover no-repeat; }
+html:not(.has-custom-wp) .mac[data-wp='1'] .mac-wp i, html:not(.has-custom-wp) .mac[data-wp='2'] .mac-wp i { display: none; }

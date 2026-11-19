@@ -56,7 +56,9 @@ const jsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    {path === '/win11' && <link rel="preload" as="image" href="/wallpapers/w11-bg.webp" />}
+    {path === '/win11' && ['w11-bg', 'w11-bg-1', 'w11-bg-2'].map((n) => <link rel="preload" as="image" href={`/wallpapers/${n}.webp`} />)}
+    {path === '/win10' && <link rel="preload" as="image" href="/wallpapers/w10-bg.webp" />}
+    {path === '/macos' && ['mac-bg', 'mac-bg-1', 'mac-bg-2'].map((n) => <link rel="preload" as="image" href={`/wallpapers/${n}.webp`} />)}
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>

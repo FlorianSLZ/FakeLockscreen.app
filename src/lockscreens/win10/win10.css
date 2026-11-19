@@ -52,3 +52,7 @@
 .w10-ic svg { width: 22px; height: 22px; }
 
 @media (prefers-reduced-motion: reduce) { .w10-face { transition-duration: .01ms; } .w10-hint { animation: none; opacity: .85; } }
+
+/* Variant 0: Windows 10 hero wallpaper (supplied by the owner). */
+html:not(.has-custom-wp) .w10[data-wp='0'] .w10-wp { box-shadow: none; background: #04153a url('/wallpapers/w10-bg.webp') center / cover no-repeat; }
+html:not(.has-custom-wp) .w10[data-wp='0'] .w10-wp::before, html:not(.has-custom-wp) .w10[data-wp='0'] .w10-wp::after { display: none; }
