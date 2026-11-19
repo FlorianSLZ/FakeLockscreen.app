@@ -7,7 +7,7 @@
 **Windows XP, 7, 10, 11 and macOS lock screens in your browser.**<br>
 A harmless prank, and a friendly nudge to press <kbd>Win</kbd> + <kbd>L</kbd>.
 
-[**Live site**](https://fakelockscreen.app) · [Deutsch](https://fakelockscreen.app/de) · [For IT teams](https://fakelockscreen.app/awareness) · [Safety](https://fakelockscreen.app/safety)
+[![Open fakelockscreen.app](https://img.shields.io/badge/Open%20fakelockscreen.app-%E2%86%92-0a66ff?style=for-the-badge&logo=googlechrome&logoColor=white)](https://fakelockscreen.app)
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Astro](https://img.shields.io/badge/Astro-static-ff5d01.svg)
@@ -70,7 +70,7 @@ These rules are enforced by the test suite, so they cannot quietly break.
 | Strict CSP | All scripts are external same-origin files (`script-src 'self'`), no inline scripts. |
 | Always escapable | Holding <kbd>Esc</kbd> for 2 s exits. No Keyboard Lock API, fullscreen only after a click. |
 | Private config | Awareness settings live in the URL hash (`#c=...`), which browsers never send to a server. They are sanitised and rendered with `textContent` only. |
-| Honest labelling | Every page states that it is a harmless prank and affiliated with nobody. See [Not affiliated](#not-affiliated). |
+| Honest labelling | Every page states that it is a harmless prank and affiliated with nobody. |
 
 Found a vulnerability? Please use a [private security advisory](https://github.com/FlorianSLZ/FakeLockscreen.app/security/advisories/new).
 
@@ -78,53 +78,10 @@ Found a vulnerability? Please use a [private security advisory](https://github.c
 
 [Astro](https://astro.build) with TypeScript, static output, no UI framework. The lock screen engine is vanilla TypeScript. Tests run on [Playwright](https://playwright.dev) with axe for accessibility. Hosted as static assets on Cloudflare Workers.
 
-## Getting started
-
-```bash
-git clone https://github.com/FlorianSLZ/FakeLockscreen.app.git
-cd FakeLockscreen.app
-npm install
-npm run dev        # http://localhost:4321
-```
-
-| Command | What it does |
-|---|---|
-| `npm run dev` | Dev server on localhost:4321 |
-| `npm run build` | Static build into `dist/` |
-| `npm run preview` | Serve `dist/` |
-| `npm test` | Build, preview and run all Playwright tests |
-| `npm run shots` | Regenerate the README screenshots in `docs/screenshots/` (needs `npm run preview` running) |
-| `npm run og` | Regenerate `public/og/*.png` (needs a local font such as Segoe UI) |
-
-Tests run against the built `dist/`, so run `npm test` rather than testing against a stale preview server.
-
-## Project structure
-
-```
-src/pages/            thin routes (EN at /, DE under /de)
-src/views/            one view per page, takes a `lang` prop
-src/layouts/          Base (normal pages) and Lock (fullscreen lock screens with start gate)
-src/lockscreens/      core engine + one folder of CSS per OS
-src/i18n/             all copy (EN, DE with Swiss spelling)
-src/lib/config-codec  share link config, stored in the URL hash only
-public/_headers       CSP and security headers
-public/.well-known/   security.txt
-```
-
-## Deploy
-
-Deployed with Cloudflare Workers Builds on every push to `main`: build command `npm run build`, deploy command `npx wrangler deploy`, worker name `fakelockscreen-app` (see `wrangler.jsonc`). After deploying, `curl -I https://fakelockscreen.app/xp` must show `connect-src 'none'` in the CSP header.
-
-## Contributing
-
-Issues and pull requests are welcome. Please keep the safety rules above intact and run `npm test` before opening a PR. New pages need both an English and a German route, strings, an OG image and (for lock screens) a `_headers` block. German text uses Swiss spelling and never the sharp s.
-
-## Not affiliated
-
-Not affiliated with Microsoft or Apple. Windows and Microsoft are trademarks of the Microsoft group of companies; macOS and Apple are trademarks of Apple Inc. The lock screens are drawn from scratch in CSS and SVG, but they use some third-party assets, such as the Windows logos and the default wallpapers in `public/wallpapers/`. Those belong to their owners and are **not** covered by the MIT license.
-
 ## License and author
 
 Code is released under the [MIT License](LICENSE).
 
 Made by [Florian Salzmann](https://www.linkedin.com/in/fsalzmann/) · [scloud.work](https://scloud.work)
+
+<sub><i>Not affiliated with Microsoft or Apple. Windows and Microsoft are trademarks of the Microsoft group of companies; macOS and Apple are trademarks of Apple Inc. The lock screens are drawn from scratch in CSS and SVG, but they use some third-party assets, such as the Windows logos and the default wallpapers in <code>public/wallpapers/</code>. Those belong to their owners and are not covered by the MIT license.</i></sub>
