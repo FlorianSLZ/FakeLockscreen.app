@@ -32,8 +32,12 @@
 /* Left: brand + instruction */
 .xp-left { justify-self: end; padding-right: 6vw; text-align: right; }
 .xp-brand { font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 1; letter-spacing: -.03em; font-style: italic; font-weight: 700; text-shadow: 0 3px 8px rgba(0,20,100,.35); }
-.xp-brand-fake { font-weight: 400; opacity: .9; }
-.xp-brand sup { font-size: .38em; margin-left: .15em; color: var(--xp-orange); font-style: italic; vertical-align: top; position: relative; top: .35em; }
+.xp-brand { display: inline-flex; align-items: center; justify-content: flex-end; }
+.xp-brand-text { display: inline-flex; flex-direction: column; align-items: flex-start; text-align: left; }
+.xp-brand-ms { font-size: .3em; font-style: normal; font-weight: 400; letter-spacing: 0; line-height: 1; margin: 0 0 .1em .12em; }
+.xp-brand-ms sup { font-size: .5em; vertical-align: top; position: relative; top: -.1em; }
+.xp-brand-win { font-size: .85em; line-height: .95; }
+.xp-brand-win sup { font-size: .42em; margin-left: .08em; color: var(--xp-orange); font-style: italic; vertical-align: top; position: relative; top: .1em; }
 .xp-begin { margin: 1.4rem 0 0; font-size: clamp(1.1rem, 1.8vw, 1.6rem); font-style: italic; text-shadow: 0 1px 3px rgba(0,20,100,.5); }
 
 .xp-divider { height: 62%; width: 2px; background: linear-gradient(180deg, transparent, rgba(255,255,255,.75) 50%, transparent); }

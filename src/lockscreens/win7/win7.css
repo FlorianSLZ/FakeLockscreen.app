@@ -54,6 +54,11 @@
 .w7-ease, .w7-off { position: absolute; bottom: 5vh; }
 .w7-ease { left: 4vw; display: grid; place-items: center; width: 42px; height: 38px; }
 .w7-ease svg { width: 22px; height: 22px; }
+.w7-brand { position: absolute; left: calc(4vw + 62px); bottom: 5vh; height: 38px; display: flex; align-items: center; gap: 8px; color: #fff; text-shadow: 0 1px 4px rgba(0, 20, 50, .6); pointer-events: none; }
+.w7-flag { width: 30px; height: 30px; filter: drop-shadow(0 1px 3px rgba(0, 20, 50, .5)); }
+.w7-brand-text { display: flex; align-items: baseline; gap: 5px; line-height: 1; }
+.w7-brand-win { font-size: 1.5rem; font-weight: 300; letter-spacing: -.01em; }
+.w7-brand-7 { font-size: 1.9rem; font-weight: 600; }
 .w7-off { right: 4vw; display: flex; align-items: center; gap: 10px; height: 38px; padding: 0 12px 0 16px; background: linear-gradient(180deg, rgba(255, 200, 190, .5), rgba(210, 60, 40, .55) 48%, rgba(160, 20, 10, .7) 52%, rgba(240, 110, 80, .6)); }
 .w7-off i { font-style: normal; font-size: .7rem; }
 

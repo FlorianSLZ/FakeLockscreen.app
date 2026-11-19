@@ -28,6 +28,15 @@ const seo = t(lang).lockSeo.win7;
         <button type="button" class="w7-btn" id="w7-ok">{s.ok}</button>
       </div>
     </main>
+    <div class="w7-brand" aria-hidden="true">
+      <svg class="w7-flag" viewBox="0 0 64 64" focusable="false">
+        <path d="M6 12 C16 6 24 18 31 12 L28 30 C21 36 13 24 3 30 Z" fill="#f25022" />
+        <path d="M35 11 C42 16 50 6 60 11 L56 29 C48 34 41 26 32 30 Z" fill="#7fba00" />
+        <path d="M3 34 C13 28 21 40 28 34 L25 52 C18 58 10 46 0 52 Z" fill="#00a4ef" />
+        <path d="M32 34 C41 30 48 38 57 33 L53 51 C45 56 38 48 29 52 Z" fill="#ffb900" />
+      </svg>
+      <span class="w7-brand-text"><span class="w7-brand-win">Windows</span><span class="w7-brand-7">7</span></span>
+    </div>
     <button type="button" class="w7-btn w7-ease" id="w7-ease" aria-label={s.ease} title={s.ease} set:html={icons.ease}></button>
     <button type="button" class="w7-btn w7-off" id="w7-off"><span>{s.shutdown}</span><i aria-hidden="true">▸</i></button>
   </div>
