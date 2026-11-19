@@ -51,7 +51,7 @@ a { color: inherit; }
 @media (max-width: 640px) { .site-header nav a:not(.lang) { display: none; } }
 
 /* Footer */
-.site-footer { padding: 44px max(16px, 3vw) 30px; color: var(--muted); font-size: .86rem; border-top: 1px solid var(--line); background: color-mix(in oklab, #fff 55%, transparent); }
+.site-footer { scroll-snap-align: end; padding: 44px max(16px, 3vw) 30px; color: var(--muted); font-size: .86rem; border-top: 1px solid var(--line); background: color-mix(in oklab, #fff 55%, transparent); }
 .site-footer > * { max-width: 1080px; margin-inline: auto; }
 .site-footer a { text-underline-offset: 3px; }
 .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 32px 48px; text-align: left; }
