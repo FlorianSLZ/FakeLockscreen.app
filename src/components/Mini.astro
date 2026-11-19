@@ -1,6 +1,6 @@
 ---
 // Pure CSS/HTML miniature of each lock screen, sized with container query units.
-// Original artwork only. Clock text is filled in by the page script (data-clock).
+// CSS/SVG miniatures; Win10/11/macOS use the local wallpaper files. Clock text is filled in by the page script (data-clock).
 interface Props { os: 'xp' | 'win7' | 'win10' | 'win11' | 'macos'; user: string }
 const { os, user } = Astro.props;
 ---
@@ -8,7 +8,7 @@ const { os, user } = Astro.props;
   {os === 'xp' && (
     <>
       <div class="x-top"></div>
-      <div class="x-left"><div class="x-brand"><span>fake</span><b>lock</b><sup>xp</sup></div><p>To begin, click your user name</p></div>
+      <div class="x-left"><div class="x-brand"><svg class="flag" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 12 C16 6 24 18 31 12 L28 30 C21 36 13 24 3 30 Z" fill="#f25022"/><path d="M35 11 C42 16 50 6 60 11 L56 29 C48 34 41 26 32 30 Z" fill="#7fba00"/><path d="M3 34 C13 28 21 40 28 34 L25 52 C18 58 10 46 0 52 Z" fill="#00a4ef"/><path d="M32 34 C41 30 48 38 57 33 L53 51 C45 56 38 48 29 52 Z" fill="#ffb900"/></svg><span class="x-bt"><small>Microsoft<sup>®</sup></small><b>Windows<sup>xp</sup></b></span></div><p>To begin, click your user name</p></div>
       <div class="x-div"></div>
       <div class="x-user"><div class="x-tile">🙂</div><div class="x-name">{user}</div></div>
       <div class="x-bot"><span class="x-off">⏻</span><i></i></div>
@@ -20,18 +20,17 @@ const { os, user } = Astro.props;
       <div class="w7-tile">🙂</div>
       <div class="w7-name">{user}</div>
       <div class="w7-pw"><span></span><em>➜</em></div>
-      <div class="w7-b w7-l">◔</div><div class="w7-b w7-r">⏻</div>
+      <div class="w7-b w7-l">◔</div><div class="w7-brand"><svg class="flag" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 12 C16 6 24 18 31 12 L28 30 C21 36 13 24 3 30 Z" fill="#f25022"/><path d="M35 11 C42 16 50 6 60 11 L56 29 C48 34 41 26 32 30 Z" fill="#7fba00"/><path d="M3 34 C13 28 21 40 28 34 L25 52 C18 58 10 46 0 52 Z" fill="#00a4ef"/><path d="M32 34 C41 30 48 38 57 33 L53 51 C45 56 38 48 29 52 Z" fill="#ffb900"/></svg><span>Windows</span><b>7</b></div><div class="w7-b w7-r">⏻</div>
     </>
   )}
   {os === 'win10' && (
     <>
-      <div class="w10-hill a"></div><div class="w10-hill b"></div><div class="w10-hill c"></div>
+      
       <div class="w10-clock"><strong data-clock="time">12:00</strong><span data-clock="date">Monday</span></div>
     </>
   )}
   {os === 'win11' && (
     <>
-      <div class="w11-bloom"></div>
       <div class="w11-clock"><span data-clock="date">Monday</span><strong data-clock="time">12:00</strong></div>
       <div class="w11-dock"><i></i><i></i><i></i></div>
     </>
@@ -54,8 +53,9 @@ const { os, user } = Astro.props;
   .x-bot { inset: auto 0 0 0; height: 11cqw; background: #003399; border-top: .5cqw solid #f99b3d; display: flex; align-items: center; padding: 0 3cqw; }
   .x-off { display: grid; place-items: center; width: 4.4cqw; height: 4.4cqw; border-radius: .8cqw; background: #d8431f; border: .2cqw solid #fff; font-size: 2.4cqw; }
   .x-left { right: 54cqw; top: 22cqw; text-align: right; width: 42cqw; }
-  .x-brand { font-size: 8cqw; font-style: italic; font-weight: 700; line-height: 1; letter-spacing: -.3cqw; }
-  .x-brand span { font-weight: 400; } .x-brand sup { font-size: 3cqw; color: #f99b3d; }
+    .x-brand { display: flex; align-items: center; justify-content: flex-end; gap: 1.6cqw; line-height: 1; }
+  .x-brand .flag { width: 8cqw; height: 8cqw; }
+  .x-bt { display: grid; text-align: left; } .x-bt small { font-size: 2.6cqw; font-weight: 600; } .x-bt b { font-size: 6.4cqw; font-style: italic; letter-spacing: -.3cqw; } .x-bt sup { font-size: 2.6cqw; color: #f99b3d; font-style: normal; }
   .x-left p { margin: 2cqw 0 0; font-size: 2.4cqw; font-style: italic; }
   .x-div { left: 50cqw; top: 16cqw; width: .25cqw; height: 40cqw; background: linear-gradient(transparent, #fff, transparent); }
   .x-user { left: 54cqw; top: 26cqw; display: flex; align-items: center; gap: 2.4cqw; }
@@ -71,29 +71,24 @@ const { os, user } = Astro.props;
   .w7-pw { left: 50%; top: 45cqw; transform: translateX(-50%); display: flex; width: 26cqw; height: 4.2cqw; border-radius: .6cqw; overflow: hidden; border: .2cqw solid rgba(255,255,255,.7); }
   .w7-pw span { flex: 1; background: #fff; } .w7-pw em { display: grid; place-items: center; width: 4.6cqw; font-style: normal; font-size: 2.4cqw; background: linear-gradient(#4fb7ea, #1c7bc0); }
   .w7-b { bottom: 3cqw; display: grid; place-items: center; width: 4.6cqw; height: 4.6cqw; border-radius: .8cqw; font-size: 2.6cqw; background: linear-gradient(#5fa4d8, #1e5f9b); border: .2cqw solid rgba(255,255,255,.7); }
+  .w7-brand { left: 10.5cqw; bottom: 3cqw; height: 4.6cqw; display: flex; align-items: center; gap: 1cqw; font-size: 3.4cqw; line-height: 1; } .w7-brand .flag { width: 4.4cqw; height: 4.4cqw; } .w7-brand span { font-weight: 300; } .w7-brand b { font-size: 4.2cqw; font-weight: 600; }
   .w7-l { left: 3cqw; } .w7-r { right: 3cqw; background: linear-gradient(#e8785a, #b52c10); }
 
   /* Win 10 */
-  .mini-win10 { background: linear-gradient(180deg, #15233d 0%, #3d6089 55%, #cf8d6a 78%, #223043 78.1%); }
-  .w10-hill { bottom: 0; background: #142234; }
-  .w10-hill.a { left: -10cqw; width: 70cqw; height: 34cqw; clip-path: polygon(0 100%, 42% 12%, 100% 100%); background: #1c2e45; }
-  .w10-hill.b { right: -8cqw; width: 75cqw; height: 40cqw; clip-path: polygon(0 100%, 55% 0, 100% 100%); background: #16273b; }
-  .w10-hill.c { left: 0; right: 0; height: 14cqw; background: #0e1927; }
+  .mini-win10 { background: #15233d url('/wallpapers/w10-bg.webp') center / cover; }
   .w10-clock { left: 5cqw; bottom: 5cqw; display: grid; line-height: 1; text-shadow: 0 .2cqw 1.4cqw rgba(0,0,0,.45); }
   .w10-clock strong { font-size: 13cqw; font-weight: 300; letter-spacing: -.4cqw; }
   .w10-clock span { margin-top: 1cqw; font-size: 3.6cqw; }
 
   /* Win 11 */
-  .mini-win11 { background: #0b0f2e; }
-  .w11-bloom { inset: 0; background: radial-gradient(38cqw 38cqw at 50% 70%, #3f7dff, transparent 70%), radial-gradient(30cqw 30cqw at 66% 74%, rgba(190,80,255,.7), transparent 70%), radial-gradient(28cqw 28cqw at 34% 78%, rgba(40,220,230,.55), transparent 70%); filter: blur(1cqw); animation: bloom 8s ease-in-out infinite alternate; }
-  @keyframes bloom { to { transform: scale(1.12) rotate(4deg); } }
+  .mini-win11 { background: #0b0f2e url('/wallpapers/w11-bg.webp') center / cover; }
   .w11-clock { left: 0; right: 0; top: 8cqw; text-align: center; display: grid; gap: 1cqw; text-shadow: 0 .2cqw 1.6cqw rgba(0,0,0,.4); }
   .w11-clock strong { font-size: 15cqw; font-weight: 600; letter-spacing: -.5cqw; line-height: 1; order: 1; }
   .w11-clock span { font-size: 3.4cqw; order: 2; }
   .w11-dock { right: 3cqw; bottom: 3cqw; display: flex; gap: 1.4cqw; } .w11-dock i { width: 3.4cqw; height: 3.4cqw; border-radius: 50%; background: rgba(255,255,255,.7); }
 
   /* macOS */
-  .mini-macos { background: linear-gradient(160deg, #ff9a6b, #c24b8f 45%, #3b2a7a); }
+  .mini-macos { background: #3b2a7a url('/wallpapers/mac-bg.webp') center / cover; }
   .mini-macos::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(.5cqw); background: rgba(0,0,0,.08); }
   .m-clock { left: 0; right: 0; top: 7cqw; text-align: center; display: grid; line-height: 1; text-shadow: 0 .2cqw 1.4cqw rgba(0,0,0,.3); }
   .m-clock span { font-size: 3.4cqw; font-weight: 600; } .m-clock strong { font-size: 14cqw; font-weight: 700; margin-top: .8cqw; letter-spacing: -.3cqw; }
@@ -102,5 +97,5 @@ const { os, user } = Astro.props;
   .m-name { font-size: 3cqw; font-weight: 600; }
   .m-pill { width: 22cqw; padding: 1.2cqw 2cqw; border-radius: 99cqw; font-size: 2.2cqw; background: rgba(255,255,255,.28); border: .2cqw solid rgba(255,255,255,.4); text-align: center; }
 
-  @media (prefers-reduced-motion: reduce) { .w7-glow, .w11-bloom { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .w7-glow { animation: none; } }
 </style>
