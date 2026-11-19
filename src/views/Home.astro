@@ -174,7 +174,11 @@ const jsonLd = {
 
   // Live clocks in the mini previews (locale-aware, no network).
   const lang = document.documentElement.lang === 'de' ? 'de-CH' : navigator.language;
-  const tf = new Intl.DateTimeFormat(lang, { hour: '2-digit', minute: '2-digit' });
+  // Time follows the device's own format (12h/24h), not the page language.
+  const tfBase = new Intl.DateTimeFormat(navigator.language || undefined, { hour: 'numeric', minute: '2-digit' });
+  const tf = {
+    format: (d: Date) => tfBase.formatToParts(d).filter((p) => p.type !== 'dayPeriod').map((p) => p.value).join('').trim(),
+  };
   const df = new Intl.DateTimeFormat(lang, { weekday: 'long', day: 'numeric', month: 'long' });
   const tick = () => {
     const d = new Date();

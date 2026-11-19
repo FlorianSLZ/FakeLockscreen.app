@@ -189,7 +189,8 @@ export interface ClockParts {
 /** Live clock helper. Locale-aware, no network. */
 export function startClock(cfg: LockConfig, onTick: (p: ClockParts) => void) {
   const loc = cfg.lang === 'de' ? 'de-CH' : navigator.language || 'en';
-  const timeFmt = new Intl.DateTimeFormat(loc, { hour: 'numeric', minute: '2-digit' });
+  // The time follows the device's own format (12h/24h), not the page language.
+  const timeFmt = new Intl.DateTimeFormat(navigator.language || undefined, { hour: 'numeric', minute: '2-digit' });
   // Big clocks never show AM/PM, like the real thing.
   const time = { format: (d: Date) => timeFmt.formatToParts(d).filter((p) => p.type !== 'dayPeriod').map((p) => p.value).join('').trim() };
   const date = new Intl.DateTimeFormat(loc, { weekday: 'long', day: 'numeric', month: 'long' });
