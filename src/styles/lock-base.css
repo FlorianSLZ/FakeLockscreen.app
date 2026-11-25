@@ -92,6 +92,10 @@ body.running { overflow: hidden; user-select: none; -webkit-user-select: none; }
 
 .has-custom-wp .w7-bg { inset: 0; background: var(--custom-wp) center / cover no-repeat; }
 .has-custom-wp .w7-bg i { display: none; }
+.has-custom-wp .wv-bg { inset: 0; background: var(--custom-wp) center / cover no-repeat; }
+.has-custom-wp .wv-bg i { display: none; }
+html.has-custom-wp .mt .w8-wp { background: var(--custom-wp) center / cover no-repeat; }
+html.has-custom-wp .mt .w8-wp::before, html.has-custom-wp .mt .w8-wp::after { display: none; }
 .has-custom-wp .w10-wp { background: var(--custom-wp) center / cover no-repeat; box-shadow: none; }
 .has-custom-wp .w10-wp::before, .has-custom-wp .w10-wp::after { display: none; }
 .has-custom-wp .w11-wp { inset: 0; background: var(--custom-wp) center / cover no-repeat; }

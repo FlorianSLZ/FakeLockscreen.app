@@ -24,6 +24,9 @@ function makePng(w: number, h: number) {
 const PNG = makePng(64, 40);
 
 const screens = [
+  { slug: 'winvista', el: '.wv-bg', wake: false },
+  { slug: 'win8', el: '.w8-wp', wake: true },
+  { slug: 'win81', el: '.w8-wp', wake: true },
   { slug: 'win7', el: '.w7-bg', wake: false },
   { slug: 'win10', el: '.w10-wp', wake: true },
   { slug: 'win11', el: '.w11-wp', wake: true },

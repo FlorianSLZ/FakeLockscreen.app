@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-const lockSlugs = ['xp', 'win7', 'win10', 'win11', 'macos'];
+const lockSlugs = ['xp', 'winvista', 'win7', 'win8', 'win81', 'win10', 'win11', 'macos'];
 const pages = ['/', '/about', '/safety', '/awareness', ...lockSlugs.map((s) => '/' + s)];
 const allRoutes = pages.flatMap((p) => [p, p === '/' ? '/de' : '/de' + p]);
 const FOOTER_EN = 'Not affiliated with Microsoft or Apple. Harmless browser prank and awareness tool. Nothing is installed, nothing is captured.';
@@ -154,7 +154,7 @@ test('hero floating screens link to every lock screen', async ({ page }) => {
 });
 
 test.describe('SEO: crawlable gate text and 404 hygiene', () => {
-  const names: Record<string, RegExp> = { xp: /XP/, win7: /Windows(-| )7/, win10: /Windows(-| )10/, win11: /Windows(-| )11/, macos: /macOS/ };
+  const names: Record<string, RegExp> = { xp: /XP/, winvista: /Vista/, win7: /Windows(-| )7/, win8: /Windows(-| )8(?!\.1)/, win81: /8\.1/, win10: /Windows(-| )10/, win11: /Windows(-| )11/, macos: /macOS/ };
   for (const slug of lockSlugs) {
     for (const prefix of ['', '/de']) {
       test(`${prefix}/${slug}: H1 names the OS and the gate has real text`, async ({ page }) => {

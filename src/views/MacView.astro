@@ -1,5 +1,6 @@
 ---
 import { avatars } from '../lockscreens/core/avatars';
+import { icons } from '../lockscreens/core/icons';
 import Lock from '../layouts/Lock.astro';
 import '../lockscreens/macos/macos.css';
 import { t, type Lang } from '../i18n/strings';
@@ -14,6 +15,12 @@ const seo = t(lang).lockSeo.macos;
     <div class="mac-wp" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i></div>
     <div class="mac-veil" aria-hidden="true"></div>
 
+    <div class="mac-menubar" aria-hidden="true">
+      <span class="mac-input">ABC</span>
+      <span class="mac-mi" set:html={icons.network}></span>
+      <svg class="mac-batt" viewBox="0 0 28 14" focusable="false"><rect x="1" y="1" width="22" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".6"/><rect x="3" y="3" width="17" height="8" rx="2" fill="currentColor"/><path d="M25 5v4c1-.3 1.8-1.1 1.8-2s-.8-1.7-1.8-2z" fill="currentColor" opacity=".6"/></svg>
+    </div>
+
     <div class="mac-clock">
       <div id="mac-date"></div>
       <div id="mac-time">0:00</div>
@@ -25,14 +32,15 @@ const seo = t(lang).lockSeo.macos;
       <div class="mac-pill" id="mac-pill">
         <span class="mac-ph" aria-hidden="true">{s.enterPassword}</span>
         <span class="mac-dots" id="mac-dots" aria-hidden="true"></span>
+        <span class="mac-go" aria-hidden="true" set:html={icons.arrow}></span>
       </div>
       <div class="mac-hint">{s.touch}</div>
     </main>
 
     <nav class="mac-bottom" aria-label="System">
-      <button type="button" class="mac-sys" data-kind="fake"><i>☾</i><span>{s.sleep}</span></button>
-      <button type="button" class="mac-sys" data-kind="fake"><i>↻</i><span>{s.restart}</span></button>
-      <button type="button" class="mac-sys" data-kind="power"><i>⏻</i><span>{s.shutdown}</span></button>
+      <button type="button" class="mac-sys" data-kind="fake"><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" fill="currentColor"/></svg></i><span>{s.sleep}</span></button>
+      <button type="button" class="mac-sys" data-kind="fake"><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M19 12a7 7 0 1 1-2.2-5.1M19 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>{s.restart}</span></button>
+      <button type="button" class="mac-sys" data-kind="power"><i aria-hidden="true" set:html={icons.power}></i><span>{s.shutdown}</span></button>
     </nav>
   </div>
 </Lock>

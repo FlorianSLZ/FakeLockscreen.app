@@ -22,16 +22,26 @@ const face = (cx, cy, r) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#ffc83
 
 const art = {
   home: `<rect width="${W}" height="${H}" fill="#0b0d14"/>
-    ${[['2001', 'xp'], ['2009', 'win7'], ['2015', 'win10'], ['2021', 'win11'], ['2024', 'macos']].map(([y, k], i) => {
-      const x = 735 + i * 92, top = 50 + (i % 2) * 40;
+    ${[['2001', 'xp'], ['2007', 'winvista'], ['2009', 'win7'], ['2012', 'win8'], ['2013', 'win81'], ['2015', 'win10'], ['2021', 'win11'], ['2024', 'macos']].map(([y, k], i) => {
+      const x = 722 + i * 59, top = 90 + (i % 2) * 36;
       const fill = k === 'xp' ? '<rect width="84" height="500" fill="#3f6bd8"/><rect width="84" height="60" fill="#00309c"/><rect y="450" width="84" height="60" fill="#003399"/>'
+        : k === 'winvista' ? '<rect width="84" height="500" fill="#06382c"/><circle cx="20" cy="520" r="150" fill="#46e6a0" opacity=".7"/><circle cx="100" cy="500" r="140" fill="#28aac8" opacity=".6"/>'
+        : k === 'win8' ? '<rect width="84" height="500" fill="#1d6fd1"/><circle cx="10" cy="540" r="170" fill="#5fd0ff" opacity=".8"/>'
+        : k === 'win81' ? '<rect width="84" height="500" fill="#2b7fa8"/><ellipse cx="42" cy="560" rx="120" ry="160" fill="#5fd0ff" opacity=".5"/>'
         : k === 'win7' ? '<rect width="84" height="500" fill="#0b4a78"/><circle cx="20" cy="520" r="150" fill="#2bd9c0" opacity=".8"/><circle cx="100" cy="500" r="140" fill="#4a8dff" opacity=".7"/>'
         : `<image href="${bg[k]}" x="-300" y="-60" width="1000" height="630" preserveAspectRatio="xMidYMid slice"/>`;
-      return `<g transform="translate(${x} ${top})"><clipPath id="c${i}"><rect width="84" height="500" rx="18"/></clipPath><g clip-path="url(#c${i})">${fill}</g><rect y="445" width="84" height="38" rx="19" fill="#fff" opacity=".92"/><text x="42" y="469" font-size="20" font-weight="700" fill="#0b0d14" text-anchor="middle">${y}</text></g>`;
+      return `<g transform="translate(${x} ${top}) scale(.66)"><clipPath id="c${i}"><rect width="84" height="500" rx="18"/></clipPath><g clip-path="url(#c${i})">${fill}</g><rect y="445" width="84" height="38" rx="19" fill="#fff" opacity=".92"/><text x="42" y="469" font-size="20" font-weight="700" fill="#0b0d14" text-anchor="middle">${y}</text></g>`;
     }).join('')}`,
   xp: `<rect width="${W}" height="${H}" fill="#5a7edc"/><rect width="${W}" height="135" fill="#00309c"/><rect y="133" width="${W}" height="5" fill="#f99b3d"/><rect y="${H - 80}" width="${W}" height="80" fill="#003399"/><rect y="${H - 82}" width="${W}" height="5" fill="#f99b3d"/>
     <rect x="800" y="190" width="150" height="150" rx="14" fill="#f2b84c" stroke="#e8eefc" stroke-width="6"/>${face(875, 265, 52)}<text x="975" y="288" font-size="46" font-weight="700" fill="#fff">User</text>
     <rect x="760" y="150" width="3" height="250" fill="#fff" opacity=".6"/>`,
+  winvista: `<rect width="${W}" height="${H}" fill="#06382c"/>${blob(150, 650, 330, '#46e6a0', .9)}${blob(1050, 640, 330, '#28aac8', .8)}${blob(600, 0, 260, '#cfffe8', .3)}
+    <rect x="808" y="130" width="170" height="170" rx="14" fill="#c8f5e6" stroke="#fff" stroke-opacity=".7" stroke-width="8"/>${face(893, 215, 62)}
+    <rect x="770" y="350" width="250" height="40" rx="4" fill="#fff"/><rect x="986" y="350" width="34" height="40" fill="#2fa844"/>`,
+  win8: `<rect width="${W}" height="${H}" fill="#0b3a8c"/>${blob(150, 700, 380, '#5fd0ff', .9)}${blob(1100, 0, 300, '#fff', .25)}
+    <text x="700" y="520" font-size="120" font-weight="200" fill="#fff">12:30</text>`,
+  win81: `<rect width="${W}" height="${H}" fill="#16405f"/>${blob(200, 720, 420, '#5fd0ff', .7)}${blob(1100, 60, 260, '#fff', .2)}
+    <text x="700" y="520" font-size="120" font-weight="300" fill="#fff">12:30</text>`,
   win7: `<rect width="${W}" height="${H}" fill="#0b4a78"/>${blob(150, 650, 330, '#2bd9c0', .95)}${blob(1050, 640, 330, '#4a8dff', .9)}${blob(600, 0, 260, '#bff', .35)}
     <rect x="808" y="130" width="170" height="170" rx="14" fill="#cfe8fb" stroke="#fff" stroke-opacity=".7" stroke-width="8"/>${face(893, 215, 62)}
     <rect x="770" y="350" width="250" height="40" rx="4" fill="#fff"/><rect x="986" y="350" width="34" height="40" fill="#2b8fd8"/>`,
@@ -47,8 +57,11 @@ const art = {
 };
 
 const copy = {
-  home: ['Travel through', 'lock screen history', 'XP, 7, 10, 11 and macOS in your browser'],
+  home: ['Travel through', 'lock screen history', 'XP to 11 and macOS in your browser'],
   xp: ['Windows XP', 'lock screen', 'The blue welcome screen. Fake lock screen prank.'],
+  winvista: ['Windows Vista', 'lock screen', 'Glassy Aero tile, green arrow, Aurora glow.'],
+  win8: ['Windows 8', 'lock screen', 'Huge Metro clock and a slide-up sign-in.'],
+  win81: ['Windows 8.1', 'lock screen', 'Metro refined: waves, clock and sign-in.'],
   win7: ['Windows 7', 'lock screen', 'Aurora glow and the little arrow button.'],
   win10: ['Windows 10', 'lock screen', 'Big clock, slide-up sign-in, harmless prank.'],
   win11: ['Windows 11', 'lock screen', 'Centred clock and blurred Fluent sign-in.'],

@@ -4,7 +4,7 @@
 
 # fakelockscreen.app
 
-**Windows XP, 7, 10, 11 and macOS lock screens in your browser.**<br>
+**Windows XP, Vista, 7, 8, 8.1, 10, 11 and macOS lock screens in your browser.**<br>
 A harmless prank, and a friendly nudge to press <kbd>Win</kbd> + <kbd>L</kbd>.
 
 [![Open fakelockscreen.app](https://img.shields.io/badge/Open%20fakelockscreen.app-%E2%86%92-0a66ff?style=for-the-badge&logo=googlechrome&logoColor=white)](https://fakelockscreen.app)
@@ -23,7 +23,7 @@ A harmless prank, and a friendly nudge to press <kbd>Win</kbd> + <kbd>L</kbd>.
 
 Open a page, click start, and your browser turns into a convincing lock screen: login box, clock, wallpaper, wrong-password shake and all. Leave it on a colleague's desk, or use it on purpose.
 
-- **Five lock screens:** Windows XP, 7, 10, 11 and macOS, drawn from scratch in CSS and SVG.
+- **Eight lock screens:** Windows XP, Vista, 7, 8, 8.1, 10, 11 and macOS, drawn from scratch in CSS and SVG.
 - **Awareness mode for IT teams:** build a link with your own company name, message and policy URL. After a few wrong passwords the screen reveals itself and teaches the real shortcut (<kbd>Win</kbd> + <kbd>L</kbd> or <kbd>Ctrl</kbd> + <kbd>Cmd</kbd> + <kbd>Q</kbd>). A printable A4 desk card is included.
 - **Your own wallpaper:** pick a local image. It is resized in the browser and never uploaded.
 - **English and German**, no accounts, no cookies, no analytics.
@@ -40,8 +40,16 @@ Open a page, click start, and your browser turns into a convincing lock screen: 
     <td width="50%"><img src="docs/screenshots/win7.png" alt="Windows 7 lock screen"><br><sub><b>Windows 7</b> logon screen</sub></td>
   </tr>
   <tr>
+    <td width="50%"><img src="docs/screenshots/winvista.png" alt="Windows Vista logon screen"><br><sub><b>Windows Vista</b> logon screen</sub></td>
+    <td width="50%"><img src="docs/screenshots/win8.png" alt="Windows 8 lock screen"><br><sub><b>Windows 8</b> lock screen</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/win81.png" alt="Windows 8.1 sign-in with a typed password"><br><sub><b>Windows 8.1</b> sign-in</sub></td>
     <td width="50%"><img src="docs/screenshots/xp.png" alt="Windows XP welcome screen"><br><sub><b>Windows XP</b> welcome screen</sub></td>
+  </tr>
+  <tr>
     <td width="50%"><img src="docs/screenshots/win11-signin.png" alt="Windows 11 sign-in with a typed password"><br><sub>Sign-in with a (never stored) password</sub></td>
+    <td width="50%"></td>
   </tr>
 </table>
 

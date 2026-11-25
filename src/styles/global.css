@@ -22,7 +22,10 @@ body {
   transition: --era-bg .9s ease, --era-accent .9s ease;
 }
 body[data-era='xp']    { --era-bg: #eef3ff; --era-accent: #1f5fd0; }
+body[data-era='winvista'] { --era-bg: #e9f6ee; --era-accent: #1d7a4f; }
 body[data-era='win7']  { --era-bg: #eaf8f6; --era-accent: #0b7f78; }
+body[data-era='win8']  { --era-bg: #e8f1fb; --era-accent: #1062b8; }
+body[data-era='win81'] { --era-bg: #ece9f8; --era-accent: #5a3fb0; }
 body[data-era='win10'] { --era-bg: #ecf4fd; --era-accent: #0a69c7; }
 body[data-era='win11'] { --era-bg: #f2eefd; --era-accent: #6d4ed8; }
 body[data-era='macos'] { --era-bg: #fdeff2; --era-accent: #c92c55; }

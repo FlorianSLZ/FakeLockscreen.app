@@ -1,0 +1,8 @@
+---
+import MetroLock from '../components/MetroLock.astro';
+import type { Lang } from '../i18n/strings';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<MetroLock lang={lang} os="win8" />

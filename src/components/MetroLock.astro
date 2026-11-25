@@ -1,0 +1,117 @@
+---
+// Shared markup and script for the Windows 8 and Windows 8.1 lock screens (they differ only in CSS and copy).
+import { avatars } from '../lockscreens/core/avatars';
+import Lock from '../layouts/Lock.astro';
+import '../lockscreens/metro/metro.css';
+import { icons } from '../lockscreens/core/icons';
+import { t, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang; os: 'win8' | 'win81' }
+const { lang, os } = Astro.props;
+const id = os === 'win8' ? 'w8' : 'w81';
+const s = t(lang).lockUi[os];
+const seo = t(lang).lockSeo[os];
+---
+<Lock lang={lang} title={seo.title} description={seo.description} path={`/${os}`}>
+  <div class={`mt mt-${id}`} id={id} data-id={id} data-os={os} data-wp="0" data-state="lock">
+    <section class="mt-signin">
+      <div class="mt-bg"></div>
+      <div class="mt-card">
+        <div class="mt-userrow">
+          <button type="button" class="mt-back" id={`${id}-back`} aria-label={s.back} title={s.back} set:html={icons.arrow}></button>
+          <div class="mt-avatar" id={`${id}-avatar`} aria-hidden="true"><Fragment set:html={avatars[os]} /></div>
+        </div>
+        <div class="mt-name" id={`${id}-name`}>User</div>
+        <div class="mt-login" id={`${id}-login`}>
+          <div class="mt-pw" id={`${id}-pwbox`}>
+            <span class="mt-ph" aria-hidden="true">{s.password}</span>
+            <span class="mt-dots" id={`${id}-dots`} aria-hidden="true"></span>
+            <span class="mt-go" aria-hidden="true" set:html={icons.arrow}></span>
+          </div>
+        </div>
+        <div class="mt-msg" id={`${id}-msg`} role="alert" hidden>
+          <p>{s.wrong}</p>
+          <button type="button" class="mt-ok" id={`${id}-ok`}>{s.ok}</button>
+        </div>
+      </div>
+      <div class="mt-tray">
+        <button type="button" class="mt-ic" id={`${id}-net`} aria-label={s.network} title={s.network} set:html={icons.network}></button>
+        <button type="button" class="mt-ic" id={`${id}-ease`} aria-label={s.ease} title={s.ease} set:html={icons.ease}></button>
+        <button type="button" class="mt-ic" id={`${id}-pow`} aria-label={s.power} title={s.power} set:html={icons.power}></button>
+      </div>
+    </section>
+
+    <section class="mt-face" id={`${id}-face`}>
+      <div class="mt-wp w8-wp"></div>
+      <div class="mt-status" aria-hidden="true" set:html={icons.network}></div>
+      <div class="mt-clock">
+        <strong id={`${id}-time`}>0:00</strong>
+        <span id={`${id}-date`}></span>
+      </div>
+    </section>
+  </div>
+</Lock>
+
+<script>
+  import { createLock, createMessage, startClock, toast } from '../lockscreens/core/engine';
+  import { t } from '../i18n/strings';
+  import { applyAvatar } from '../lockscreens/core/avatars';
+  import { defaults } from '../lib/config-codec';
+
+  const root = document.querySelector<HTMLElement>('.mt')!;
+  const id = root.dataset.id!;
+  const $ = <T extends HTMLElement>(suffix: string) => document.getElementById(`${id}-${suffix}`) as T;
+  const dots = $('dots');
+  const pwbox = $('pwbox');
+  const login = $('login');
+  const MAX = 24;
+  let clock = 0;
+  let signedIn = false;
+
+  const lock = createLock({
+    onDots: (n) => {
+      dots.textContent = '●'.repeat(Math.min(n, MAX));
+      pwbox.classList.toggle('has-text', n > 0);
+    },
+    onWrong: () => {
+      login.hidden = true;
+      msg.show();
+    },
+    onStart: () => {
+      $('name').textContent = lock.cfg.name;
+      applyAvatar($('avatar'), lock.cfg.avatar, defaults.avatar);
+      root.dataset.wp = String(lock.cfg.wallpaper);
+      root.dataset.state = 'lock';
+      signedIn = false;
+      msg.reset();
+      login.hidden = false;
+      lock.setInputActive(false);
+      clearInterval(clock);
+      clock = startClock(lock.cfg, (p) => {
+        $('time').textContent = p.time;
+        $('date').textContent = p.date;
+      });
+    },
+    onStop: () => {
+      clearInterval(clock);
+      msg.reset();
+    },
+  });
+  const msg = createMessage(lock, $('msg'), $('ok'), () => (login.hidden = false));
+
+  // Click or any key (except ESC) slides the lock screen up. That key is not counted as a typed character.
+  function slideUp() {
+    if (signedIn) return;
+    signedIn = true;
+    root.dataset.state = 'signin';
+    lock.setInputActive(true);
+  }
+  $('face').addEventListener('click', slideUp);
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' && !e.repeat && document.body.classList.contains('running')) slideUp();
+  });
+
+  const fake = () => toast(t(lock.cfg.lang).lock.fakeText);
+  ['back', 'net', 'ease'].forEach((k) => $(k).addEventListener('click', fake));
+  $('pow').addEventListener('click', () => toast(t(lock.cfg.lang).lock.powerText));
+</script>

@@ -17,7 +17,7 @@ await page.clock.install({ time: FIXED });
 const shot = (name, p = page) => p.screenshot({ path: `${OUT}/${name}.png` });
 
 // Lock screens
-for (const os of ['xp', 'win7', 'win10', 'win11', 'macos']) {
+for (const os of ['xp', 'winvista', 'win7', 'win8', 'win81', 'win10', 'win11', 'macos']) {
   await page.goto(`${BASE}/${os}`);
   await page.locator('#start').click();
   await page.waitForTimeout(1800);

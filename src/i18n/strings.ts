@@ -4,7 +4,7 @@ export type { Lang };
 export const langs: Lang[] = ['en', 'de'];
 
 export interface Era {
-  id: 'xp' | 'win7' | 'win10' | 'win11' | 'macos';
+  id: 'xp' | 'winvista' | 'win7' | 'win8' | 'win81' | 'win10' | 'win11' | 'macos';
   year: string;
   name: string;
   ready: boolean;
@@ -12,7 +12,10 @@ export interface Era {
 
 export const eras: Era[] = [
   { id: 'xp', year: '2001', name: 'Windows XP', ready: true },
+  { id: 'winvista', year: '2007', name: 'Windows Vista', ready: true },
   { id: 'win7', year: '2009', name: 'Windows 7', ready: true },
+  { id: 'win8', year: '2012', name: 'Windows 8', ready: true },
+  { id: 'win81', year: '2013', name: 'Windows 8.1', ready: true },
   { id: 'win10', year: '2015', name: 'Windows 10', ready: true },
   { id: 'win11', year: '2021', name: 'Windows 11', ready: true },
   { id: 'macos', year: '2024', name: 'macOS', ready: true },
@@ -26,12 +29,12 @@ const en = {
   footer:
     'Not affiliated with Microsoft or Apple. Harmless browser prank and awareness tool. Nothing is installed, nothing is captured.',
   home: {
-    title: 'Fake Lock Screen: Windows XP, 7, 10, 11 and macOS in your browser',
+    title: 'Fake Lock Screen: Windows XP to 11 and macOS in your browser',
     description:
-      'Fake lock screen prank in your browser: Windows XP, 7, 10, 11 and macOS. Harmless, nothing installed. Includes a lock-your-PC awareness mode for IT teams.',
+      'Fake lock screen prank in your browser: Windows XP, Vista, 7, 8, 8.1, 10, 11 and macOS. Harmless, nothing installed. Includes a lock-your-PC awareness mode for IT teams.',
     h1a: 'Fake lock screen:',
     h1b: 'travel through history.',
-    lead: 'Five eras, rebuilt from scratch in your browser. Pick a year, press Launch, and watch your colleagues reach for the mouse.',
+    lead: 'Eight eras, rebuilt from scratch in your browser. Pick a year, press Launch, and watch your colleagues reach for the mouse.',
     start: 'Start the journey',
     forIt: 'For IT teams',
     scroll: 'Scroll to travel',
@@ -43,21 +46,30 @@ const en = {
     user: 'User',
     tagline: {
       xp: 'Blue skies, big user tiles and one friendly instruction.',
+      winvista: 'Glassy Aero tile, a green arrow and the Aurora glow.',
       win7: 'Aurora glow, a glass-framed tile and a tiny arrow button.',
+      win8: 'Flat Metro tiles, a huge clock and a swipe up to sign in.',
+      win81: 'Metro refined: softer waves, lock screen status and a fresh start.',
       win10: 'A huge clock, a pretty photo, then a swipe up to sign in.',
       win11: 'Centred, rounded, blurry. Fluent design takes the stage.',
       macos: 'A calm blurred wallpaper and one elegant password pill.',
     },
     fact: {
       xp: 'On many home PCs a user without a password could simply click their name to log in. No typing at all.',
+      winvista: 'Windows Vista introduced User Account Control, the pop-up that asks before a program changes your PC. Support ended in April 2017.',
       win7: 'Windows 7 received its last free security updates in January 2020, more than ten years after launch.',
+      win8: 'Windows 8 was built for touch: on a tablet you swiped the lock screen up with a finger. Support ended in January 2016.',
+      win81: 'Windows 8.1 brought back the Start button and let you boot straight to the desktop. Support ended in January 2023.',
       win10: 'The lock screen can rotate photos from a built-in image service and show little tips.',
       win11: 'The clock moved to the centre and every corner got rounded. It is still the same Win+L shortcut underneath.',
       macos: 'Ctrl+Cmd+Q locks the screen of a Mac. It has worked since macOS High Sierra in 2017.',
     },
     factSrc: {
       xp: [{ label: 'Source: O\'Reilly, Windows XP Home Edition', url: 'https://www.oreilly.com/library/view/windows-xp-home/0596002602/ch16s04.html' }],
+      winvista: [{ label: 'Source: Microsoft Lifecycle', url: 'https://learn.microsoft.com/en-us/lifecycle/products/windows-vista-home-premium' }],
       win7: [{ label: 'Source: Microsoft Support', url: 'https://support.microsoft.com/en-us/windows/windows-7-support-ended-on-january-14-2020-b75d4580-2cc7-895a-2c9c-1466d9a53962' }],
+      win8: [{ label: 'Source: Microsoft Lifecycle', url: 'https://learn.microsoft.com/en-us/lifecycle/products/windows-8' }],
+      win81: [{ label: 'Source: Microsoft Lifecycle', url: 'https://learn.microsoft.com/en-us/lifecycle/products/windows-81' }],
       win10: [{ label: 'Source: Microsoft Learn', url: 'https://learn.microsoft.com/en-us/windows/configuration/lock-screen/windows-spotlight' }],
       win11: [{ label: 'Source: Microsoft Support', url: 'https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec' }],
       macos: [
@@ -73,10 +85,10 @@ const en = {
     faq: {
       h2: 'Frequently asked questions',
       items: [
-        { q: 'What is a fake lock screen?', a: 'A fake lock screen is a web page that imitates the lock screen of Windows XP, 7, 10, 11 or macOS. fakelockscreen.app runs it fullscreen in your browser as a harmless prank and as a security awareness tool. Nothing is installed, nothing you type is stored or sent, and holding ESC for 2 seconds always exits.' },
+        { q: 'What is a fake lock screen?', a: 'A fake lock screen is a web page that imitates the lock screen of Windows XP, Vista, 7, 8, 8.1, 10, 11 or macOS. fakelockscreen.app runs it fullscreen in your browser as a harmless prank and as a security awareness tool. Nothing is installed, nothing you type is stored or sent, and holding ESC for 2 seconds always exits.' },
         { q: 'Is it safe? Does it store my password?', a: 'No. The lock screens contain no input field or form, typed characters are only counted to draw the dots, and the page makes no network requests after it has loaded. Details and a way to check it yourself are on the Safety page.' },
         { q: 'How do I exit the fake lock screen?', a: 'Hold the ESC key for 2 seconds, use the normal browser way out of fullscreen, or close the tab.' },
-        { q: 'Which lock screens are available?', a: 'Windows XP (2001), Windows 7 (2009), Windows 10 (2015), Windows 11 (2021) and macOS (2024). All artwork is original and drawn in CSS and SVG, with no official logos or sounds. On Windows 7, 10, 11 and macOS you can use your own wallpaper, which never leaves your computer.' },
+        { q: 'Which lock screens are available?', a: 'Windows XP (2001), Vista (2007), 7 (2009), 8 (2012), 8.1 (2013), 10 (2015), 11 (2021) and macOS (2024). All artwork is original and drawn in CSS and SVG, with no official logos or sounds. On every screen except Windows XP you can use your own wallpaper, which never leaves your computer.' },
         { q: 'How do I lock a real computer?', a: 'Press Win + L on Windows or Ctrl + Cmd + Q on a Mac. A real lock screen is never a web page, so never type your password into one in a browser.' },
         { q: 'Can I use it for security awareness training?', a: 'Yes. Awareness mode lets IT teams build a shareable link with their own wording and policy link. After a few wrong passwords the screen teaches the shortcut. There are no accounts and no tracking, and a printable desk card is included.' },
         { q: 'Is it affiliated with Microsoft or Apple?', a: 'No. Windows and Microsoft are trademarks of the Microsoft group of companies, and macOS and Apple are trademarks of Apple Inc. This project is independent.' },
@@ -141,12 +153,18 @@ const en = {
       powerText: 'Nothing is installed here, so there is nothing to turn off. Hold ESC to leave.',
       go: 'Log on',
     },
+    winvista: { password: 'Password', wrong: 'The user name or password is incorrect.', ok: 'OK', ease: 'Ease of Access', shutdown: 'Shut down', switchUser: 'Switch User' },
     win7: { password: 'Password', wrong: 'The user name or password is incorrect.', ok: 'OK', ease: 'Ease of Access', shutdown: 'Shut down' },
+    win8: { password: 'Password', wrong: 'The password is incorrect. Try again.', ok: 'OK', back: 'Back', network: 'Network', ease: 'Ease of access', power: 'Power' },
+    win81: { password: 'Password', wrong: 'The password is incorrect. Try again.', ok: 'OK', back: 'Back', network: 'Network', ease: 'Ease of access', power: 'Power' },
     win10: { password: 'Password', wrong: 'The password is incorrect. Make sure you are using the password for your account.', ok: 'OK', options: 'Sign-in options', signIn: 'Sign in', network: 'Network', ease: 'Ease of access', power: 'Power', hint: 'Click or press any key' },
     win11: { password: 'Password', wrong: 'The password is incorrect. Try again.', ok: 'OK', forgot: 'I forgot my password', options: 'Sign-in options', signIn: 'Sign in', network: 'Network', ease: 'Accessibility', power: 'Power' },
     mac: { enterPassword: 'Enter Password', touch: 'Touch ID or Enter Password', sleep: 'Sleep', restart: 'Restart', shutdown: 'Shut Down' },
   },
   lockSeo: {
+    winvista: { title: 'Windows Vista Lock Screen in your Browser: Fake Lock Screen Prank', description: 'Glassy Aero user tile, green arrow button and the Aurora glow: a Windows Vista style logon screen as a harmless prank in your browser. Nothing stored.' },
+    win8: { title: 'Windows 8 Lock Screen Prank: Fake Metro Lock Screen in your Browser', description: 'Huge Metro clock, slide-up sign-in and a flat user tile. A Windows 8 style fake lock screen for your browser. Harmless, nothing stored or sent.' },
+    win81: { title: 'Windows 8.1 Lock Screen Prank: Fake Lock Screen in your Browser', description: 'Windows 8.1 style lock screen with big clock, status icons and a slide-up sign-in. A harmless fake lock screen prank. Nothing stored or sent.' },
     win7: { title: 'Windows 7 Lock Screen in your Browser: Fake Lock Screen Prank', description: 'Aurora glow, glass user tile and the little arrow button: a Windows 7 style logon screen as a harmless prank in your browser. Fullscreen, nothing stored.' },
     win10: { title: 'Windows 10 Lock Screen Prank: Fake Lock Screen in your Browser', description: 'Big clock, slide-up sign-in and a fake password box. A Windows 10 style fake lock screen for your browser. Harmless, nothing stored or sent.' },
     win11: { title: 'Windows 11 Fake Lock Screen: Prank your Colleagues in the Browser', description: 'Centred clock, blurred Fluent style sign-in and a fake password field. A Windows 11 style fake lock screen prank. Nothing stored or sent.' },
@@ -154,6 +172,9 @@ const en = {
   },
   lockGate: {
     xp: { h1: 'Windows XP lock screen in your browser', about: 'An original recreation of the blue Windows XP welcome screen: the user tile, the "To begin, click your user name" prompt and the classic password box. It runs fullscreen, so you can leave it on a colleague\'s screen as a harmless prank. Type anything and press Enter and it answers with the familiar "password is incorrect" balloon.' },
+    winvista: { h1: 'Windows Vista lock screen in your browser', about: 'An original recreation of the Windows Vista logon screen: the glassy Aero user tile, the green arrow button and the Aurora glow. It runs fullscreen in your browser as a harmless prank. Type anything, press Enter and the "user name or password is incorrect" message appears. Nothing you type is stored or sent.' },
+    win8: { h1: 'Windows 8 lock screen in your browser', about: 'An original recreation of the Windows 8 lock screen: a huge clock in the corner, a slide-up sign-in and the flat Metro user tile. Press any key to wake it, type something and press Enter. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
+    win81: { h1: 'Windows 8.1 lock screen in your browser', about: 'An original recreation of the Windows 8.1 lock screen: a big clock with status icons, a slide-up sign-in and a square user picture. Press any key to wake it, type something and press Enter. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
     win7: { h1: 'Windows 7 lock screen in your browser', about: 'An original recreation of the Windows 7 logon screen: aurora glow, glass user tile and the little arrow button. It runs fullscreen in your browser as a harmless prank. Type anything, press Enter and the "user name or password is incorrect" message appears. Nothing you type is stored.' },
     win10: { h1: 'Windows 10 lock screen in your browser', about: 'An original recreation of the Windows 10 lock screen: a big clock, a slide-up sign-in and a fake password box. Press any key to wake it, type something and press Enter. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
     win11: { h1: 'Windows 11 fake lock screen in your browser', about: 'An original recreation of the Windows 11 lock screen: a centred clock, a blurred Fluent style sign-in and a fake password field. Use the default look or your own wallpaper, which never leaves your computer. It runs fullscreen as a harmless prank, and nothing you type is stored or sent.' },
@@ -171,12 +192,12 @@ const de: Dict = {
   footer:
     'Nicht mit Microsoft oder Apple verbunden. Harmloser Browser-Streich und Awareness-Tool. Es wird nichts installiert und nichts aufgezeichnet.',
   home: {
-    title: 'Fake Lock Screen: Windows XP, 7, 10, 11 und macOS im Browser',
+    title: 'Fake Lock Screen: Windows XP bis 11 und macOS im Browser',
     description:
-      'Fake-Sperrbildschirm als Streich im Browser: Windows XP, 7, 10, 11 und macOS. Harmlos, nichts wird installiert. Mit Awareness-Modus für IT-Teams.',
+      'Fake-Sperrbildschirm als Streich im Browser: Windows XP, Vista, 7, 8, 8.1, 10, 11 und macOS. Harmlos, nichts wird installiert. Mit Awareness-Modus für IT-Teams.',
     h1a: 'Fake Lock Screen:',
     h1b: 'Reise durch die Geschichte.',
-    lead: 'Fünf Epochen, komplett neu im Browser gebaut. Jahr wählen, auf Starten drücken und zuschauen, wie Kolleginnen und Kollegen zur Maus greifen.',
+    lead: 'Acht Epochen, komplett neu im Browser gebaut. Jahr wählen, auf Starten drücken und zuschauen, wie Kolleginnen und Kollegen zur Maus greifen.',
     start: 'Reise starten',
     forIt: 'Für IT-Teams',
     scroll: 'Scrollen zum Reisen',
@@ -188,21 +209,30 @@ const de: Dict = {
     user: 'Benutzer',
     tagline: {
       xp: 'Blauer Himmel, grosse Benutzerkacheln und eine freundliche Anweisung.',
+      winvista: 'Gläserne Aero-Kachel, ein grüner Pfeil und das Aurora-Leuchten.',
       win7: 'Aurora-Leuchten, eine Kachel mit Glasrahmen und ein winziger Pfeil-Button.',
+      win8: 'Flache Metro-Kacheln, eine riesige Uhr und nach oben wischen zum Anmelden.',
+      win81: 'Metro verfeinert: weichere Wellen, Statusanzeige und ein frischer Start.',
       win10: 'Eine riesige Uhr, ein schönes Foto und dann nach oben wischen zum Anmelden.',
       win11: 'Zentriert, abgerundet, unscharf. Fluent Design übernimmt die Bühne.',
       macos: 'Ein ruhiger, unscharfer Hintergrund und eine elegante Passwort-Pille.',
     },
     fact: {
       xp: 'Auf vielen Heim-PCs genügte bei einem Benutzer ohne Passwort ein Klick auf den Namen. Ganz ohne Tippen.',
+      winvista: 'Windows Vista führte die Benutzerkontensteuerung ein, das Fenster, das nachfragt, bevor ein Programm Ihren PC verändert. Der Support endete im April 2017.',
       win7: 'Windows 7 erhielt die letzten kostenlosen Sicherheitsupdates im Januar 2020, mehr als zehn Jahre nach dem Start.',
+      win8: 'Windows 8 war für Touch gebaut: Auf dem Tablet wischte man den Sperrbildschirm mit dem Finger nach oben. Der Support endete im Januar 2016.',
+      win81: 'Windows 8.1 brachte den Start-Button zurück und liess den PC direkt auf dem Desktop starten. Der Support endete im Januar 2023.',
       win10: 'Der Sperrbildschirm kann Fotos aus einem integrierten Bilderdienst wechseln und kleine Tipps zeigen.',
       win11: 'Die Uhr wanderte in die Mitte und alle Ecken wurden rund. Darunter gilt weiterhin Win+L.',
       macos: 'Mit Ctrl+Cmd+Q sperrt man den Bildschirm eines Macs. Das geht seit macOS High Sierra im Jahr 2017.',
     },
     factSrc: {
       xp: [{ label: 'Quelle: O\'Reilly, Windows XP Home Edition', url: 'https://www.oreilly.com/library/view/windows-xp-home/0596002602/ch16s04.html' }],
+      winvista: [{ label: 'Quelle: Microsoft Lifecycle', url: 'https://learn.microsoft.com/en-us/lifecycle/products/windows-vista-home-premium' }],
       win7: [{ label: 'Quelle: Microsoft Support', url: 'https://support.microsoft.com/en-us/windows/windows-7-support-ended-on-january-14-2020-b75d4580-2cc7-895a-2c9c-1466d9a53962' }],
+      win8: [{ label: 'Quelle: Microsoft Lifecycle', url: 'https://learn.microsoft.com/en-us/lifecycle/products/windows-8' }],
+      win81: [{ label: 'Quelle: Microsoft Lifecycle', url: 'https://learn.microsoft.com/en-us/lifecycle/products/windows-81' }],
       win10: [{ label: 'Quelle: Microsoft Learn', url: 'https://learn.microsoft.com/en-us/windows/configuration/lock-screen/windows-spotlight' }],
       win11: [{ label: 'Quelle: Microsoft Support', url: 'https://support.microsoft.com/en-us/windows/keyboard-shortcuts-in-windows-dcc61a57-8ff0-cffe-9796-cb9706c75eec' }],
       macos: [
@@ -218,10 +248,10 @@ const de: Dict = {
     faq: {
       h2: 'Häufige Fragen',
       items: [
-        { q: 'Was ist ein Fake-Sperrbildschirm?', a: 'Ein Fake-Sperrbildschirm ist eine Webseite, die den Sperrbildschirm von Windows XP, 7, 10, 11 oder macOS nachahmt. fakelockscreen.app zeigt ihn im Vollbild im Browser, als harmlosen Streich und als Awareness-Tool für Informationssicherheit. Es wird nichts installiert, nichts Getipptes wird gespeichert oder gesendet, und ESC 2 Sekunden gedrückt halten beendet alles jederzeit.' },
+        { q: 'Was ist ein Fake-Sperrbildschirm?', a: 'Ein Fake-Sperrbildschirm ist eine Webseite, die den Sperrbildschirm von Windows XP, Vista, 7, 8, 8.1, 10, 11 oder macOS nachahmt. fakelockscreen.app zeigt ihn im Vollbild im Browser, als harmlosen Streich und als Awareness-Tool für Informationssicherheit. Es wird nichts installiert, nichts Getipptes wird gespeichert oder gesendet, und ESC 2 Sekunden gedrückt halten beendet alles jederzeit.' },
         { q: 'Ist das sicher? Wird mein Passwort gespeichert?', a: 'Nein. Die Sperrbildschirme enthalten kein Eingabefeld und kein Formular, getippte Zeichen werden nur gezählt, um die Punkte zu zeichnen, und nach dem Laden gibt es keine Netzwerkanfragen. Details und eine Anleitung zum Selbstprüfen finden Sie auf der Sicherheitsseite.' },
         { q: 'Wie verlasse ich den Fake-Sperrbildschirm?', a: 'Halten Sie die ESC-Taste 2 Sekunden gedrückt, verlassen Sie den Vollbildmodus auf dem üblichen Weg des Browsers oder schliessen Sie den Tab.' },
-        { q: 'Welche Sperrbildschirme gibt es?', a: 'Windows XP (2001), Windows 7 (2009), Windows 10 (2015), Windows 11 (2021) und macOS (2024). Alle Grafiken sind original und in CSS und SVG gezeichnet, ohne offizielle Logos oder Klänge. Bei Windows 7, 10, 11 und macOS können Sie einen eigenen Hintergrund verwenden, der Ihren Computer nie verlässt.' },
+        { q: 'Welche Sperrbildschirme gibt es?', a: 'Windows XP (2001), Vista (2007), 7 (2009), 8 (2012), 8.1 (2013), 10 (2015), 11 (2021) und macOS (2024). Alle Grafiken sind original und in CSS und SVG gezeichnet, ohne offizielle Logos oder Klänge. Bei allen ausser Windows XP können Sie einen eigenen Hintergrund verwenden, der Ihren Computer nie verlässt.' },
         { q: 'Wie sperre ich einen echten Computer?', a: 'Drücken Sie Win + L unter Windows oder Ctrl + Cmd + Q auf dem Mac. Ein echter Sperrbildschirm ist nie eine Webseite. Geben Sie darum nie Ihr Passwort auf einem solchen Bildschirm im Browser ein.' },
         { q: 'Kann ich es für Security-Awareness-Schulungen nutzen?', a: 'Ja. Im Awareness-Modus erstellen IT-Teams einen teilbaren Link mit eigenem Text und Link zur Richtlinie. Nach ein paar falschen Passwörtern zeigt der Bildschirm das Tastenkürzel. Es gibt keine Konten und kein Tracking, eine druckbare Tischkarte ist dabei.' },
         { q: 'Ist es mit Microsoft oder Apple verbunden?', a: 'Nein. Windows und Microsoft sind Marken der Microsoft-Unternehmensgruppe, macOS und Apple sind Marken von Apple Inc. Dieses Projekt ist unabhängig.' },
@@ -286,12 +316,18 @@ const de: Dict = {
       powerText: 'Hier ist nichts installiert, also gibt es nichts auszuschalten. ESC gedrückt halten zum Beenden.',
       go: 'Anmelden',
     },
+    winvista: { password: 'Kennwort', wrong: 'Der Benutzername oder das Kennwort ist falsch.', ok: 'OK', ease: 'Erleichterte Bedienung', shutdown: 'Herunterfahren', switchUser: 'Benutzer wechseln' },
     win7: { password: 'Kennwort', wrong: 'Der Benutzername oder das Kennwort ist falsch.', ok: 'OK', ease: 'Erleichterte Bedienung', shutdown: 'Herunterfahren' },
+    win8: { password: 'Kennwort', wrong: 'Das Kennwort ist falsch. Wiederholen Sie den Vorgang.', ok: 'OK', back: 'Zurück', network: 'Netzwerk', ease: 'Erleichterte Bedienung', power: 'Ein/Aus' },
+    win81: { password: 'Kennwort', wrong: 'Das Kennwort ist falsch. Wiederholen Sie den Vorgang.', ok: 'OK', back: 'Zurück', network: 'Netzwerk', ease: 'Erleichterte Bedienung', power: 'Ein/Aus' },
     win10: { password: 'Kennwort', wrong: 'Das Kennwort ist falsch. Stellen Sie sicher, dass Sie das Kennwort für Ihr Konto verwenden.', ok: 'OK', options: 'Anmeldeoptionen', signIn: 'Anmelden', network: 'Netzwerk', ease: 'Erleichterte Bedienung', power: 'Ein/Aus', hint: 'Klicken oder beliebige Taste drücken' },
     win11: { password: 'Kennwort', wrong: 'Das Kennwort ist falsch. Versuchen Sie es erneut.', ok: 'OK', forgot: 'Ich habe mein Kennwort vergessen', options: 'Anmeldeoptionen', signIn: 'Anmelden', network: 'Netzwerk', ease: 'Barrierefreiheit', power: 'Ein/Aus' },
     mac: { enterPassword: 'Passwort eingeben', touch: 'Touch ID oder Passwort eingeben', sleep: 'Ruhezustand', restart: 'Neustart', shutdown: 'Ausschalten' },
   },
   lockSeo: {
+    winvista: { title: 'Windows-Vista-Sperrbildschirm im Browser: Fake Lock Screen Streich', description: 'Gläserne Aero-Kachel, grüner Pfeil-Button und Aurora-Leuchten: ein Windows-Vista-Anmeldebildschirm als harmloser Streich im Browser. Nichts wird gespeichert.' },
+    win8: { title: 'Windows-8-Sperrbildschirm Streich: Fake Metro Lock Screen im Browser', description: 'Riesige Metro-Uhr, Anmeldung per Wischen und eine flache Benutzerkachel. Ein Fake-Sperrbildschirm im Windows-8-Stil für den Browser. Harmlos, nichts wird gespeichert.' },
+    win81: { title: 'Windows-8.1-Sperrbildschirm Streich: Fake Lock Screen im Browser', description: 'Sperrbildschirm im Windows-8.1-Stil mit grosser Uhr, Statussymbolen und Anmeldung per Wischen. Ein harmloser Fake-Streich. Nichts wird gespeichert oder gesendet.' },
     win7: { title: 'Windows-7-Sperrbildschirm im Browser: Fake Lock Screen Streich', description: 'Aurora-Leuchten, Glaskachel und der kleine Pfeil-Button: ein Windows-7-Anmeldebildschirm als harmloser Streich im Browser. Vollbild, nichts wird gespeichert.' },
     win10: { title: 'Windows-10-Sperrbildschirm Streich: Fake Lock Screen im Browser', description: 'Grosse Uhr, Anmeldung per Wischen und ein falsches Passwortfeld. Ein Fake-Sperrbildschirm im Windows-10-Stil für den Browser. Harmlos, nichts wird gespeichert.' },
     win11: { title: 'Windows-11-Fake-Sperrbildschirm: Kolleginnen und Kollegen necken', description: 'Zentrierte Uhr, unscharfe Fluent-Anmeldung und ein falsches Passwortfeld. Ein Windows-11-Fake-Sperrbildschirm als Streich. Nichts wird gespeichert oder gesendet.' },
@@ -299,6 +335,9 @@ const de: Dict = {
   },
   lockGate: {
     xp: { h1: 'Windows-XP-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des blauen Windows-XP-Willkommensbildschirms: mit Benutzerkachel, der Aufforderung "Klicken Sie auf Ihren Benutzernamen" und dem klassischen Passwortfeld. Er läuft im Vollbild, damit Sie ihn als harmlosen Streich auf dem Bildschirm einer Kollegin oder eines Kollegen stehen lassen können. Tippen Sie etwas und drücken Sie Enter, dann erscheint die bekannte Meldung "Das Kennwort ist falsch".' },
+    winvista: { h1: 'Windows-Vista-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-Vista-Anmeldebildschirms: gläserne Aero-Benutzerkachel, grüner Pfeil-Button und Aurora-Leuchten. Er läuft im Vollbild als harmloser Streich. Tippen Sie etwas, drücken Sie Enter, und die Meldung "Der Benutzername oder das Kennwort ist falsch" erscheint. Nichts, was Sie tippen, wird gespeichert oder gesendet.' },
+    win8: { h1: 'Windows-8-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-8-Sperrbildschirms: riesige Uhr in der Ecke, Anmeldung per Wischen und die flache Metro-Benutzerkachel. Eine beliebige Taste weckt ihn auf, dann tippen Sie etwas und drücken Enter. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },
+    win81: { h1: 'Windows-8.1-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-8.1-Sperrbildschirms: grosse Uhr mit Statussymbolen, Anmeldung per Wischen und ein quadratisches Benutzerbild. Eine beliebige Taste weckt ihn auf, dann tippen Sie etwas und drücken Enter. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },
     win7: { h1: 'Windows-7-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-7-Anmeldebildschirms: Aurora-Leuchten, Glaskachel und der kleine Pfeil-Button. Er läuft im Vollbild als harmloser Streich. Tippen Sie etwas, drücken Sie Enter, und die Meldung "Der Benutzername oder das Kennwort ist falsch" erscheint. Nichts, was Sie tippen, wird gespeichert.' },
     win10: { h1: 'Windows-10-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-10-Sperrbildschirms: grosse Uhr, Anmeldung per Wischen und ein falsches Passwortfeld. Eine beliebige Taste weckt ihn auf, dann tippen Sie etwas und drücken Enter. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },
     win11: { h1: 'Windows-11-Fake-Sperrbildschirm im Browser', about: 'Eine eigene Nachbildung des Windows-11-Sperrbildschirms: zentrierte Uhr, unscharfe Fluent-Anmeldung und ein falsches Passwortfeld. Verwenden Sie den Standardlook oder Ihr eigenes Hintergrundbild, das Ihren Computer nie verlässt. Er läuft im Vollbild als harmloser Streich, und nichts wird gespeichert oder gesendet.' },

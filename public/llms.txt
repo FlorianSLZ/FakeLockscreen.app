@@ -4,7 +4,10 @@
 
 ## Lock screens
 - [Windows XP](https://fakelockscreen.app/xp)
+- [Windows Vista](https://fakelockscreen.app/winvista)
 - [Windows 7](https://fakelockscreen.app/win7)
+- [Windows 8](https://fakelockscreen.app/win8)
+- [Windows 8.1](https://fakelockscreen.app/win81)
 - [Windows 10](https://fakelockscreen.app/win10)
 - [Windows 11](https://fakelockscreen.app/win11)
 - [macOS](https://fakelockscreen.app/macos)

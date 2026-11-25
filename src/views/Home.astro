@@ -81,7 +81,7 @@ const jsonLd = {
       </div>
       <ul class="floaters">
         {eras.map((e, i) => (
-          <li class="floater" data-depth={[18, 26, 14, 22, 30][i]} style={`--i:${i};--d:${[6.5, 7.5, 6, 8, 7][i]}s;--r:${[-6, 4, 5, -4, 3][i]}deg;${['--x:3%;--y:17%', '--x:12%;--yb:9%', '--xr:4%;--y:13%', '--xr:17%;--yb:6%', '--xr:6%;--y:44%'][i]}`}>
+          <li class="floater" data-depth={[18, 26, 14, 22, 30, 16, 24, 20][i]} style={`--i:${i};--d:${[6.5, 7.5, 6, 8, 7, 6.8, 7.2, 7.8][i]}s;--r:${[-6, 4, 5, -4, 3, -3, 6, -5][i]}deg;${['--x:2%;--y:12%', '--x:13%;--yb:4%', '--x:1%;--y:46%', '--xr:3%;--y:8%', '--xr:15%;--yb:3%', '--xr:6%;--y:44%', '--x:21%;--y:2%', '--xr:27%;--y:1%'][i]}`}>
             <a href={localePath(`/${e.id}`, lang)} aria-label={`${h.launch} ${e.name}`}>
               <span class="shot"><Mini os={e.id} user={h.user} /></span>
               <span class="tag"><span>{e.name}</span><em>{e.year}</em><b aria-hidden="true">→</b></span>

@@ -15,6 +15,11 @@ export const avatars = {
   macos: person('#d3d6dc', '#a9adb7', '#ffffff'),
   // Windows 7: glassy blue user tile.
   win7: person('#9fd0f5', '#3f86c6', '#ffffff'),
+  // Windows Vista: glassy green-blue tile.
+  winvista: person('#a9e0d0', '#2f8f86', '#ffffff'),
+  // Windows 8 and 8.1: flat Metro tile.
+  win8: person('#3a7bd5', '#2a62b0', '#ffffff'),
+  win81: person('#8a8f98', '#6a6f78', '#ffffff'),
   // Windows XP: the era's photo tiles were pictures (flower, duck, chess...). Here: a flower.
   xp:
     `<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true" focusable="false">` +

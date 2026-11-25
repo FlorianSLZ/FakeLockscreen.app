@@ -2,6 +2,9 @@ import { test, expect, type Page } from '@playwright/test';
 
 type Os = { slug: string; root: string; dots: string; wake: boolean; wrong: string };
 const screens: Os[] = [
+  { slug: 'winvista', root: '#wv', dots: '#wv-dots', wake: false, wrong: '#wv-msg' },
+  { slug: 'win8', root: '#w8', dots: '#w8-dots', wake: true, wrong: '#w8-msg' },
+  { slug: 'win81', root: '#w81', dots: '#w81-dots', wake: true, wrong: '#w81-msg' },
   { slug: 'win7', root: '#w7', dots: '#w7-dots', wake: false, wrong: '#w7-msg' },
   { slug: 'win10', root: '#w10', dots: '#w10-dots', wake: true, wrong: '#w10-msg' },
   { slug: 'win11', root: '#w11', dots: '#w11-dots', wake: true, wrong: '#w11-msg' },
